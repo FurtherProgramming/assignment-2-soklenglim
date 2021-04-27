@@ -11,7 +11,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+public class RegisterController implements Initializable {
     public LoginModel loginModel = new LoginModel();
     @FXML
     private Label isConnected;
