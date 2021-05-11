@@ -12,14 +12,6 @@ public class RegisterModel {
             System.exit(1);
     }
 
-    public Boolean isDbConnected(){
-        try {
-            return !connection.isClosed();
-        }
-        catch(Exception e){
-            return false;
-        }
-    }
 
     public void Register(String firstName, String lastName, String role, String userName, String password, String secretQuestion, String answer) {
         connection = SQLConnection.connect();
