@@ -1,18 +1,22 @@
 package main.controller;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Loader;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import main.model.Employee;
 import main.model.LoginModel;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -26,13 +30,13 @@ public class LoginController implements Initializable {
     private TextField txtUsername;
     @FXML
     private TextField txtPassword;
+    @FXML
+    private Button btnLogin;
+    @FXML
+    private Button btnRegister;
 
     private Stage stage;
     private Scene scene;
-    private Parent root;
-
-
-
 
     // Check database connection
     @Override
@@ -49,14 +53,25 @@ public class LoginController implements Initializable {
      */
     public void Login(ActionEvent event) throws Exception {
         try {
-            if (loginModel.isLogin(txtUsername.getText(),txtPassword.getText())){
+            Employee emp = loginModel.isLogin(txtUsername.getText(),txtPassword.getText());
+            if (emp.getUserName() != null && emp.getRole() != null){
                 // Login Successful
                 isConnected.setText("Logged in successfully");
-                root = FXMLLoader.load(getClass().getResource("../ui/UserProfile.fxml"));
-                scene = new Scene(root);
-                stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
+                if (emp.getRole().equals("Admin")) {
+                    closeScene(btnLogin);
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/AdminProfile.fxml"));
+                    Parent root = loader.load();
+                    AdminController adminController = loader.getController();
+  //                  adminController.setUserName(emp.getUserName());
+                    stage.setScene(new Scene(root));
+                    stage.setTitle("User Profile");
+                    stage.show();
+                } else {
+                    closeScene(btnLogin);
+                    UserController.username = emp.getUserName();
+                    showScene("../ui/UserProfile.fxml", "User Profile");
+
+                }
             }else{
                 isConnected.setText("username and password is incorrect");
             }
@@ -66,16 +81,21 @@ public class LoginController implements Initializable {
     }
 
     public void Register(ActionEvent event) throws Exception {
-
-        root = FXMLLoader.load(getClass().getResource("../ui/Register.fxml"));
-        scene = new Scene(root);
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-
+        closeScene(btnRegister);
+        showScene("../ui/Register.fxml", "Register");
     }
 
+    public void showScene(String resource, String title) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle(title);
+        stage.show();
+    }
 
-
-
+    public void closeScene(Button btn){
+        Stage stage = (Stage) btn.getScene().getWindow();
+        stage.close();
+    }
 }

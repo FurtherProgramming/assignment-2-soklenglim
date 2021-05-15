@@ -4,25 +4,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.202"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.UserController">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.UserController">
     <children>
-        <Label layoutX="211.0" layoutY="43.0" text="&lt;User Name&gt;" AnchorPane.topAnchor="50.0">
+        <Label fx:id="txtUsername" layoutX="178.0" layoutY="28.0" text="&lt;User Name&gt;" AnchorPane.topAnchor="28.0">
             <font>
-                <Font name="System Bold" size="12.0"/>
+                <Font name="System Bold" size="33.0" />
             </font>
         </Label>
-        <Button layoutX="178.0" layoutY="156.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="144.0"
-                style="-fx-background-radius: 8; -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf); -fx-font-weight: bold;"
-                text="Update Account" textFill="WHITE" AnchorPane.topAnchor="160.0"/>
-        <Button layoutX="178.0" layoutY="222.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="144.0"
-                style="-fx-background-radius: 8; -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf); -fx-font-weight: bold;"
-                text="View Booking Status" textFill="WHITE" AnchorPane.topAnchor="230.0"/>
-        <Button layoutX="178.0" layoutY="81.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="144.0"
-                style="-fx-background-radius: 8; -fx-background-color: #4568dc,        linear-gradient(#4568dc 0%, #4568dc 20%, #b06ab3 100%),        linear-gradient(#4568dc, #b06ab3); -fx-font-weight: bold;"
-                text="Book a Desk" textFill="WHITE" AnchorPane.topAnchor="90.0"/>
-        <Button layoutX="198.0" layoutY="284.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="105.0"
-                style="-fx-background-radius: 8; -fx-background-color: #dc2430,        linear-gradient(#eb3349  0%, #f45c43 20%, #f45c43 100%),        linear-gradient(#eb3349, #f45c43); -fx-font-weight: bold;"
-                text="Sign Out" textFill="WHITE" AnchorPane.topAnchor="300.0"/>
+        <Button layoutX="178.0" layoutY="156.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="144.0" style="-fx-background-radius: 8; -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf); -fx-font-weight: bold;" text="Update Account" textFill="WHITE" AnchorPane.topAnchor="160.0" />
+        <Button layoutX="178.0" layoutY="222.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="144.0" style="-fx-background-radius: 8; -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf); -fx-font-weight: bold;" text="View Booking Status" textFill="WHITE" AnchorPane.topAnchor="230.0" />
+        <Button layoutX="178.0" layoutY="81.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="144.0" style="-fx-background-radius: 8; -fx-background-color: #4568dc,        linear-gradient(#4568dc 0%, #4568dc 20%, #b06ab3 100%),        linear-gradient(#4568dc, #b06ab3); -fx-font-weight: bold;" text="Book a Desk" textFill="WHITE" AnchorPane.topAnchor="90.0" />
+        <Button layoutX="198.0" layoutY="284.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="105.0" style="-fx-background-radius: 8; -fx-background-color: #dc2430,        linear-gradient(#eb3349  0%, #f45c43 20%, #f45c43 100%),        linear-gradient(#eb3349, #f45c43); -fx-font-weight: bold;" text="Sign Out" textFill="WHITE" AnchorPane.topAnchor="300.0" />
     </children>
 </AnchorPane>

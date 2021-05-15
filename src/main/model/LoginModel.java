@@ -17,7 +17,6 @@ public class LoginModel {
         connection = SQLConnection.connect();
         if (connection == null)
             System.exit(1);
-
     }
 
     public Boolean isDbConnected(){
@@ -29,32 +28,36 @@ public class LoginModel {
         }
     }
 
-    public Boolean isLogin(String user, String pass) throws SQLException {
+    public Employee isLogin(String user, String pass) throws SQLException {
+        Employee emp = new Employee();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet=null;
         String query = "select * from employee where username = ? and password= ?";
         try {
-
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, user);
             preparedStatement.setString(2, pass);
 
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return true;
+                emp = new Employee(resultSet.getString("username"), resultSet.getString("role"));
+                return emp;
             }
             else{
-                return false;
+                emp = new Employee();
+                return emp;
             }
         }
         catch (Exception e)
         {
-            return false;
+            emp = new Employee();
+            return emp;
         }finally {
-           preparedStatement.close();
-           resultSet.close();
+            preparedStatement.close();
+            resultSet.close();
         }
 
     }
+
 
 }
