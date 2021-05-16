@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import main.model.Employee;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,20 +25,16 @@ public class UserController implements Initializable {
     @FXML
     private Button btnBook;
 
-    public static String username = "";
     private Helper h = new Helper();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if(username.equals(""))
-            labelUsername.setText("Username");
-        else
-            labelUsername.setText(username);
+        labelUsername.setText(h.emp.getUserName());
     }
 
     @FXML
     private void SignOut(ActionEvent event) throws Exception {
-        username = "";
+        h.emp = new Employee();
         h.closeScene(btnSignOut);
         h.showScene("../ui/login.fxml", "Login");
     }

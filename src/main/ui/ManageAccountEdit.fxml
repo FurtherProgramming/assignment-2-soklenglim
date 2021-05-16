@@ -4,14 +4,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="530.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.ManageAccountController">
+<AnchorPane prefHeight="530.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.ManageAccountEditController">
     <children>
-        <Label alignment="CENTER" layoutX="159.0" layoutY="47.0" prefHeight="66.0" prefWidth="182.0" text="Manage Account" textAlignment="CENTER" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="50.0">
+        <Label alignment="CENTER" layoutX="159.0" layoutY="47.0" prefHeight="66.0" prefWidth="182.0" text="Editing Details" textAlignment="CENTER" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="50.0">
             <font>
                 <Font size="23.0" />
             </font>
         </Label>
-        <Button fx:id="btnEdit" layoutX="166.0" layoutY="410.0" mnemonicParsing="false" onAction="#Edit" prefHeight="31.0" prefWidth="74.0" style="-fx-background-radius: 8; -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf); -fx-font-weight: bold;" text="Edit" textFill="WHITE" />
+        <Button fx:id="btnConfirm" layoutX="166.0" layoutY="410.0" mnemonicParsing="false" onAction="#Update" prefHeight="31.0" prefWidth="74.0" style="-fx-background-radius: 8; -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf); -fx-font-weight: bold;" text="Confirm" textFill="WHITE" />
         <Button fx:id="btnCancel" layoutX="276.0" layoutY="410.0" mnemonicParsing="false" onAction="#Cancel" prefHeight="31.0" prefWidth="74.0" style="-fx-background-radius: 8; -fx-background-color: #dc2430,        linear-gradient(#eb3349  0%, #f45c43 20%, #f45c43 100%),        linear-gradient(#eb3349, #f45c43); " text="Cancel" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="12.0" />
@@ -32,6 +32,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
+              <TextField fx:id="txtFirstName" GridPane.columnIndex="1" />
               <Label prefHeight="26.0" prefWidth="80.0" text="First Name:">
                   <font>
                       <Font size="15.0" />
@@ -47,61 +48,34 @@
                       <Font size="15.0" />
                   </font>
               </Label>
+              <TextField fx:id="txtLastName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+              <TextField fx:id="txtRole" GridPane.columnIndex="1" GridPane.rowIndex="2" />
               <Label prefHeight="26.0" prefWidth="80.0" text="Username:" GridPane.rowIndex="3">
                   <font>
                       <Font size="15.0" />
                   </font>
               </Label>
+      
+      
+              <TextField fx:id="txtUsername" GridPane.columnIndex="1" GridPane.rowIndex="3" />
               <Label prefHeight="26.0" prefWidth="80.0" text="Password:" GridPane.rowIndex="4">
                   <font>
                       <Font size="15.0" />
                   </font>
               </Label>
+              <PasswordField fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="4" />
               <Label prefHeight="26.0" prefWidth="115.0" text="Secret Question:" GridPane.rowIndex="5">
                   <font>
                       <Font size="15.0" />
                   </font>
               </Label>
+              <ComboBox fx:id="questionBox" prefHeight="25.0" prefWidth="214.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
               <Label prefHeight="26.0" prefWidth="80.0" text="Answer:" GridPane.rowIndex="6">
                   <font>
                       <Font size="15.0" />
                   </font>
               </Label>
-            <Label fx:id="lbFirstName" prefHeight="44.0" prefWidth="193.0" GridPane.columnIndex="1">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="lbLastName" prefHeight="44.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="lbRole" prefHeight="44.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="lbUsername" prefHeight="44.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="lbPassword" prefHeight="44.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="lbQuestion" prefHeight="44.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="lbAnswer" prefHeight="44.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
+              <TextField fx:id="txtAnswer" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
       <Label fx:id="labelError" layoutX="75.0" layoutY="124.0" textFill="RED" />

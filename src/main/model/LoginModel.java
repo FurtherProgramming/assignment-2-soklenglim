@@ -1,6 +1,7 @@
 package main.model;
 
 import main.SQLConnection;
+import main.controller.Helper;
 import org.sqlite.SQLiteConnection;
 
 import java.sql.Connection;
@@ -29,7 +30,6 @@ public class LoginModel {
     }
 
     public Employee isLogin(String user, String pass) throws SQLException {
-        Employee emp = new Employee();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet=null;
         String query = "select * from employee where username = ? and password= ?";
@@ -40,24 +40,24 @@ public class LoginModel {
 
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                emp = new Employee(resultSet.getString("username"),
+                Helper.emp = new Employee(resultSet.getString("username"),
                         resultSet.getString("firstName"),
                         resultSet.getString("lastName"),
                         resultSet.getString("role"),
                         resultSet.getString("secretQuestion"),
                         resultSet.getString("answerQuestion"),
                         resultSet.getString("password"));
-                return emp;
+                return Helper.emp;
             }
             else{
-                emp = new Employee();
-                return emp;
+                Helper.emp = new Employee();
+                return Helper.emp;
             }
         }
         catch (Exception e)
         {
-            emp = new Employee();
-            return emp;
+            Helper.emp = new Employee();
+            return Helper.emp;
         }finally {
             preparedStatement.close();
             resultSet.close();

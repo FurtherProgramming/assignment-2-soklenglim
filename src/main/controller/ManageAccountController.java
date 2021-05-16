@@ -27,24 +27,25 @@ import java.util.ResourceBundle;
 public class ManageAccountController implements Initializable {
 
     private ManageAccountModel mam = new ManageAccountModel();
+
     @FXML
-    private TextField txtFirstName;
+    private Label lbFirstName;
     @FXML
-    private TextField txtLastName;
+    private Label lbLastName;
     @FXML
-    private TextField txtRole;
+    private Label lbRole;
     @FXML
-    private TextField txtUsername;
+    private Label lbUsername;
     @FXML
-    private TextField txtPassword;
+    private Label lbPassword;
     @FXML
-    private ComboBox questionBox;
+    private Label lbQuestion;
     @FXML
-    private TextField txtAnswer;
+    private Label lbAnswer;
+    @FXML
+    private Button btnEdit;
     @FXML
     private Button btnCancel;
-    @FXML
-    public Label labelError;
 
     private Helper h = new Helper();
 
@@ -53,22 +54,23 @@ public class ManageAccountController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources){
         try {
-            displayCurrentEmp(UserController.username);
+            displayCurrentEmp(h.emp.getUserName());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
+
+
     public void displayCurrentEmp(String username) throws SQLException {
-        Employee emp = mam.displayCurrentEmployee(username);
-        txtFirstName.setText(emp.getFirstName());
-        txtLastName.setText(emp.getLastName());
-        txtRole.setText(emp.getRole());
-        txtUsername.setText(emp.getUserName());
-        txtPassword.setText(emp.getPassword());
-        questionBox.setValue(emp.getSecretQ());
-        h.setupQuestion(questionBox);
-        txtAnswer.setText(emp.getSecretA());
+        h.emp = mam.displayCurrentEmployee(username);
+        lbFirstName.setText(h.emp.getFirstName());
+        lbLastName.setText(h.emp.getLastName());
+        lbRole.setText(h.emp.getRole());
+        lbUsername.setText(h.emp.getUserName());
+        lbPassword.setText("********");
+        lbQuestion.setText(h.emp.getSecretQ());
+        lbAnswer.setText(h.emp.getSecretA());
 
     }
 
@@ -80,21 +82,10 @@ public class ManageAccountController implements Initializable {
         h.showScene("../ui/UserProfile.fxml", "User Profile");
     }
 
-    public void Update(ActionEvent event) throws SQLException {
-        String firstName = txtFirstName.getText();
-        String lastName = txtLastName.getText();
-        String role = txtRole.getText();
-        String userName = txtUsername.getText();
-        String password = txtPassword.getText();
-        String question = (String) questionBox.getValue();
-        String answer = txtAnswer.getText();
-        List<TextField> textFields = Arrays.asList(txtFirstName, txtLastName, txtRole, txtUsername, txtPassword, txtAnswer);
-        Boolean txtField = false;
-        if(!txtField){
-            mam.updateCurrentEmp(firstName, lastName, role, userName, password, question, answer);
-            h.displaySuccessDialogBox();
-        } else {
-            labelError.setText("Something went wrong. Please try again!");
-        }
+    public void Edit(ActionEvent event) throws Exception {
+        h.closeScene(btnEdit);
+        h.showScene("../ui/ManageAccountEdit.fxml", "Editing Information");
     }
+
+
 }

@@ -9,16 +9,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
+import main.model.Employee;
 
 import java.io.IOException;
 
 public class Helper {
+    public static Employee emp = new Employee();
+
     public void showScene(String resource, String title) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
         Parent root = loader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle(title);
+        stage.setResizable(false);
         stage.show();
     }
 

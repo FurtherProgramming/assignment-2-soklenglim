@@ -51,11 +51,11 @@ public class LoginController implements Initializable {
      */
     public void Login(ActionEvent event) throws Exception {
         try {
-            Employee emp = loginModel.isLogin(txtUsername.getText(),txtPassword.getText());
-            if (emp.getUserName() != null && emp.getRole() != null){
+            h.emp = loginModel.isLogin(txtUsername.getText(),txtPassword.getText());
+            if (h.emp.getUserName() != null && h.emp.getRole() != null){
                 // Login Successful
                 isConnected.setText("Logged in successfully");
-                if (emp.getRole().equals("Admin")) {
+                if (h.emp.getRole().equals("Admin")) {
                     h.closeScene(btnLogin);
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/AdminProfile.fxml"));
                     Parent root = loader.load();
@@ -65,7 +65,6 @@ public class LoginController implements Initializable {
                 } else {
                     Stage stage = (Stage) btnRegister.getScene().getWindow();
                     stage.close();
-                    UserController.username = emp.getUserName();
                     h.showScene("../ui/UserProfile.fxml", "User Profile");
                 }
             }else{

@@ -83,7 +83,7 @@ public class RegisterController implements Initializable {
             if (!txtFieldEmpty) {
                 registerModel.Register(firstName, lastName, role, userName, password, question, answer);
                 h.closeScene(btnRegister);
-                UserController.username = userName;
+                Helper.emp.setUserName(userName);
                 h.showScene("../ui/UserProfile.fxml", "UserProfile");
             }
         } else {

@@ -2,6 +2,7 @@ package main.model;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import main.SQLConnection;
+import main.controller.Helper;
 
 import java.sql.*;
 
@@ -16,16 +17,15 @@ public class ManageAccountModel {
     }
 
     public Employee displayCurrentEmployee(String userName) throws SQLException  {
-        Employee emp;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet=null;
         String query = "select * from employee where username = ?";
         try {
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, userName);
+            preparedStatement.setString(1, Helper.emp.getUserName());
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                emp = new Employee(resultSet.getString("username"),
+                Helper.emp = new Employee(resultSet.getString("username"),
                         resultSet.getString("firstName"),
                         resultSet.getString("lastName"),
                         resultSet.getString("role"),
@@ -33,40 +33,25 @@ public class ManageAccountModel {
                         resultSet.getString("answerQuestion"),
                         resultSet.getString("password"));
 
-                return emp;
+                return Helper.emp;
             }
             else{
-                emp = new Employee();
-                return emp;
+                Helper.emp = new Employee();
+                return Helper.emp;
             }
         }
         catch (Exception e)
         {
-            emp = new Employee();
-            return emp;
+            Helper.emp = new Employee();
+            return Helper.emp;
         }finally {
             preparedStatement.close();
             resultSet.close();
         }
     }
 
-    public Boolean updateCurrentEmp(String firstName, String lastName, String role, String userName, String password, String secretQuestion, String answer) throws SQLException {
-        try {
-            Statement statement = connection.createStatement();
-            String query = "update Employee SET firstName = '"+firstName+"', lastName = '"+lastName+"', role = '"+role+"', password = '"+password+"', secretQuestion = '"+secretQuestion+"', answerQuestion = '"+answer+"' WHERE username = '" +userName+"'";
-            int status = statement.executeUpdate(query);
-            if (status > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
 
 
-    }
 
 
 
