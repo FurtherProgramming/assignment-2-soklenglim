@@ -35,8 +35,7 @@ public class LoginController implements Initializable {
     @FXML
     private Button btnRegister;
 
-    private Stage stage;
-    private Scene scene;
+    private Helper h = new Helper();
 
     // Check database connection
     @Override
@@ -46,7 +45,6 @@ public class LoginController implements Initializable {
         }else{
             isConnected.setText("Not Connected");
         }
-
     }
     /* login Action method
        check if user input is the same as database.
@@ -58,19 +56,17 @@ public class LoginController implements Initializable {
                 // Login Successful
                 isConnected.setText("Logged in successfully");
                 if (emp.getRole().equals("Admin")) {
-                    closeScene(btnLogin);
+                    h.closeScene(btnLogin);
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/AdminProfile.fxml"));
                     Parent root = loader.load();
                     AdminController adminController = loader.getController();
   //                  adminController.setUserName(emp.getUserName());
-                    stage.setScene(new Scene(root));
-                    stage.setTitle("User Profile");
-                    stage.show();
-                } else {
-                    closeScene(btnLogin);
-                    UserController.username = emp.getUserName();
-                    showScene("../ui/UserProfile.fxml", "User Profile");
 
+                } else {
+                    Stage stage = (Stage) btnRegister.getScene().getWindow();
+                    stage.close();
+                    UserController.username = emp.getUserName();
+                    h.showScene("../ui/UserProfile.fxml", "User Profile");
                 }
             }else{
                 isConnected.setText("username and password is incorrect");
@@ -81,21 +77,9 @@ public class LoginController implements Initializable {
     }
 
     public void Register(ActionEvent event) throws Exception {
-        closeScene(btnRegister);
-        showScene("../ui/Register.fxml", "Register");
+        h.closeScene(btnRegister);
+        h.showScene("../ui/Register.fxml", "Register");
     }
 
-    public void showScene(String resource, String title) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle(title);
-        stage.show();
-    }
 
-    public void closeScene(Button btn){
-        Stage stage = (Stage) btn.getScene().getWindow();
-        stage.close();
-    }
 }

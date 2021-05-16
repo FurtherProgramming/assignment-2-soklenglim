@@ -66,6 +66,5 @@ public class RegisterModel {
             preparedStatement.close();
             resultSet.close();
         }
-
     }
 }

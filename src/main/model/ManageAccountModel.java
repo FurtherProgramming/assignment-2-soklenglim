@@ -1,43 +1,28 @@
 package main.model;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import main.SQLConnection;
-import org.sqlite.SQLiteConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
-public class LoginModel {
-
+public class ManageAccountModel {
     Connection connection;
 
-    public LoginModel(){
+    public ManageAccountModel(){
 
         connection = SQLConnection.connect();
         if (connection == null)
             System.exit(1);
     }
 
-    public Boolean isDbConnected(){
-        try {
-            return !connection.isClosed();
-        }
-        catch(Exception e){
-            return false;
-        }
-    }
-
-    public Employee isLogin(String user, String pass) throws SQLException {
-        Employee emp = new Employee();
+    public Employee displayCurrentEmployee(String userName) throws SQLException  {
+        Employee emp;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet=null;
-        String query = "select * from employee where username = ? and password= ?";
+        String query = "select * from employee where username = ?";
         try {
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, user);
-            preparedStatement.setString(2, pass);
-
+            preparedStatement.setString(1, userName);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 emp = new Employee(resultSet.getString("username"),
@@ -47,6 +32,7 @@ public class LoginModel {
                         resultSet.getString("secretQuestion"),
                         resultSet.getString("answerQuestion"),
                         resultSet.getString("password"));
+
                 return emp;
             }
             else{
@@ -62,8 +48,26 @@ public class LoginModel {
             preparedStatement.close();
             resultSet.close();
         }
+    }
+
+    public Boolean updateCurrentEmp(String firstName, String lastName, String role, String userName, String password, String secretQuestion, String answer) throws SQLException {
+        try {
+            Statement statement = connection.createStatement();
+            String query = "update Employee SET firstName = '"+firstName+"', lastName = '"+lastName+"', role = '"+role+"', password = '"+password+"', secretQuestion = '"+secretQuestion+"', answerQuestion = '"+answer+"' WHERE username = '" +userName+"'";
+            int status = statement.executeUpdate(query);
+            if (status > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
 
     }
+
 
 
 }
