@@ -1,10 +1,11 @@
 package main.model;
 
 public class Employee {
-    String userName;
-    String firstName, lastName, role, secretQ, secretA, password;
 
-    public Employee (String userName, String firstName, String lastName, String role, String secretQ, String secretA, String password) {
+    String userName, firstName, lastName, role, secretQ, secretA, password;
+    Boolean admin;
+
+    public Employee (String userName, String firstName, String lastName, String role, String secretQ, String secretA, String password, Boolean admin) {
         this.userName = userName;
         this.role = role;
         this.firstName = firstName;
@@ -12,6 +13,7 @@ public class Employee {
         this.secretA = secretA;
         this.secretQ = secretQ;
         this.password = password;
+        this.admin = admin;
     }
 
     public Employee() {
@@ -47,5 +49,9 @@ public class Employee {
 
     public String getPassword() {
         return password;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
     }
 }

@@ -77,6 +77,7 @@ public class ManageAccountEditController implements Initializable {
         txtLastName.setText(h.emp.getLastName());
         txtRole.setText(h.emp.getRole());
         txtUsername.setText(h.emp.getUserName());
+        txtUsername.setEditable(false);
         txtPassword.setText(h.emp.getPassword());
         questionBox.setValue(h.emp.getSecretQ());
         h.setupQuestion(questionBox);

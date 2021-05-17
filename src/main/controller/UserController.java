@@ -1,5 +1,6 @@
 package main.controller;
 
+import com.sun.xml.internal.ws.util.StringUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,7 +30,7 @@ public class UserController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        labelUsername.setText(h.emp.getUserName());
+        labelUsername.setText(StringUtils.capitalize(h.emp.getFirstName()) + " " + StringUtils.capitalize(h.emp.getLastName()));
     }
 
     @FXML
@@ -47,7 +48,9 @@ public class UserController implements Initializable {
     public void View(ActionEvent event) {
     }
 
-    public void Book(ActionEvent event) {
+    public void Book(ActionEvent event) throws Exception {
+        h.closeScene(btnBook);
+        h.showScene("../ui/SeatSelection.fxml", "Seat Selection");
     }
 
 

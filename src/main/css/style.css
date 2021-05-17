@@ -1,0 +1,94 @@
+#btnSignOut:hover{
+    -fx-background-color: #981100;
+}
+
+#btnSignOut{
+    -fx-background-color: #dc2430,        linear-gradient(#eb3349  0%, #f45c43 20%, #f45c43 100%),        linear-gradient(#eb3349, #f45c43);
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+}
+
+#btnUpdate{
+    -fx-background-radius: 8;
+    -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf);
+    -fx-font-weight: bold;
+}
+
+#btnView{
+    -fx-background-radius: 8;
+    -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf);
+    -fx-font-weight: bold;
+}
+
+#btnBook{
+    -fx-background-radius: 8;
+    -fx-background-color: #4568dc,        linear-gradient(#4568dc 0%, #4568dc 20%, #b06ab3 100%),        linear-gradient(#4568dc, #b06ab3);
+    -fx-font-weight: bold;
+}
+
+#btnBook:hover{
+    -fx-background-color: #403AA0;
+}
+
+#btnUpdate:hover{
+    -fx-background-color: #187E8A;
+}
+#btnView:hover{
+    -fx-background-color: #187E8A;
+}
+
+#btnManageAdmin{
+    -fx-background-radius: 8;
+    -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf);
+    -fx-font-weight: bold;
+}
+#btnManageUser{
+    -fx-background-radius: 8;
+    -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf);
+    -fx-font-weight: bold;
+}
+#btnViewBooking{
+    -fx-background-radius: 8;
+    -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf);
+    -fx-font-weight: bold;
+}
+
+#btnManageAdmin:hover{
+    -fx-background-color: #187E8A;
+}
+
+#btnManageUser:hover{
+    -fx-background-color: #187E8A;
+}
+
+#btnViewBooking:hover{
+    -fx-background-color: #187E8A;
+}
+
+#btnLogin{
+    -fx-background-radius: 8;
+    -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf);
+    -fx-font-weight: bold;
+}
+
+#btnRegister{
+    -fx-background-radius: 8;
+    -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf);
+    -fx-font-weight: bold;
+}
+
+#btnLogin:hover{
+    -fx-background-color: #187E8A;
+}
+
+#btnRegister:hover{
+    -fx-background-color: #187E8A;
+}
+
+
+#btnReset{
+    -fx-background-color: transparent;
+}
+#btnReset:hover{
+    -fx-text-fill: #001B68;
+}

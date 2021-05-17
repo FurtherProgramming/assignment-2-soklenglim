@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import main.model.Employee;
 
@@ -20,7 +21,9 @@ public class Helper {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
         Parent root = loader.load();
         Stage stage = new Stage();
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("../css/style.css").toExternalForm());
+        stage.setScene(scene);
         stage.setTitle(title);
         stage.setResizable(false);
         stage.show();
@@ -40,12 +43,10 @@ public class Helper {
         questionBox.getItems().add("Where are you from?");
     }
 
-    public void displaySuccessDialogBox(){
-        Alert alertSuccess = new Alert(Alert.AlertType.NONE);
-        alertSuccess.setTitle("Completed!");
-        alertSuccess.setHeaderText("Update info!");
-        alertSuccess.setContentText("Employee details have been updated!");
-        alertSuccess.show();
+    public void displayAlertDialogBox(){
+        Alert alert = new Alert(Alert.AlertType.ERROR, "ERROR", ButtonType.OK);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.show();
 
     }
 }

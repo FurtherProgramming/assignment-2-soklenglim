@@ -13,6 +13,8 @@ public class LoginModel {
 
     Connection connection;
 
+    public Boolean login;
+
     public LoginModel(){
 
         connection = SQLConnection.connect();
@@ -46,17 +48,21 @@ public class LoginModel {
                         resultSet.getString("role"),
                         resultSet.getString("secretQuestion"),
                         resultSet.getString("answerQuestion"),
-                        resultSet.getString("password"));
+                        resultSet.getString("password"),
+                        resultSet.getBoolean("admin"));
+                login = true;
                 return Helper.emp;
             }
             else{
                 Helper.emp = new Employee();
+                login = false;
                 return Helper.emp;
             }
         }
         catch (Exception e)
         {
             Helper.emp = new Employee();
+            login = false;
             return Helper.emp;
         }finally {
             preparedStatement.close();

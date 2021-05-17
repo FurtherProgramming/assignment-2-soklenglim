@@ -31,7 +31,8 @@ public class ManageAccountModel {
                         resultSet.getString("role"),
                         resultSet.getString("secretQuestion"),
                         resultSet.getString("answerQuestion"),
-                        resultSet.getString("password"));
+                        resultSet.getString("password"),
+                        resultSet.getBoolean("admin"));
 
                 return Helper.emp;
             }

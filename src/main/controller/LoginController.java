@@ -1,22 +1,14 @@
 package main.controller;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Loader;
+
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
-import javafx.stage.Stage;
-import main.model.Employee;
+import javafx.scene.paint.Color;
 import main.model.LoginModel;
-
-
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -42,6 +34,7 @@ public class LoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources){
         if (loginModel.isDbConnected()){
             isConnected.setText("Connected");
+            isConnected.setTextFill(Color.BLUE);
         }else{
             isConnected.setText("Not Connected");
         }
@@ -55,20 +48,20 @@ public class LoginController implements Initializable {
             if (h.emp.getUserName() != null && h.emp.getRole() != null){
                 // Login Successful
                 isConnected.setText("Logged in successfully");
-                if (h.emp.getRole().equals("Admin")) {
+                if (h.emp.getAdmin()==true) {
                     h.closeScene(btnLogin);
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/AdminProfile.fxml"));
-                    Parent root = loader.load();
-                    AdminController adminController = loader.getController();
-  //                  adminController.setUserName(emp.getUserName());
+                    h.showScene("../ui/AdminProfile.fxml", "Admin Profile");
 
                 } else {
-                    Stage stage = (Stage) btnRegister.getScene().getWindow();
-                    stage.close();
+                    h.closeScene(btnLogin);
                     h.showScene("../ui/UserProfile.fxml", "User Profile");
                 }
+            }else if(txtUsername.getText().equals("") || txtPassword.getText().equals("")) {
+                isConnected.setText("Please input username and password");
+                isConnected.setTextFill(Color.RED);
             }else{
-                isConnected.setText("username and password is incorrect");
+                isConnected.setText("Username and password is incorrect");
+                isConnected.setTextFill(Color.RED);
             }
         } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
