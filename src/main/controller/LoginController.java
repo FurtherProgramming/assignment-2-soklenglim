@@ -27,7 +27,7 @@ public class LoginController implements Initializable {
     @FXML
     private Button btnRegister;
 
-    private Helper h = new Helper();
+    private DataModel dataModel = new DataModel();
 
     // Check database connection
     @Override
@@ -44,17 +44,17 @@ public class LoginController implements Initializable {
      */
     public void Login(ActionEvent event) throws Exception {
         try {
-            h.emp = loginModel.isLogin(txtUsername.getText(),txtPassword.getText());
-            if (h.emp.getUserName() != null && h.emp.getRole() != null){
+            dataModel.emp = loginModel.isLogin(txtUsername.getText(),txtPassword.getText());
+            if (dataModel.emp.getUserName() != null && dataModel.emp.getRole() != null){
                 // Login Successful
                 isConnected.setText("Logged in successfully");
-                if (h.emp.getAdmin()==true) {
-                    h.closeScene(btnLogin);
-                    h.showScene("../ui/AdminProfile.fxml", "Admin Profile");
+                if (dataModel.emp.getAdmin()==true) {
+                    dataModel.closeScene(btnLogin);
+                    dataModel.showScene("../ui/AdminProfile.fxml", "Admin Profile");
 
                 } else {
-                    h.closeScene(btnLogin);
-                    h.showScene("../ui/UserProfile.fxml", "User Profile");
+                    dataModel.closeScene(btnLogin);
+                    dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
                 }
             }else if(txtUsername.getText().equals("") || txtPassword.getText().equals("")) {
                 isConnected.setText("Please input username and password");
@@ -69,8 +69,8 @@ public class LoginController implements Initializable {
     }
 
     public void Register(ActionEvent event) throws Exception {
-        h.closeScene(btnRegister);
-        h.showScene("../ui/Register.fxml", "Register");
+        dataModel.closeScene(btnRegister);
+        dataModel.showScene("../ui/Register.fxml", "Register");
     }
 
 

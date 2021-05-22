@@ -40,7 +40,7 @@ public class ManageAccountEditController implements Initializable {
     @FXML
     public Label labelError;
 
-    private Helper h = new Helper();
+    private DataModel dataModel = new DataModel();
 
     public void Update(ActionEvent event) throws Exception{
         String firstName = txtFirstName.getText();
@@ -54,8 +54,8 @@ public class ManageAccountEditController implements Initializable {
         Boolean txtField = false;
         if(!txtField){
             maem.updateCurrentEmp(firstName, lastName, role, userName, password, question, answer);
-            h.closeScene(btnConfirm);
-            h.showScene("../ui/ManageAccount.fxml", "Manage Account");
+            dataModel.closeScene(btnConfirm);
+            dataModel.showScene("../ui/ManageAccount.fxml", "Manage Account");
 
         } else {
             labelError.setText("Something went wrong. Please try again!");
@@ -65,27 +65,27 @@ public class ManageAccountEditController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            EditCurrentEmp(h.emp.getUserName());
+            EditCurrentEmp();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    public void EditCurrentEmp(String username) throws SQLException {
-        h.emp = mam.displayCurrentEmployee(username);
-        txtFirstName.setText(h.emp.getFirstName());
-        txtLastName.setText(h.emp.getLastName());
-        txtRole.setText(h.emp.getRole());
-        txtUsername.setText(h.emp.getUserName());
+    public void EditCurrentEmp() throws SQLException {
+        dataModel.emp = mam.displayCurrentEmployee();
+        txtFirstName.setText(dataModel.emp.getFirstName());
+        txtLastName.setText(dataModel.emp.getLastName());
+        txtRole.setText(dataModel.emp.getRole());
+        txtUsername.setText(dataModel.emp.getUserName());
         txtUsername.setEditable(false);
-        txtPassword.setText(h.emp.getPassword());
-        questionBox.setValue(h.emp.getSecretQ());
-        h.setupQuestion(questionBox);
-        txtAnswer.setText(h.emp.getSecretA());
+        txtPassword.setText(dataModel.emp.getPassword());
+        questionBox.setValue(dataModel.emp.getSecretQ());
+        dataModel.setupQuestion(questionBox);
+        txtAnswer.setText(dataModel.emp.getSecretA());
     }
 
     public void Cancel(ActionEvent event) throws Exception {
-        h.closeScene(btnCancel);
-        h.showScene("../ui/ManageAccount.fxml", "Manage Account");
+        dataModel.closeScene(btnCancel);
+        dataModel.showScene("../ui/ManageAccount.fxml", "Manage Account");
     }
 }

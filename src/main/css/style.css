@@ -37,12 +37,12 @@
     -fx-background-color: #187E8A;
 }
 
-#btnManageAdmin{
+#btnManagement{
     -fx-background-radius: 8;
     -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf);
     -fx-font-weight: bold;
 }
-#btnManageUser{
+#btnReleaseBooking{
     -fx-background-radius: 8;
     -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf);
     -fx-font-weight: bold;
@@ -53,11 +53,19 @@
     -fx-font-weight: bold;
 }
 
-#btnManageAdmin:hover{
+#btnReport{
+    -fx-background-radius: 8;
+    -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf);
+    -fx-font-weight: bold;
+}
+#btnReport:hover{
+    -fx-background-color: #187E8A;
+}
+#btnManagement:hover{
     -fx-background-color: #187E8A;
 }
 
-#btnManageUser:hover{
+#btnReleaseBooking:hover{
     -fx-background-color: #187E8A;
 }
 
@@ -76,6 +84,8 @@
     -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf);
     -fx-font-weight: bold;
 }
+
+
 
 #btnLogin:hover{
     -fx-background-color: #187E8A;

@@ -27,7 +27,7 @@
 
         <Button fx:id="btnLogin" layoutX="110.0" layoutY="215.0" mnemonicParsing="false" onAction="#Login" prefHeight="30.0" prefWidth="63.0"  text="Login" textFill="WHITE" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="215.0" />
         <Button fx:id="btnRegister" layoutX="229.0" layoutY="215.0" mnemonicParsing="false" onAction="#Register" prefHeight="30.0" prefWidth="74.0"  text="Register" textFill="WHITE" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="215.0" />
-        <Button fx:id="btnReset" layoutX="270.0" layoutY="283.0" mnemonicParsing="false" style="" text="Forget Password?" textFill="#2c2cff" />
+        <Button fx:id="btnReset" layoutX="270.0" layoutY="283.0" mnemonicParsing="false"  text="Forget Password?" textFill="#2c2cff" />
 
 
     </children>

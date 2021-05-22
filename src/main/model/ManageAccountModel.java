@@ -1,8 +1,7 @@
 package main.model;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import main.SQLConnection;
-import main.controller.Helper;
+import main.controller.DataModel;
 
 import java.sql.*;
 
@@ -16,16 +15,16 @@ public class ManageAccountModel {
             System.exit(1);
     }
 
-    public Employee displayCurrentEmployee(String userName) throws SQLException  {
+    public Employee displayCurrentEmployee() throws SQLException  {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet=null;
         String query = "select * from employee where username = ?";
         try {
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, Helper.emp.getUserName());
+            preparedStatement.setString(1, DataModel.emp.getUserName());
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                Helper.emp = new Employee(resultSet.getString("username"),
+                DataModel.emp = new Employee(resultSet.getString("username"),
                         resultSet.getString("firstName"),
                         resultSet.getString("lastName"),
                         resultSet.getString("role"),
@@ -34,17 +33,17 @@ public class ManageAccountModel {
                         resultSet.getString("password"),
                         resultSet.getBoolean("admin"));
 
-                return Helper.emp;
+                return DataModel.emp;
             }
             else{
-                Helper.emp = new Employee();
-                return Helper.emp;
+                DataModel.emp = new Employee();
+                return DataModel.emp;
             }
         }
         catch (Exception e)
         {
-            Helper.emp = new Employee();
-            return Helper.emp;
+            DataModel.emp = new Employee();
+            return DataModel.emp;
         }finally {
             preparedStatement.close();
             resultSet.close();

@@ -29,20 +29,6 @@ public class RegisterModel {
 
     }
 
-    public void selectAll(){
-        String sql = "SELECT firstName, lastName FROM Employee";
-        try (Connection conn = SQLConnection.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
-            // loop through the result set
-            while (rs.next()) {
-                System.out.println(rs.getInt("firstName") +  "\t" +
-                        rs.getString("lastName"));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     public Boolean checkIfUserExist(String userName)throws SQLException {
         PreparedStatement preparedStatement = null;

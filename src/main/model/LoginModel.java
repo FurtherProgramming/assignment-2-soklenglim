@@ -1,8 +1,7 @@
 package main.model;
 
 import main.SQLConnection;
-import main.controller.Helper;
-import org.sqlite.SQLiteConnection;
+import main.controller.DataModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,7 +41,7 @@ public class LoginModel {
 
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                Helper.emp = new Employee(resultSet.getString("username"),
+                DataModel.emp = new Employee(resultSet.getString("username"),
                         resultSet.getString("firstName"),
                         resultSet.getString("lastName"),
                         resultSet.getString("role"),
@@ -51,19 +50,19 @@ public class LoginModel {
                         resultSet.getString("password"),
                         resultSet.getBoolean("admin"));
                 login = true;
-                return Helper.emp;
+                return DataModel.emp;
             }
             else{
-                Helper.emp = new Employee();
+                DataModel.emp = new Employee();
                 login = false;
-                return Helper.emp;
+                return DataModel.emp;
             }
         }
         catch (Exception e)
         {
-            Helper.emp = new Employee();
+            DataModel.emp = new Employee();
             login = false;
-            return Helper.emp;
+            return DataModel.emp;
         }finally {
             preparedStatement.close();
             resultSet.close();

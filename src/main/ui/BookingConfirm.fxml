@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="299.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.SeatSelectionController">
+   <children>
+      <Button layoutX="92.0" layoutY="201.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" style="-fx-background-radius: 8; -fx-background-color: #dc2430,        linear-gradient(#eb3349  0%, #f45c43 20%, #f45c43 100%),        linear-gradient(#eb3349, #f45c43); -fx-font-weight: bold;" text="Back" textFill="WHITE" />
+      <Button fx:id="btnBook" layoutX="197.0" layoutY="201.0" mnemonicParsing="false" onAction="#book" prefHeight="30.0" prefWidth="80.0" style="-fx-background-radius: 8; -fx-background-color: #57C84D,        linear-gradient(#83D475  0%, #83D475 20%, #57C84D 100%),        linear-gradient(#83D475, #57C84D); -fx-font-weight: bold;" text="Next" textFill="WHITE" />
+      <Label layoutX="145.0" layoutY="38.0" text="Book Confirmation">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="71.0" layoutY="94.0" text="Booking Date:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="71.0" layoutY="139.0" text="Booking Seat:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbAction" layoutX="242.0" layoutY="141.0" text="1" />
+      <Label layoutX="217.0" layoutY="96.0" text="Label" />
+   </children>
+</AnchorPane>

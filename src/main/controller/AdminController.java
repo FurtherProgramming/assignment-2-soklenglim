@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.net.URL;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
@@ -16,25 +15,29 @@ public class AdminController implements Initializable {
     private Label lbAdmin;
     @FXML
     private Button btnSignOut;
-    private Helper h = new Helper();
+    private DataModel dataModel = new DataModel();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        lbAdmin.setText(StringUtils.capitalize(h.emp.getFirstName()) + " " + StringUtils.capitalize(h.emp.getLastName()));
+        lbAdmin.setText(StringUtils.capitalize(dataModel.emp.getFirstName()) + " " + StringUtils.capitalize(dataModel.emp.getLastName()));
 
     }
 
-    public void addAdmin(ActionEvent event) {
-    }
-
-    public void manageUser(ActionEvent event) {
-    }
 
     public void viewBooking(ActionEvent event) {
     }
 
     public void signOut(ActionEvent event) throws Exception {
-        h.closeScene(btnSignOut);
-        h.showScene("../ui/login.fxml", "Login");
+        dataModel.closeScene(btnSignOut);
+        dataModel.showScene("../ui/login.fxml", "Login");
+    }
+
+    public void report(ActionEvent event) {
+    }
+
+    public void releaseBooking(ActionEvent event) {
+    }
+
+    public void management(ActionEvent event) {
     }
 }

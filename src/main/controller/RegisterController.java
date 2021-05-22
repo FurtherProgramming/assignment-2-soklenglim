@@ -1,14 +1,9 @@
 package main.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import main.model.RegisterModel;
 
@@ -43,21 +38,21 @@ public class RegisterController implements Initializable {
     private Button btnRegister;
 
 
-    private Helper h = new Helper();
+    private DataModel dataModel = new DataModel();
     public RegisterModel registerModel = new RegisterModel();
 
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        h.setupQuestion(questionBox);
+        dataModel.setupQuestion(questionBox);
     }
 
 
     @FXML
     private void Cancel(ActionEvent event) throws Exception {
-        h.closeScene(btnCancel);
-        h.showScene("../ui/login.fxml", "Login");
+        dataModel.closeScene(btnCancel);
+        dataModel.showScene("../ui/login.fxml", "Login");
     }
 
     @FXML
@@ -82,9 +77,9 @@ public class RegisterController implements Initializable {
             }
             if (!txtFieldEmpty) {
                 registerModel.Register(firstName, lastName, role, userName, password, question, answer);
-                h.closeScene(btnRegister);
-                Helper.emp.setUserName(userName);
-                h.showScene("../ui/UserProfile.fxml", "UserProfile");
+                dataModel.closeScene(btnRegister);
+                DataModel.emp.setUserName(userName);
+                dataModel.showScene("../ui/UserProfile.fxml", "UserProfile");
             }
         } else {
             alertTxt.setText("User Name is Taken");
