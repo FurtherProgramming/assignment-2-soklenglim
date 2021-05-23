@@ -12,6 +12,13 @@ public class Desk {
         this.seatNum = seatNum;
     }
 
+    public void setDate(String date){
+        this.date = date;
+    }
+    public void setSeatNum(int seatNum){
+        this.seatNum = seatNum;
+    }
+
     public String getStatus() {
         return status;
     }

@@ -6,7 +6,6 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import main.SQLConnection;
 import main.controller.DataModel;
-import sun.security.krb5.internal.crypto.Des;
 
 import java.sql.*;
 import java.time.LocalDate;

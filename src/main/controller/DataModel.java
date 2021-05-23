@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import main.model.Desk;
@@ -51,6 +48,21 @@ public class DataModel {
         Alert alert = new Alert(Alert.AlertType.ERROR, "ERROR", ButtonType.OK);
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.show();
+    }
 
+    public void showDialogBox(String title, String content){
+        //Creating a dialog
+        Dialog<String> dialog = new Dialog<String>();
+        //Setting the title
+        dialog.setTitle(title);
+        dialog.setResizable(false);
+
+        //Setting the content of the dialog
+        dialog.setContentText(content);
+        //Adding buttons to the dialog pane
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().setPrefSize(300, 100);
+        //Creating a vbox to hold the button and the label
+        dialog.showAndWait();
     }
 }

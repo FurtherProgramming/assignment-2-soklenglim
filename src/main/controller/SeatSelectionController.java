@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 public class SeatSelectionController implements Initializable {
     @FXML
     public DatePicker datePicker;
+    public Button btnBack;
 
     @FXML
     private AnchorPane anchorPane;
@@ -34,9 +35,12 @@ public class SeatSelectionController implements Initializable {
     private Button btnBook;
     @FXML
     private Label lbAction;
+    @FXML
+    private Label lbWarning;
     private SeatSelectionModel ssm = new SeatSelectionModel();
     private DataModel dataModel = new DataModel();
     private int previousSelected;
+    private String strDate = "";
 
 
 
@@ -45,26 +49,23 @@ public class SeatSelectionController implements Initializable {
         datePicker.setDayCellFactory(ssm.getDayCellFactory());
         datePicker.setConverter(ssm.converter);
         displayAllSeat();
+        lbAction.setVisible(false);
         datePicker.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 LocalDate date = datePicker.getValue();
                 DateTimeFormatter dateFormatter =
                         DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                String strDate = dateFormatter.format(date);
+                strDate = dateFormatter.format(date);
                 try {
                     dataModel.desks.clear();
                     ssm.initDesk(strDate);
                     previousSelected = 20;
                     displayAllSeat();
                     lbAction.setText("");
+                    lbWarning.setText("");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
-                }
-                if(!lbAction.getText().equals("") || !strDate.equals("")){
-                    btnBook.setDisable(true);
-                } else {
-                    btnBook.setDisable(false);
                 }
 
             }
@@ -158,10 +159,11 @@ public class SeatSelectionController implements Initializable {
                 btns[i].setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+                        lbWarning.setText("");
                         int disable = 20;
                         for (int k = 0; k < btns.length; k++) {
                             String status = setupDesk(dataModel.desks, k);
-                            if(status.equals("unavailable")){
+                            if(status.equals("unavailable") ){
                                 btns[k].setStyle("-fx-background-color: red;");
                                 disable = k;
                             } else if (status.equals("lock")){
@@ -189,7 +191,7 @@ public class SeatSelectionController implements Initializable {
     }
 
     private String setupDesk(ArrayList<Desk> desks, int seatNum){
-        List<Desk> desk = desks.stream().filter(d -> d.getSeatNum() == seatNum).collect(Collectors.toList());
+        List<Desk> desk = desks.stream().filter(d -> d.getSeatNum()-1 == seatNum).collect(Collectors.toList());
         if(desk.size() == 0)
             return "available";
         else
@@ -197,6 +199,20 @@ public class SeatSelectionController implements Initializable {
     }
 
 
-    public void book(ActionEvent event) {
+    public void book(ActionEvent event) throws Exception {
+        if(lbAction.getText().equals("") || strDate.equals("")){
+            lbWarning.setText("Please select a seat and date");
+        } else {
+            dataModel.desk.setDate(strDate);
+            dataModel.desk.setSeatNum(Integer.parseInt(lbAction.getText()));
+            dataModel.closeScene(btnBook);
+            dataModel.showScene("../ui/BookingConfirm.fxml", "Confirmation");
+
+        }
+    }
+
+    public void back(ActionEvent event) throws Exception {
+        dataModel.closeScene(btnBack);
+        dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
     }
 }
