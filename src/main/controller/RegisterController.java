@@ -76,10 +76,13 @@ public class RegisterController implements Initializable {
                 }
             }
             if (!txtFieldEmpty) {
-                registerModel.Register(firstName, lastName, role, userName, password, question, answer);
+                if(registerModel.Register(firstName, lastName, role, userName, password, question, answer)) {
+                    dataModel.showDialogBox("Register Completed!", "Your account has been created!");
+                } else {
+                    dataModel.showDialogBox("Register Failed!", "Please try again!");
+                }
                 dataModel.closeScene(btnRegister);
-                DataModel.emp.setUserName(userName);
-                dataModel.showScene("../ui/UserProfile.fxml", "UserProfile");
+                dataModel.showScene("../ui/login.fxml", "Login");
             }
         } else {
             alertTxt.setText("User Name is Taken");

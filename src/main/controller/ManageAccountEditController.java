@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import main.model.ManageAccountEditModel;
 import main.model.ManageAccountModel;
 
@@ -19,6 +20,9 @@ import java.util.ResourceBundle;
 public class ManageAccountEditController implements Initializable {
     private ManageAccountEditModel maem = new ManageAccountEditModel();
     private ManageAccountModel mam = new ManageAccountModel();
+    @FXML
+    private Label alertTxt;
+
     @FXML
     private TextField txtFirstName;
     @FXML
@@ -52,13 +56,19 @@ public class ManageAccountEditController implements Initializable {
         String answer = txtAnswer.getText();
         List<TextField> textFields = Arrays.asList(txtFirstName, txtLastName, txtRole, txtUsername, txtPassword, txtAnswer);
         Boolean txtField = false;
+        for (TextField field : textFields) {
+            if (field.getText().isEmpty() || question == null) {
+                txtField = true;
+            }
+        }
         if(!txtField){
             maem.updateCurrentEmp(firstName, lastName, role, userName, password, question, answer);
+            dataModel.showDialogBox("Account Updated!", "Your account detail has been updated!");
             dataModel.closeScene(btnConfirm);
-            dataModel.showScene("../ui/ManageAccount.fxml", "Manage Account");
-
+            dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
         } else {
-            labelError.setText("Something went wrong. Please try again!");
+            labelError.setText("Please fill all the information below");
+            labelError.setTextFill(Color.web("#FF0000"));
         }
     }
 

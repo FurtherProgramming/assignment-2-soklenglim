@@ -37,13 +37,11 @@ public class BookingConfirmController implements Initializable {
     public void book(ActionEvent event) throws Exception {
         if(bcm.addBookingDesk(dataModel.emp.getUserName(), dataModel.desk.getSeatNum(), dataModel.desk.getDate())){
             dataModel.showDialogBox("Booking Completed!", "Your Booking on desk has been completed!");
-            dataModel.closeScene(btnBook);
-            dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
 
         } else {
             dataModel.showDialogBox("Booking Failed!", "Please try again!");
-            dataModel.closeScene(btnBook);
-            dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
         }
+        dataModel.closeScene(btnBook);
+        dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
     }
 }

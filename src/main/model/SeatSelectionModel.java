@@ -39,6 +39,7 @@ public class SeatSelectionModel {
         }
     }
 
+
     public ArrayList<Desk> initDesk(String date) throws SQLException  {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet=null;

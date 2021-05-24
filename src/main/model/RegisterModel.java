@@ -13,18 +13,19 @@ public class RegisterModel {
     }
 
 
-    public void Register(String firstName, String lastName, String role, String userName, String password, String secretQuestion, String answer) {
+    public Boolean Register(String firstName, String lastName, String role, String userName, String password, String secretQuestion, String answer) {
         connection = SQLConnection.connect();
         try {
             Statement statement = connection.createStatement();
             int status = statement.executeUpdate("insert into Employee (firstName, lastName, role, username, password, secretQuestion, answerQuestion) values ('"+firstName+"','"+lastName+"','"+role+"','"+userName+"','"+password+"','"+secretQuestion+"','"+answer+"') ");
             if (status > 0) {
-                System.out.println("user register completed");
+                return true;
             } else {
-                System.out.println("Fail to register");
+                return false;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
 
     }
