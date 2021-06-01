@@ -102,3 +102,37 @@
 #btnReset:hover{
     -fx-text-fill: #001B68;
 }
+
+#btnEdit{
+    -fx-background-radius: 8;
+    -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf);
+    -fx-font-weight: bold;
+}
+
+#btnEdit:hover{
+    -fx-background-color: #001B68;
+}
+
+#btnCancel{
+    -fx-background-radius: 8; -fx-background-color: #dc2430,        linear-gradient(#eb3349  0%, #f45c43 20%, #f45c43 100%),        linear-gradient(#eb3349, #f45c43);
+}
+
+#btnAdminBack{
+    -fx-background-radius: 8;
+    -fx-background-radius: 8; -fx-background-color: #dc2430,        linear-gradient(#eb3349  0%, #f45c43 20%, #f45c43 100%),        linear-gradient(#eb3349, #f45c43);
+    -fx-font-weight: bold;
+}
+#btnAdminBack:hover{
+    -fx-background-color: #981100;
+}
+
+
+#btnAddUser{
+    -fx-background-radius: 8;
+    -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf);
+    -fx-font-weight: bold;
+}
+
+#btnAddUser:hover{
+    -fx-background-color: #187E8A;
+}

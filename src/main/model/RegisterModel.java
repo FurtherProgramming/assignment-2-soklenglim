@@ -13,11 +13,11 @@ public class RegisterModel {
     }
 
 
-    public Boolean Register(String firstName, String lastName, String role, String userName, String password, String secretQuestion, String answer) {
+    public Boolean Register(String firstName, String lastName, String role, String userName, String password, String secretQuestion, String answer, boolean admin) {
         connection = SQLConnection.connect();
         try {
             Statement statement = connection.createStatement();
-            int status = statement.executeUpdate("insert into Employee (firstName, lastName, role, username, password, secretQuestion, answerQuestion) values ('"+firstName+"','"+lastName+"','"+role+"','"+userName+"','"+password+"','"+secretQuestion+"','"+answer+"') ");
+            int status = statement.executeUpdate("insert into Employee (firstName, lastName, role, username, password, secretQuestion, answerQuestion, admin) values ('"+firstName+"','"+lastName+"','"+role+"','"+userName+"','"+password+"','"+secretQuestion+"','"+answer+"','"+admin+"') ");
             if (status > 0) {
                 return true;
             } else {

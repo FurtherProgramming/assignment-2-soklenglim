@@ -15,6 +15,14 @@ public class AdminController implements Initializable {
     private Label lbAdmin;
     @FXML
     private Button btnSignOut;
+    @FXML
+    private Button btnManagement;
+    @FXML
+    private Button btnViewBooking;
+    @FXML
+    private Button btnReport;
+    @FXML
+    private Button btnReleaseBooking;
     private DataModel dataModel = new DataModel();
 
     @Override
@@ -24,7 +32,9 @@ public class AdminController implements Initializable {
     }
 
 
-    public void viewBooking(ActionEvent event) {
+    public void viewBooking(ActionEvent event) throws Exception {
+        dataModel.closeScene(btnViewBooking);
+        dataModel.showScene("../ui/login.fxml", "Login");
     }
 
     public void signOut(ActionEvent event) throws Exception {
@@ -32,12 +42,18 @@ public class AdminController implements Initializable {
         dataModel.showScene("../ui/login.fxml", "Login");
     }
 
-    public void report(ActionEvent event) {
+    public void report(ActionEvent event) throws Exception {
+        dataModel.closeScene(btnReport);
+        dataModel.showScene("../ui/login.fxml", "Login");
     }
 
-    public void releaseBooking(ActionEvent event) {
+    public void releaseBooking(ActionEvent event) throws Exception {
+        dataModel.closeScene(btnReleaseBooking);
+        dataModel.showScene("../ui/login.fxml", "Login");
     }
 
-    public void management(ActionEvent event) {
+    public void management(ActionEvent event) throws Exception {
+        dataModel.closeScene(btnManagement);
+        dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");
     }
 }

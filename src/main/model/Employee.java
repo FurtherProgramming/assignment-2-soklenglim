@@ -1,11 +1,12 @@
 package main.model;
 
 public class Employee {
+    private int id;
+    private String userName, firstName, lastName, role, secretQ, secretA, password;
+    private Boolean admin;
 
-    String userName, firstName, lastName, role, secretQ, secretA, password;
-    Boolean admin;
-
-    public Employee (String userName, String firstName, String lastName, String role, String secretQ, String secretA, String password, Boolean admin) {
+    public Employee (int id, String userName, String firstName, String lastName, String role, String secretQ, String secretA, String password, Boolean admin) {
+        this.id = id;
         this.userName = userName;
         this.role = role;
         this.firstName = firstName;
@@ -17,6 +18,10 @@ public class Employee {
     }
 
     public Employee() {
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getLastName() {

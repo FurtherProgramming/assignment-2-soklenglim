@@ -4,15 +4,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="530.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.ManageAccountController">
+<AnchorPane prefHeight="530.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.ManageAccountController">
     <children>
         <Label alignment="CENTER" layoutX="159.0" layoutY="47.0" prefHeight="66.0" prefWidth="182.0" text="Manage Account" textAlignment="CENTER" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="50.0">
             <font>
                 <Font size="23.0" />
             </font>
         </Label>
-        <Button fx:id="btnEdit" layoutX="166.0" layoutY="410.0" mnemonicParsing="false" onAction="#Edit" prefHeight="31.0" prefWidth="74.0" style="-fx-background-radius: 8; -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf); -fx-font-weight: bold;" text="Edit" textFill="WHITE" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="165.0" />
-        <Button fx:id="btnCancel" layoutX="276.0" layoutY="410.0" mnemonicParsing="false" onAction="#Cancel" prefHeight="31.0" prefWidth="74.0" style="-fx-background-radius: 8; -fx-background-color: #dc2430,        linear-gradient(#eb3349  0%, #f45c43 20%, #f45c43 100%),        linear-gradient(#eb3349, #f45c43); " text="Cancel" textFill="WHITE" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="165.0">
+        <Button fx:id="btnEdit" layoutX="166.0" layoutY="410.0" mnemonicParsing="false" onAction="#Edit" prefHeight="31.0" prefWidth="74.0"  text="Edit" textFill="WHITE" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="165.0" />
+        <Button fx:id="btnCancel" layoutX="276.0" layoutY="410.0" mnemonicParsing="false" onAction="#Cancel" prefHeight="31.0" prefWidth="74.0"  text="Cancel" textFill="WHITE" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="165.0">
             <font>
                 <Font name="System Bold" size="12.0" />
             </font>

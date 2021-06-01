@@ -36,6 +36,7 @@ public class ManageAccountController implements Initializable {
     private Button btnCancel;
 
     private DataModel dataModel = new DataModel();
+    private ManageAccountEditController maem = new ManageAccountEditController();
 
 
     // Check database connection
@@ -72,7 +73,9 @@ public class ManageAccountController implements Initializable {
 
     public void Edit(ActionEvent event) throws Exception {
         dataModel.closeScene(btnEdit);
+        maem.emp = dataModel.emp;
         dataModel.showScene("../ui/ManageAccountEdit.fxml", "Editing Information");
+
     }
 
 

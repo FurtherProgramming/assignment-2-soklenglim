@@ -1,11 +1,11 @@
 package main.model;
 
+import com.sun.corba.se.spi.activation.EndPointInfo;
+import main.Main;
 import main.SQLConnection;
 import main.controller.DataModel;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class ManageAccountEditModel {
     Connection connection;
@@ -18,13 +18,13 @@ public class ManageAccountEditModel {
     }
 
 
-    public Employee updateCurrentEmp(String firstName, String lastName, String role, String userName, String password, String secretQuestion, String answer) throws SQLException {
+    public Employee updateCurrentEmp(int empId, String firstName, String lastName, String role, String userName, String password, String secretQuestion, String answer, boolean admin) throws SQLException {
         try {
             Statement statement = connection.createStatement();
-            String query = "update Employee SET firstName = '" + firstName + "', lastName = '" + lastName + "', role = '" + role + "', password = '" + password + "', secretQuestion = '" + secretQuestion + "', answerQuestion = '" + answer + "' WHERE username = '" + userName + "'";
+            String query = "update Employee SET firstName = '" + firstName + "', lastName = '" + lastName + "', role = '" + role + "', username = '" + userName + "', password = '" + password + "', secretQuestion = '" + secretQuestion + "', answerQuestion = '" + answer +"', admin = '" + admin + "' WHERE emp_id = '" + empId + "'";
             int status = statement.executeUpdate(query);
             if (status > 0) {
-                DataModel.emp = new Employee(userName, firstName, lastName, role, secretQuestion,answer, password, false);
+                DataModel.emp = new Employee(DataModel.emp.getId(),userName, firstName, lastName, role, secretQuestion,answer, password, false);
                 return DataModel.emp;
             } else {
                 return DataModel.emp;
@@ -34,6 +34,7 @@ public class ManageAccountEditModel {
             return DataModel.emp;
         }
     }
+
 
 
 

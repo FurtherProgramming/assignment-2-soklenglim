@@ -3,16 +3,15 @@ package main.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
+import main.model.Employee;
 import main.model.ManageAccountEditModel;
 import main.model.ManageAccountModel;
 
 import java.net.URL;
 import java.sql.SQLException;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -21,7 +20,7 @@ public class ManageAccountEditController implements Initializable {
     private ManageAccountEditModel maem = new ManageAccountEditModel();
     private ManageAccountModel mam = new ManageAccountModel();
     @FXML
-    private Label alertTxt;
+    private CheckBox checkbox;
 
     @FXML
     private TextField txtFirstName;
@@ -44,7 +43,10 @@ public class ManageAccountEditController implements Initializable {
     @FXML
     public Label labelError;
 
+
+    public static boolean isAdmin = false;
     private DataModel dataModel = new DataModel();
+    public static Employee emp = new Employee();
 
     public void Update(ActionEvent event) throws Exception{
         String firstName = txtFirstName.getText();
@@ -62,10 +64,17 @@ public class ManageAccountEditController implements Initializable {
             }
         }
         if(!txtField){
-            maem.updateCurrentEmp(firstName, lastName, role, userName, password, question, answer);
-            dataModel.showDialogBox("Account Updated!", "Your account detail has been updated!");
-            dataModel.closeScene(btnConfirm);
-            dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
+            maem.updateCurrentEmp(emp.getId(), firstName, lastName, role, userName, password, question, answer, checkbox.isSelected());
+
+            if(isAdmin == false){
+                dataModel.showDialogBox("Account Updated!", "Your account detail has been updated!");
+                dataModel.closeScene(btnConfirm);
+                dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
+            } else {
+                dataModel.showDialogBox("Account Updated!", "User detail has been updated!");
+                dataModel.closeScene(btnConfirm);
+                dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");
+            }
         } else {
             labelError.setText("Please fill all the information below");
             labelError.setTextFill(Color.web("#FF0000"));
@@ -75,27 +84,37 @@ public class ManageAccountEditController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            EditCurrentEmp();
+            EditCurrentEmp(emp);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    public void EditCurrentEmp() throws SQLException {
-        dataModel.emp = mam.displayCurrentEmployee();
-        txtFirstName.setText(dataModel.emp.getFirstName());
-        txtLastName.setText(dataModel.emp.getLastName());
-        txtRole.setText(dataModel.emp.getRole());
-        txtUsername.setText(dataModel.emp.getUserName());
-        txtUsername.setEditable(false);
-        txtPassword.setText(dataModel.emp.getPassword());
-        questionBox.setValue(dataModel.emp.getSecretQ());
+    public void EditCurrentEmp(Employee currentUser) throws SQLException {
+        txtFirstName.setText(currentUser.getFirstName());
+        txtLastName.setText(currentUser.getLastName());
+        txtRole.setText(currentUser.getRole());
+        txtUsername.setText(currentUser.getUserName());
+        txtPassword.setText(currentUser.getPassword());
+        questionBox.setValue(currentUser.getSecretQ());
         dataModel.setupQuestion(questionBox);
-        txtAnswer.setText(dataModel.emp.getSecretA());
+        txtAnswer.setText(currentUser.getSecretA());
+        checkbox.setSelected(currentUser.getAdmin());
+        if(isAdmin == false){
+            txtUsername.setEditable(false);
+        } else {
+            txtUsername.setEditable(true);
+        }
     }
 
     public void Cancel(ActionEvent event) throws Exception {
-        dataModel.closeScene(btnCancel);
-        dataModel.showScene("../ui/ManageAccount.fxml", "Manage Account");
+        if(isAdmin == false) {
+            dataModel.closeScene(btnCancel);
+            dataModel.showScene("../ui/ManageAccount.fxml", "Manage Account");
+        } else {
+            dataModel.closeScene(btnCancel);
+            dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");
+            isAdmin = false;
+        }
     }
 }

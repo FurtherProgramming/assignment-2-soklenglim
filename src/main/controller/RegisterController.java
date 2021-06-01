@@ -28,7 +28,8 @@ public class RegisterController implements Initializable {
     private TextField txtAnswer;
     @FXML
     private Label alertTxt;
-
+    @FXML
+    private CheckBox checkbox;
     @FXML
     private ComboBox questionBox;
     @FXML
@@ -37,7 +38,7 @@ public class RegisterController implements Initializable {
     @FXML
     private Button btnRegister;
 
-
+    public static boolean isAdmin = false;
     private DataModel dataModel = new DataModel();
     public RegisterModel registerModel = new RegisterModel();
 
@@ -46,13 +47,24 @@ public class RegisterController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         dataModel.setupQuestion(questionBox);
+        if(isAdmin==false){
+            checkbox.setVisible(false);
+        } else {
+            checkbox.setVisible(true);
+        }
     }
 
 
     @FXML
     private void Cancel(ActionEvent event) throws Exception {
-        dataModel.closeScene(btnCancel);
-        dataModel.showScene("../ui/login.fxml", "Login");
+        if(isAdmin==false) {
+            dataModel.closeScene(btnCancel);
+            dataModel.showScene("../ui/login.fxml", "Login");
+        } else {
+            dataModel.closeScene(btnCancel);
+            dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");
+            isAdmin=false;
+        }
     }
 
     @FXML
@@ -64,7 +76,9 @@ public class RegisterController implements Initializable {
         String password = txtPassword.getText();
         String question = (String) questionBox.getValue();
         String answer = txtAnswer.getText();
+        boolean admin = checkbox.isSelected();
 
+        System.out.println(admin);
         List<TextField> textFields = Arrays.asList(txtFirstName, txtLastName, txtRole, txtUserName, txtPassword, txtAnswer);
         if (!registerModel.checkIfUserExist(userName)) {
             Boolean txtFieldEmpty = false;
@@ -76,13 +90,20 @@ public class RegisterController implements Initializable {
                 }
             }
             if (!txtFieldEmpty) {
-                if(registerModel.Register(firstName, lastName, role, userName, password, question, answer)) {
+                if(registerModel.Register(firstName, lastName, role, userName, password, question, answer, true)) {
                     dataModel.showDialogBox("Register Completed!", "Your account has been created!");
                 } else {
                     dataModel.showDialogBox("Register Failed!", "Please try again!");
                 }
-                dataModel.closeScene(btnRegister);
-                dataModel.showScene("../ui/login.fxml", "Login");
+                if(isAdmin==false) {
+                    dataModel.closeScene(btnRegister);
+                    dataModel.showScene("../ui/login.fxml", "Login");
+                } else {
+                    dataModel.closeScene(btnRegister);
+                    dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");
+                    isAdmin=false;
+                }
+
             }
         } else {
             alertTxt.setText("User Name is Taken");

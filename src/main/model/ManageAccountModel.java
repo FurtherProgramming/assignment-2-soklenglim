@@ -24,7 +24,8 @@ public class ManageAccountModel {
             preparedStatement.setString(1, DataModel.emp.getUserName());
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                DataModel.emp = new Employee(resultSet.getString("username"),
+                DataModel.emp = new Employee(resultSet.getInt("emp_id"),
+                        resultSet.getString("username"),
                         resultSet.getString("firstName"),
                         resultSet.getString("lastName"),
                         resultSet.getString("role"),

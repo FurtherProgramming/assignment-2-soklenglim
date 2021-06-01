@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="439.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.RegisterController">
+<AnchorPane prefHeight="439.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.RegisterController">
     <children>
-        <GridPane layoutX="78.0" layoutY="121.0" prefHeight="216.0" prefWidth="305.0">
+        <GridPane layoutX="65.0" layoutY="121.0" prefHeight="241.0" prefWidth="336.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="113.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="232.0" minWidth="10.0" prefWidth="150.0" />
@@ -26,6 +19,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
             </rowConstraints>
             <children>
                 <Label prefHeight="28.0" prefWidth="78.0" text="First Name:">
@@ -70,10 +64,11 @@
                 <PasswordField fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <ComboBox fx:id="questionBox" prefHeight="25.0" prefWidth="238.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 <TextField fx:id="txtAnswer" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <CheckBox fx:id="checkbox" mnemonicParsing="false" text="Admin" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             </children>
         </GridPane>
-        <Button fx:id="btnRegister" layoutX="146.0" layoutY="362.0" mnemonicParsing="false" onAction="#Register" prefHeight="31.0" prefWidth="74.0" style="-fx-background-radius: 8; -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf); -fx-font-weight: bold;" text="Register" textFill="WHITE" />
-        <Button fx:id="btnCancel" layoutX="241.0" layoutY="362.0" mnemonicParsing="false" onAction="#Cancel" prefHeight="31.0" prefWidth="74.0" style="-fx-background-radius: 8; -fx-background-color: #dc2430,        linear-gradient(#eb3349  0%, #f45c43 20%, #f45c43 100%),        linear-gradient(#eb3349, #f45c43); " text="Cancel" textFill="WHITE">
+        <Button fx:id="btnRegister" layoutX="140.0" layoutY="380.0" mnemonicParsing="false" onAction="#Register" prefHeight="31.0" prefWidth="74.0" style="-fx-background-radius: 8; -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf); -fx-font-weight: bold;" text="Register" textFill="WHITE" />
+        <Button fx:id="btnCancel" layoutX="260.0" layoutY="380.0" mnemonicParsing="false" onAction="#Cancel" prefHeight="31.0" prefWidth="74.0" style="-fx-background-radius: 8; -fx-background-color: #dc2430,        linear-gradient(#eb3349  0%, #f45c43 20%, #f45c43 100%),        linear-gradient(#eb3349, #f45c43); " text="Cancel" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="12.0" />
             </font>
@@ -83,7 +78,7 @@
                 <Font size="30.0" />
             </font>
         </Label>
-        <Label fx:id="alertTxt" layoutX="78.0" layoutY="96.0" text="Please fill in all the requirement" />
+        <Label fx:id="alertTxt" layoutX="65.0" layoutY="96.0" text="Please fill in all the requirement" />
 
     </children>
 

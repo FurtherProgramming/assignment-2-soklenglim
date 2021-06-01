@@ -1,5 +1,6 @@
 package main.model;
 
+import main.Main;
 import main.SQLConnection;
 import main.controller.DataModel;
 
@@ -12,7 +13,6 @@ public class LoginModel {
 
     Connection connection;
 
-    public Boolean login;
 
     public LoginModel(){
 
@@ -41,7 +41,8 @@ public class LoginModel {
 
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                DataModel.emp = new Employee(resultSet.getString("username"),
+                DataModel.emp = new Employee(resultSet.getInt("emp_id"),
+                        resultSet.getString("username"),
                         resultSet.getString("firstName"),
                         resultSet.getString("lastName"),
                         resultSet.getString("role"),
@@ -49,19 +50,19 @@ public class LoginModel {
                         resultSet.getString("answerQuestion"),
                         resultSet.getString("password"),
                         resultSet.getBoolean("admin"));
-                login = true;
+                Main.isLogin = true;
                 return DataModel.emp;
             }
             else{
                 DataModel.emp = new Employee();
-                login = false;
+                Main.isLogin = false;
                 return DataModel.emp;
             }
         }
         catch (Exception e)
         {
             DataModel.emp = new Employee();
-            login = false;
+            Main.isLogin = false;
             return DataModel.emp;
         }finally {
             preparedStatement.close();

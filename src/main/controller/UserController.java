@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import main.Main;
 import main.model.Employee;
 
 import java.net.URL;
@@ -35,6 +36,7 @@ public class UserController implements Initializable {
     @FXML
     private void SignOut(ActionEvent event) throws Exception {
         dataModel.emp = new Employee();
+        Main.isLogin = false;
         dataModel.closeScene(btnSignOut);
         dataModel.showScene("../ui/login.fxml", "Login");
     }
