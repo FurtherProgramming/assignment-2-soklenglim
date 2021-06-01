@@ -10,7 +10,7 @@ public class Main extends Application {
     public static boolean isLogin = false;
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("ui/login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ui/Login.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("css/style.css").toExternalForm());
         primaryStage.setTitle("Login");

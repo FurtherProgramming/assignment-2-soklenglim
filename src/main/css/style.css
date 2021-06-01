@@ -136,3 +136,25 @@
 #btnAddUser:hover{
     -fx-background-color: #187E8A;
 }
+
+#btnResetPassword{
+    -fx-background-radius: 8;
+    -fx-background-color: #00cdac,        linear-gradient(#06beb6 0%, #48b1bf 20%, #48b1bf 100%),        linear-gradient(#06beb6, #48b1bf);
+    -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+}
+
+#btnResetPassword:hover{
+    -fx-background-color: #187E8A;
+}
+
+#btnBack{
+    -fx-background-radius: 8;
+    -fx-background-radius: 8; -fx-background-color: #dc2430,        linear-gradient(#eb3349  0%, #f45c43 20%, #f45c43 100%),        linear-gradient(#eb3349, #f45c43);
+    -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+}
+
+#btnBack:hover{
+    -fx-background-color: #981100;
+}

@@ -1,4 +1,4 @@
-package main.model;
+package main.object;
 
 public class Desk {
     private String status;

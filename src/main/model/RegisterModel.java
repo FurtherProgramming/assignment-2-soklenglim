@@ -13,7 +13,7 @@ public class RegisterModel {
     }
 
 
-    public Boolean Register(String firstName, String lastName, String role, String userName, String password, String secretQuestion, String answer, boolean admin) {
+    public Boolean Register(String firstName, String lastName, String role, String userName, String password, String secretQuestion, String answer, int admin) {
         connection = SQLConnection.connect();
         try {
             Statement statement = connection.createStatement();

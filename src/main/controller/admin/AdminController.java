@@ -1,4 +1,4 @@
-package main.controller;
+package main.controller.admin;
 
 import com.sun.xml.internal.ws.util.StringUtils;
 import javafx.event.ActionEvent;
@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import main.Main;
+import main.controller.DataModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,28 +30,28 @@ public class AdminController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         lbAdmin.setText(StringUtils.capitalize(dataModel.emp.getFirstName()) + " " + StringUtils.capitalize(dataModel.emp.getLastName()));
-
     }
 
 
     public void viewBooking(ActionEvent event) throws Exception {
         dataModel.closeScene(btnViewBooking);
-        dataModel.showScene("../ui/login.fxml", "Login");
+        dataModel.showScene("../ui/Login.fxml", "Login");
     }
 
     public void signOut(ActionEvent event) throws Exception {
+        Main.isLogin = false;
         dataModel.closeScene(btnSignOut);
-        dataModel.showScene("../ui/login.fxml", "Login");
+        dataModel.showScene("../ui/Login.fxml", "Login");
     }
 
     public void report(ActionEvent event) throws Exception {
         dataModel.closeScene(btnReport);
-        dataModel.showScene("../ui/login.fxml", "Login");
+        dataModel.showScene("../ui/Login.fxml", "Login");
     }
 
     public void releaseBooking(ActionEvent event) throws Exception {
         dataModel.closeScene(btnReleaseBooking);
-        dataModel.showScene("../ui/login.fxml", "Login");
+        dataModel.showScene("../ui/Login.fxml", "Login");
     }
 
     public void management(ActionEvent event) throws Exception {

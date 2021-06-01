@@ -1,4 +1,4 @@
-package main.controller;
+package main.controller.user;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,8 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import main.model.Desk;
-import main.model.SeatSelectionModel;
+import main.controller.DataModel;
+import main.object.Desk;
+import main.model.user.SeatSelectionModel;
 
 import java.net.URL;
 import java.sql.SQLException;

@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
     public LoginModel loginModel = new LoginModel();
+    public Button btnReset;
 
     @FXML
     private Label isConnected;
@@ -74,4 +75,8 @@ public class LoginController implements Initializable {
     }
 
 
+    public void resetPassword(ActionEvent event) throws Exception {
+        dataModel.closeScene(btnReset);
+        dataModel.showScene("../ui/ForgetPassword.fxml", "Reset Password");
+    }
 }

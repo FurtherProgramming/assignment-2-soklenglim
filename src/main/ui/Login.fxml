@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="327.0" prefWidth="383.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.LoginController">
+<AnchorPane prefHeight="327.0" prefWidth="383.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.LoginController">
     <children>
         <Label fx:id="isConnected" layoutX="14.0" layoutY="287.0" text="Status" />
         <TextField fx:id="txtUsername" layoutX="175.0" layoutY="100.0" prefHeight="30.0" prefWidth="150.0" />
@@ -25,9 +25,9 @@
             </font>
         </Label>
 
-        <Button fx:id="btnLogin" layoutX="110.0" layoutY="215.0" mnemonicParsing="false" onAction="#Login" prefHeight="30.0" prefWidth="63.0"  text="Login" textFill="WHITE" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="215.0" />
-        <Button fx:id="btnRegister" layoutX="229.0" layoutY="215.0" mnemonicParsing="false" onAction="#Register" prefHeight="30.0" prefWidth="74.0"  text="Register" textFill="WHITE" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="215.0" />
-        <Button fx:id="btnReset" layoutX="270.0" layoutY="283.0" mnemonicParsing="false"  text="Forget Password?" textFill="#2c2cff" />
+        <Button fx:id="btnLogin" layoutX="110.0" layoutY="215.0" mnemonicParsing="false" onAction="#Login" prefHeight="30.0" prefWidth="63.0" text="Login" textFill="WHITE" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="215.0" />
+        <Button fx:id="btnRegister" layoutX="229.0" layoutY="215.0" mnemonicParsing="false" onAction="#Register" prefHeight="30.0" prefWidth="74.0" text="Register" textFill="WHITE" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="215.0" />
+        <Button fx:id="btnReset" layoutX="270.0" layoutY="283.0" mnemonicParsing="false" onAction="#resetPassword" text="Forget Password?" textFill="#2c2cff" />
 
 
     </children>

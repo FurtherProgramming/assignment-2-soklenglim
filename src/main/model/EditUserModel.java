@@ -1,16 +1,15 @@
 package main.model;
 
-import com.sun.corba.se.spi.activation.EndPointInfo;
-import main.Main;
 import main.SQLConnection;
 import main.controller.DataModel;
+import main.object.Employee;
 
 import java.sql.*;
 
-public class ManageAccountEditModel {
+public class EditUserModel {
     Connection connection;
 
-    public ManageAccountEditModel(){
+    public EditUserModel(){
 
         connection = SQLConnection.connect();
         if (connection == null)
@@ -18,7 +17,7 @@ public class ManageAccountEditModel {
     }
 
 
-    public Employee updateCurrentEmp(int empId, String firstName, String lastName, String role, String userName, String password, String secretQuestion, String answer, boolean admin) throws SQLException {
+    public Employee updateCurrentEmp(int empId, String firstName, String lastName, String role, String userName, String password, String secretQuestion, String answer, int admin) throws SQLException {
         try {
             Statement statement = connection.createStatement();
             String query = "update Employee SET firstName = '" + firstName + "', lastName = '" + lastName + "', role = '" + role + "', username = '" + userName + "', password = '" + password + "', secretQuestion = '" + secretQuestion + "', answerQuestion = '" + answer +"', admin = '" + admin + "' WHERE emp_id = '" + empId + "'";

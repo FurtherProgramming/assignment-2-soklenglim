@@ -5,9 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
-import main.model.Employee;
-import main.model.ManageAccountEditModel;
-import main.model.ManageAccountModel;
+import main.object.Employee;
+import main.model.EditUserModel;
+import main.model.user.ViewAccountModel;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -16,9 +16,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ManageAccountEditController implements Initializable {
-    private ManageAccountEditModel maem = new ManageAccountEditModel();
-    private ManageAccountModel mam = new ManageAccountModel();
+public class EditUserController implements Initializable {
+    private EditUserModel maem = new EditUserModel();
+    private ViewAccountModel mam = new ViewAccountModel();
     @FXML
     private CheckBox checkbox;
 
@@ -43,7 +43,7 @@ public class ManageAccountEditController implements Initializable {
     @FXML
     public Label labelError;
 
-
+    private int admin = 0;
     public static boolean isAdmin = false;
     private DataModel dataModel = new DataModel();
     public static Employee emp = new Employee();
@@ -63,8 +63,15 @@ public class ManageAccountEditController implements Initializable {
                 txtField = true;
             }
         }
+
+        if(checkbox.isSelected()){
+            admin = 1;
+        } else {
+            admin = 0;
+        }
+
         if(!txtField){
-            maem.updateCurrentEmp(emp.getId(), firstName, lastName, role, userName, password, question, answer, checkbox.isSelected());
+            maem.updateCurrentEmp(emp.getId(), firstName, lastName, role, userName, password, question, answer, admin);
 
             if(isAdmin == false){
                 dataModel.showDialogBox("Account Updated!", "Your account detail has been updated!");
@@ -85,6 +92,13 @@ public class ManageAccountEditController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             EditCurrentEmp(emp);
+            if(isAdmin == false){
+                checkbox.setVisible(false);
+                txtUsername.setEditable(false);
+            } else {
+                checkbox.setVisible(true);
+                txtUsername.setEditable(true);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -100,11 +114,7 @@ public class ManageAccountEditController implements Initializable {
         dataModel.setupQuestion(questionBox);
         txtAnswer.setText(currentUser.getSecretA());
         checkbox.setSelected(currentUser.getAdmin());
-        if(isAdmin == false){
-            txtUsername.setEditable(false);
-        } else {
-            txtUsername.setEditable(true);
-        }
+
     }
 
     public void Cancel(ActionEvent event) throws Exception {

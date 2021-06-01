@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import main.model.Desk;
-import main.model.Employee;
+import main.object.Desk;
+import main.object.Employee;
 
 import java.util.ArrayList;
 

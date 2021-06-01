@@ -1,4 +1,4 @@
-package main.controller;
+package main.controller.user;
 
 
 import javafx.fxml.FXML;
@@ -6,15 +6,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
-import main.model.ManageAccountModel;
+import main.controller.DataModel;
+import main.controller.EditUserController;
+import main.model.user.ViewAccountModel;
 
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-public class ManageAccountController implements Initializable {
+public class ViewAccountController implements Initializable {
 
-    private ManageAccountModel mam = new ManageAccountModel();
+    private ViewAccountModel mam = new ViewAccountModel();
 
     @FXML
     private Label lbFirstName;
@@ -36,7 +38,7 @@ public class ManageAccountController implements Initializable {
     private Button btnCancel;
 
     private DataModel dataModel = new DataModel();
-    private ManageAccountEditController maem = new ManageAccountEditController();
+    private EditUserController maem = new EditUserController();
 
 
     // Check database connection

@@ -1,11 +1,12 @@
-package main.controller;
+package main.controller.user;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import main.model.BookingConfirmModel;
+import main.controller.DataModel;
+import main.model.user.BookingConfirmModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;

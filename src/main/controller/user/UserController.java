@@ -1,4 +1,4 @@
-package main.controller;
+package main.controller.user;
 
 import com.sun.xml.internal.ws.util.StringUtils;
 import javafx.event.ActionEvent;
@@ -7,7 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import main.Main;
-import main.model.Employee;
+import main.controller.DataModel;
+import main.object.Employee;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -38,7 +39,7 @@ public class UserController implements Initializable {
         dataModel.emp = new Employee();
         Main.isLogin = false;
         dataModel.closeScene(btnSignOut);
-        dataModel.showScene("../ui/login.fxml", "Login");
+        dataModel.showScene("../ui/Login.fxml", "Login");
     }
 
     public void Update(ActionEvent event) throws Exception {

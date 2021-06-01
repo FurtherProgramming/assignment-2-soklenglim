@@ -1,4 +1,4 @@
-package main.model;
+package main.model.user;
 
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
@@ -6,6 +6,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import main.SQLConnection;
 import main.controller.DataModel;
+import main.object.Desk;
 
 import java.sql.*;
 import java.time.LocalDate;

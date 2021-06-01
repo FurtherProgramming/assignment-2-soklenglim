@@ -1,9 +1,10 @@
-package main.model;
+package main.model.admin;
 
 
 import javafx.fxml.Initializable;
 import main.SQLConnection;
 import main.controller.DataModel;
+import main.object.Employee;
 
 import java.net.URL;
 import java.sql.Connection;

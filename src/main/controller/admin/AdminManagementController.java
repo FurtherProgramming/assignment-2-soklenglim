@@ -1,4 +1,4 @@
-package main.controller;
+package main.controller.admin;
 
 
 import javafx.event.ActionEvent;
@@ -12,8 +12,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
-import main.model.AdminManagementModel;
-import main.model.Employee;
+import main.controller.DataModel;
+import main.controller.EditUserController;
+import main.controller.RegisterController;
+import main.model.admin.AdminManagementModel;
+import main.object.Employee;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,7 +24,7 @@ import java.util.ResourceBundle;
 public class AdminManagementController implements Initializable {
     private AdminManagementModel amm = new AdminManagementModel();
     private DataModel dataModel = new DataModel();
-    private ManageAccountEditController maec = new ManageAccountEditController();
+    private EditUserController maec = new EditUserController();
     private RegisterController rc = new RegisterController();
     @FXML
     private TableView table = new TableView();
