@@ -14,6 +14,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class ForgetPasswordController implements Initializable {
@@ -27,8 +28,7 @@ public class ForgetPasswordController implements Initializable {
     private Button btnBack;
     @FXML
     private TextField txtUsername;
-    @FXML
-    private TextField txtPassword;
+
     @FXML
     private TextField txtAnswer;
     @FXML
@@ -43,10 +43,9 @@ public class ForgetPasswordController implements Initializable {
     public void resetPassword(ActionEvent event) throws Exception {
 
         String userName = txtUsername.getText();
-        String password = txtPassword.getText();
         String question = (String) questionBox.getValue();
         String answer = txtAnswer.getText();
-        List<TextField> textFields = Arrays.asList(txtUsername, txtPassword, txtAnswer);
+        List<TextField> textFields = Arrays.asList(txtUsername, txtAnswer);
 
         // Check empty field
         Boolean txtFieldEmpty = false;
@@ -60,8 +59,10 @@ public class ForgetPasswordController implements Initializable {
         }
         if(!txtFieldEmpty){
             if(fpm.ResetPassword(userName, question, answer)){
+                Random rnd = new Random();
+                String password = rnd.nextInt(999999) + "";
                 fpm.updateCurrentEmp(dataModel.emp.getId(), password);
-                dataModel.showDialogBox("Reset Password!" , "Your password has been changed.");
+                dataModel.showDialogBox("Reset Password!" , "Your new password is " + password);
                 dataModel.closeScene(btnResetPassword);
                 dataModel.showScene("../ui/Login.fxml", "Login");
             } else {

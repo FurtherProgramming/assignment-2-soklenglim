@@ -23,25 +23,8 @@ public class SeatSelectionModel {
     }
 
 
-    public Boolean bookDesk(int seat_id, int emp_id, String date, String availability){
-        try {
-            Statement statement = connection.createStatement();
-            int status = statement.executeUpdate("insert into booking_desk (seat_id, emp_id, date, availability) values ('"+seat_id+"','"+emp_id+"','"+date+"','"+availability+"') ");
-            if (status > 0) {
-                System.out.println("Book completed");
-                return true;
-            } else {
-                System.out.println("Fail to book");
-                return false;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 
-
-    public ArrayList<Desk> initDesk(String date) throws SQLException  {
+    public ArrayList<Desk> checkDeskFromDesk(String date) throws SQLException  {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet=null;
         String query = "select * from desk where date = ?";

@@ -41,7 +41,8 @@ public class SeatSelectionController implements Initializable {
     private SeatSelectionModel ssm = new SeatSelectionModel();
     private DataModel dataModel = new DataModel();
     private int previousSelected;
-    private String strDate = "";
+    private String strDateFromDesk = "";
+    private String strDateFromBookingDesk = "";
 
 
 
@@ -57,10 +58,10 @@ public class SeatSelectionController implements Initializable {
                 LocalDate date = datePicker.getValue();
                 DateTimeFormatter dateFormatter =
                         DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                strDate = dateFormatter.format(date);
+                strDateFromDesk = dateFormatter.format(date);
                 try {
                     dataModel.desks.clear();
-                    ssm.initDesk(strDate);
+                    ssm.checkDeskFromDesk(strDateFromDesk);
                     previousSelected = 20;
                     displayAllSeat();
                     lbAction.setText("");
@@ -75,7 +76,6 @@ public class SeatSelectionController implements Initializable {
 
 
     private void displayAllSeat(){
-        final boolean[] colorChange = {true};
         for(int i=0; i < btns.length; i++){
             btns[i] = new Button();
             btns[i].setText("" +(i+1));
@@ -150,7 +150,8 @@ public class SeatSelectionController implements Initializable {
             btns[i].setPrefHeight(40);
 
             String status = setupDesk(dataModel.desks, i);
-            if(status.equals("unavailable")){
+
+            if(status.equals("unavailable") || status.equals("pending")){
                 btns[i].setStyle("-fx-background-color: red;");
             } else if (status.equals("lock")){
                 btns[i].setStyle("-fx-background-color: orange;");
@@ -164,7 +165,7 @@ public class SeatSelectionController implements Initializable {
                         int disable = 20;
                         for (int k = 0; k < btns.length; k++) {
                             String status = setupDesk(dataModel.desks, k);
-                            if(status.equals("unavailable") ){
+                            if(status.equals("unavailable") || status.equals("pending")){
                                 btns[k].setStyle("-fx-background-color: red;");
                                 disable = k;
                             } else if (status.equals("lock")){
@@ -200,11 +201,12 @@ public class SeatSelectionController implements Initializable {
     }
 
 
+
     public void book(ActionEvent event) throws Exception {
-        if(lbAction.getText().equals("") || strDate.equals("")){
+        if(lbAction.getText().equals("") || strDateFromDesk.equals("")){
             lbWarning.setText("Please select a seat and date");
         } else {
-            dataModel.desk.setDate(strDate);
+            dataModel.desk.setDate(strDateFromDesk);
             dataModel.desk.setSeatNum(Integer.parseInt(lbAction.getText()));
             dataModel.closeScene(btnBook);
             dataModel.showScene("../ui/BookingConfirm.fxml", "Confirmation");

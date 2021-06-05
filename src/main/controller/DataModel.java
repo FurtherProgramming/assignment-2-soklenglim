@@ -16,7 +16,7 @@ public class DataModel {
     public static Employee emp = new Employee();
     public static Desk desk = new Desk();
     public static ArrayList<Desk> desks = new ArrayList<>();
-    public static ArrayList<Employee> emps = new ArrayList<Employee>();
+    public static ArrayList<Employee> emps = new ArrayList<>();
 
     public void showScene(String resource, String title) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
