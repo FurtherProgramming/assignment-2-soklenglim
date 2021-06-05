@@ -1,15 +1,19 @@
 package main.object;
 
 public class Desk {
+    private int deskId;
     private String status;
     private String date;
     private int seatNum;
+    private String currentDate;
 
     public Desk(){}
-    public Desk(String status, String date, int seatNum){
+    public Desk(int deskId, String status, String date, int seatNum, String currentDate){
+        this.deskId = deskId;
         this.status = status;
         this.date = date;
         this.seatNum = seatNum;
+        this.currentDate = currentDate;
     }
 
 
@@ -34,6 +38,14 @@ public class Desk {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getDeskId() {
+        return deskId;
+    }
+
+    public String getCurrentDate() {
+        return currentDate;
     }
 }
 

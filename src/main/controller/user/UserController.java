@@ -47,7 +47,9 @@ public class UserController implements Initializable {
         dataModel.showScene("../ui/ManageAccount.fxml", "Manage Account");
     }
 
-    public void View(ActionEvent event) {
+    public void View(ActionEvent event) throws Exception {
+        dataModel.closeScene(btnUpdate);
+        dataModel.showScene("../ui/ViewBookingStatus.fxml", "View Booking");
     }
 
     public void Book(ActionEvent event) throws Exception {

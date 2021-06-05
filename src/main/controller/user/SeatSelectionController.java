@@ -61,7 +61,7 @@ public class SeatSelectionController implements Initializable {
                 strDateFromDesk = dateFormatter.format(date);
                 try {
                     dataModel.desks.clear();
-                    ssm.checkDeskFromDesk(strDateFromDesk);
+                    ssm.checkDesk(strDateFromDesk);
                     previousSelected = 20;
                     displayAllSeat();
                     lbAction.setText("");

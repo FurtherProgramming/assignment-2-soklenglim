@@ -24,7 +24,7 @@ public class SeatSelectionModel {
 
 
 
-    public ArrayList<Desk> checkDeskFromDesk(String date) throws SQLException  {
+    public ArrayList<Desk> checkDesk(String date) throws SQLException  {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet=null;
         String query = "select * from desk where date = ?";
@@ -33,12 +33,14 @@ public class SeatSelectionModel {
             preparedStatement.setString(1, date);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                DataModel.desk = new Desk(resultSet.getString("status"),
+                DataModel.desk = new Desk(resultSet.getInt("seat_id"),
+                        resultSet.getString("status"),
                         resultSet.getString("date"),
-                        resultSet.getInt("seat_num"));
+                        resultSet.getInt("seat_num"),
+                        resultSet.getString("current_date"));
                 DataModel.desks.add(DataModel.desk);
-
             }
+
         }
         catch (Exception e)
         {
