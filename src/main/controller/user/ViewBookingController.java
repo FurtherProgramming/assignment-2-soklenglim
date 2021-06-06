@@ -29,20 +29,11 @@ public class ViewBookingController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            if(vbm.ViewBooking(dataModel.emp.getUserName()).equals("")){
-                lbDate.setText(dataModel.desk.getDate());
-                lbSeat.setText(dataModel.desk.getSeatNum()+"");
-            } else {
-                dataModel.showDialogBox("View Booking", "You don't have any booking yet!");
-                dataModel.closeScene(btnBack);
-                dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
-            }
+            lbDate.setText(vbm.ViewBooking(dataModel.emp.getUserName()).getDate());
+            lbSeat.setText(vbm.ViewBooking(dataModel.emp.getUserName()).getSeatNum()+"");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
     }
 
     public void back(ActionEvent event) throws Exception {
@@ -50,8 +41,10 @@ public class ViewBookingController implements Initializable {
         dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
     }
 
-    public void CancelBooking(ActionEvent event) {
+    public void CancelBooking(ActionEvent event) throws Exception {
         vbm.CancelBooking(dataModel.emp.getUserName());
         dataModel.showDialogBox("View Booking", "Your booking has been canceled!");
+        dataModel.closeScene(btnCancelBooking);
+        dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
     }
 }

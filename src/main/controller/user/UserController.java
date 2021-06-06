@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import main.Main;
 import main.controller.DataModel;
+import main.model.user.ViewBookingModel;
 import main.object.Employee;
 
 import java.net.URL;
@@ -28,6 +29,7 @@ public class UserController implements Initializable {
     private Button btnBook;
 
     private DataModel dataModel = new DataModel();
+    private ViewBookingModel vbm = new ViewBookingModel();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -48,13 +50,19 @@ public class UserController implements Initializable {
     }
 
     public void View(ActionEvent event) throws Exception {
-        dataModel.closeScene(btnUpdate);
-        dataModel.showScene("../ui/ViewBookingStatus.fxml", "View Booking");
+        if(vbm.ViewBooking(dataModel.emp.getUserName()).getDate() != null){
+            dataModel.closeScene(btnView);
+            dataModel.showScene("../ui/ViewBookingStatus.fxml", "View Booking");
+        } else {
+            dataModel.showDialogBox("View Booking", "You don't have any booking yet!");
+        }
+
     }
 
     public void Book(ActionEvent event) throws Exception {
-        dataModel.closeScene(btnBook);
-        dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
+
+            dataModel.closeScene(btnBook);
+            dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
     }
 
 

@@ -51,7 +51,7 @@ public class AdminController implements Initializable {
 
     public void releaseBooking(ActionEvent event) throws Exception {
         dataModel.closeScene(btnReleaseBooking);
-        dataModel.showScene("../ui/Login.fxml", "Login");
+        dataModel.showScene("../ui/AdminReleaseBooking.fxml", "Release Booking");
     }
 
     public void management(ActionEvent event) throws Exception {

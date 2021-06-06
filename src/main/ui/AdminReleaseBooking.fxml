@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.admin.ReleaseBookingController">
+    <children>
+        <Label fx:id="lbAdmin" alignment="CENTER" layoutX="192.0" layoutY="32.0" prefHeight="50.0" prefWidth="100.0" text="All Users Account" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="30.0">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+      <Button fx:id="btnAddUser" layoutX="250.0" layoutY="500.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Add User" textFill="WHITE" />
+      <Button fx:id="btnAdminBack" layoutX="400.0" layoutY="500.0" mnemonicParsing="false" onAction="#back" prefHeight="30.0" prefWidth="75.0" text="Back" textFill="WHITE" />
+
+    </children>
+</AnchorPane>

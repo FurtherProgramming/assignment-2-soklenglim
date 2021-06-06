@@ -23,11 +23,11 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lbSeat" alignment="CENTER" layoutX="200.0" layoutY="140.0" prefHeight="21.0" prefWidth="100.0" text="seat">
+      <Label fx:id="lbSeat" alignment="CENTER" layoutX="200.0" layoutY="140.0" prefHeight="21.0" prefWidth="100.0">
          <font>
             <Font size="15.0" />
          </font></Label>
-      <Label fx:id="lbDate" alignment="CENTER" layoutX="200.0" layoutY="90.0" prefHeight="21.0" prefWidth="100.0" text="date">
+      <Label fx:id="lbDate" alignment="CENTER" layoutX="200.0" layoutY="90.0" prefHeight="21.0" prefWidth="100.0">
          <font>
             <Font size="15.0" />
          </font></Label>

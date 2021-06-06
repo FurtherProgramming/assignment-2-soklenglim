@@ -15,14 +15,14 @@ import javafx.util.Callback;
 import main.controller.DataModel;
 import main.controller.EditUserController;
 import main.controller.RegisterController;
-import main.model.admin.AdminManagementModel;
+import main.model.admin.ManageAccountModel;
 import main.object.Employee;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AdminManagementController implements Initializable {
-    private AdminManagementModel amm = new AdminManagementModel();
+public class ManageAccountController implements Initializable {
+    private ManageAccountModel amm = new ManageAccountModel();
     private DataModel dataModel = new DataModel();
     private EditUserController maec = new EditUserController();
     private RegisterController rc = new RegisterController();

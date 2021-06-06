@@ -14,20 +14,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class AdminManagementModel implements Initializable {
+public class ManageAccountModel{
     Connection connection;
 
 
-    public AdminManagementModel(){
-
+    public ManageAccountModel(){
         connection = SQLConnection.connect();
         if (connection == null)
             System.exit(1);
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     public ArrayList<Employee> displayAllUsers(){
@@ -50,19 +44,14 @@ public class AdminManagementModel implements Initializable {
                         resultSet.getBoolean("admin"));
                 DataModel.emps.add(emp);
             }
-
             return DataModel.emps;
-
         } catch (SQLException e) {
             e.printStackTrace();
             return DataModel.emps;
         }
-
-
     }
 
     public Boolean deleteEmp(String username){
-        connection = SQLConnection.connect();
         try {
             Statement statement = connection.createStatement();
             int status = statement.executeUpdate("DELETE FROM Employee WHERE username = '"+ username +"';");

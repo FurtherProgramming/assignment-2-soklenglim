@@ -37,6 +37,7 @@ public class SeatSelectionModel {
                         resultSet.getString("status"),
                         resultSet.getString("date"),
                         resultSet.getInt("seat_num"),
+                        resultSet.getString("emp_username"),
                         resultSet.getString("current_date"));
                 DataModel.desks.add(DataModel.desk);
             }

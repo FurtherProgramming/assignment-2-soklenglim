@@ -5,7 +5,6 @@ import main.controller.DataModel;
 import main.object.Desk;
 import main.object.Employee;
 
-import javax.xml.crypto.Data;
 import java.sql.*;
 
 public class ViewBookingModel {
@@ -21,25 +20,28 @@ public class ViewBookingModel {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         String query = "select * from desk where emp_username = ? and status = 'pending'";
+        Desk desk = new Desk();
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                DataModel.desk = new Desk(resultSet.getInt("seat_id"),
+                desk = new Desk(resultSet.getInt("seat_id"),
                         resultSet.getString("status"),
                         resultSet.getString("date"),
                         resultSet.getInt("seat_num"),
+                        resultSet.getString("emp_username"),
                         resultSet.getString("current_date"));
             }
 
+
         } catch (Exception e) {
-            return DataModel.desk;
+            return desk;
         } finally {
             preparedStatement.close();
             resultSet.close();
         }
-        return DataModel.desk;
+        return desk;
     }
 
     public Boolean CancelBooking(String username) {
@@ -57,5 +59,6 @@ public class ViewBookingModel {
             return false;
         }
     }
+
 
 }

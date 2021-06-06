@@ -6,13 +6,15 @@ public class Desk {
     private String date;
     private int seatNum;
     private String currentDate;
+    private String empUsername;
 
     public Desk(){}
-    public Desk(int deskId, String status, String date, int seatNum, String currentDate){
+    public Desk(int deskId, String status, String date, int seatNum, String empUsername, String currentDate){
         this.deskId = deskId;
         this.status = status;
         this.date = date;
         this.seatNum = seatNum;
+        this.empUsername = empUsername;
         this.currentDate = currentDate;
     }
 
@@ -46,6 +48,10 @@ public class Desk {
 
     public String getCurrentDate() {
         return currentDate;
+    }
+
+    public String getEmpUsername() {
+        return empUsername;
     }
 }
 
