@@ -111,14 +111,11 @@ public class ReleaseBookingController implements Initializable {
     }
     private void addButtonReject() {
         TableColumn<Desk, Void> colBtnReject = new TableColumn("");
-
         Callback<TableColumn<Desk, Void>, TableCell<Desk, Void>> cellFactory = new Callback<TableColumn<Desk, Void>, TableCell<Desk, Void>>() {
             @Override
             public TableCell<Desk, Void> call(final TableColumn<Desk, Void> param) {
                 final TableCell<Desk, Void> cell = new TableCell<Desk, Void>() {
-
                     private final Button btn = new Button("Reject");
-
                     {
                         btn.setId("btnSignOut");
                         btn.setTextFill(Color.WHITE);
@@ -152,7 +149,6 @@ public class ReleaseBookingController implements Initializable {
                 return cell;
             }
         };
-
         colBtnReject.setCellFactory(cellFactory);
         table.getColumns().add(colBtnReject);
     }

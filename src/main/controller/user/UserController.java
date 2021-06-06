@@ -60,9 +60,12 @@ public class UserController implements Initializable {
     }
 
     public void Book(ActionEvent event) throws Exception {
-
+        if(vbm.ViewBooking(dataModel.emp.getUserName()).getDate() == null) {
             dataModel.closeScene(btnBook);
             dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
+        } else {
+            dataModel.showDialogBox("Seat Selection", "You already book a seat!");
+        }
     }
 
 

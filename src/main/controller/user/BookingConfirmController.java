@@ -39,7 +39,6 @@ public class BookingConfirmController implements Initializable {
         dataModel.desk.setStatus("pending");
         if(bcm.addBookingDesk(dataModel.emp.getUserName(), dataModel.desk.getStatus(), dataModel.desk.getDate(), dataModel.desk.getSeatNum())){
             dataModel.showDialogBox("Booking Completed!", "Your Booking on desk has been completed!");
-
         } else {
             dataModel.showDialogBox("Booking Failed!", "Please try again!");
         }
