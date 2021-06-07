@@ -74,7 +74,7 @@ public class SeatSelectionModel {
     // Date convert to dd-mm-yyyy in case on some machine date system is different
     public StringConverter<LocalDate> converter = new StringConverter<LocalDate>() {
         DateTimeFormatter dateFormatter =
-                DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                DateTimeFormatter.ofPattern("dd/MM/yyyy");
         @Override
         public String toString(LocalDate date) {
             if (date != null) {

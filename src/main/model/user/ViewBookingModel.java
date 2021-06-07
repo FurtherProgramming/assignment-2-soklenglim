@@ -1,11 +1,14 @@
 package main.model.user;
 
 import main.SQLConnection;
-import main.controller.DataModel;
 import main.object.Desk;
-import main.object.Employee;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ViewBookingModel {
     Connection connection;
@@ -16,11 +19,12 @@ public class ViewBookingModel {
             System.exit(1);
     }
 
-    public Desk ViewBooking(String username) throws SQLException {
+    public ArrayList<Desk> ViewBooking(String username) throws SQLException {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String query = "select * from desk where emp_username = ? and status = 'pending'";
+        String query = "select * from desk where emp_username = ? ";
         Desk desk = new Desk();
+        ArrayList<Desk> desks = new ArrayList<Desk>();
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
@@ -32,22 +36,39 @@ public class ViewBookingModel {
                         resultSet.getInt("seat_num"),
                         resultSet.getString("emp_username"),
                         resultSet.getString("current_date"));
+                desks.add(desk);
             }
 
 
         } catch (Exception e) {
-            return desk;
+            return desks;
         } finally {
             preparedStatement.close();
             resultSet.close();
         }
-        return desk;
+        return desks;
     }
 
-    public Boolean CancelBooking(String username) {
+    public Boolean CancelBooking(int deskId) {
         try {
             Statement statement = connection.createStatement();
-            String query = "update desk SET status = 'cancel' WHERE emp_username = '" + username + "'";
+            String query = "update desk SET status = 'cancel' WHERE seat_id = '" + deskId + "'";
+            int status = statement.executeUpdate(query);
+            if (status > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Boolean CheckIn(int deskId) {
+        try {
+            Statement statement = connection.createStatement();
+            String query = "update desk SET status = 'check in' WHERE emp_username = '" + deskId + "'";
             int status = statement.executeUpdate(query);
             if (status > 0) {
                 return true;

@@ -22,6 +22,8 @@ public class BookingConfirmController implements Initializable {
     private Button btnBack;
     private DataModel dataModel = new DataModel();
     private BookingConfirmModel bcm = new BookingConfirmModel();
+    public static boolean editBooking = false;
+    public static int deskId;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -37,12 +39,22 @@ public class BookingConfirmController implements Initializable {
 
     public void book(ActionEvent event) throws Exception {
         dataModel.desk.setStatus("pending");
-        if(bcm.addBookingDesk(dataModel.emp.getUserName(), dataModel.desk.getStatus(), dataModel.desk.getDate(), dataModel.desk.getSeatNum())){
-            dataModel.showDialogBox("Booking Completed!", "Your Booking on desk has been completed!");
+        if(editBooking == false) {
+            if (bcm.addBookingDesk(dataModel.emp.getUserName(), dataModel.desk.getStatus(), dataModel.desk.getDate(), dataModel.desk.getSeatNum())) {
+                dataModel.showDialogBox("Booking Completed!", "Your Booking on desk has been completed!");
+                dataModel.closeScene(btnBook);
+                dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
+            } else {
+                dataModel.showDialogBox("Booking Failed!", "Please try again!");
+            }
         } else {
-            dataModel.showDialogBox("Booking Failed!", "Please try again!");
+            if(bcm.updateBooking(deskId, dataModel.desk.getSeatNum(), dataModel.desk.getDate())){
+                dataModel.showDialogBox("Seat Modified!", "Your booking has been updated!");
+                dataModel.closeScene(btnBook);
+                dataModel.showScene("../ui/ViewBookingStatus.fxml", "View Booking");
+                editBooking = false;
+            }
         }
-        dataModel.closeScene(btnBook);
-        dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
+
     }
 }

@@ -1,6 +1,8 @@
 package main.model.user;
 
 import main.SQLConnection;
+import main.controller.DataModel;
+import main.object.Employee;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -25,6 +27,22 @@ public class BookingConfirmModel  {
             Statement statement = connection.createStatement();
             int query = statement.executeUpdate("insert into desk (emp_username, status, date, seat_num, current_date) values ('"+empUsername+"','"+ status +"','"+date+"','"+seatNum+"','"+dtf.format(now)+"') ");
             if (query > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateBooking(int seatId, int seatNum, String date){
+        try {
+            Statement statement = connection.createStatement();
+            String query = "update desk SET seat_num = '" + seatNum + "', date = '" + date + "' WHERE seat_id = '" + seatId + "'";
+            int status = statement.executeUpdate(query);
+            if (status > 0) {
                 return true;
             } else {
                 return false;

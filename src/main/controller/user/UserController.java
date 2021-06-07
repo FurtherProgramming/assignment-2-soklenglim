@@ -9,10 +9,14 @@ import javafx.scene.control.Label;
 import main.Main;
 import main.controller.DataModel;
 import main.model.user.ViewBookingModel;
+import main.object.Desk;
 import main.object.Employee;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 
 public class UserController implements Initializable {
@@ -50,7 +54,7 @@ public class UserController implements Initializable {
     }
 
     public void View(ActionEvent event) throws Exception {
-        if(vbm.ViewBooking(dataModel.emp.getUserName()).getDate() != null){
+        if(!checkStatus(vbm.ViewBooking(dataModel.emp.getUserName()))){
             dataModel.closeScene(btnView);
             dataModel.showScene("../ui/ViewBookingStatus.fxml", "View Booking");
         } else {
@@ -60,12 +64,20 @@ public class UserController implements Initializable {
     }
 
     public void Book(ActionEvent event) throws Exception {
-        if(vbm.ViewBooking(dataModel.emp.getUserName()).getDate() == null) {
+        if(checkStatus(vbm.ViewBooking(dataModel.emp.getUserName()))) {
             dataModel.closeScene(btnBook);
             dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
         } else {
             dataModel.showDialogBox("Seat Selection", "You already book a seat!");
         }
+    }
+
+    private Boolean checkStatus(ArrayList<Desk> desks){
+        List<Desk> desk = desks.stream().filter(d -> d.getStatus().equals("pending")).collect(Collectors.toList());
+        if(desk.size() == 0)
+            return true;
+        else
+            return false;
     }
 
 

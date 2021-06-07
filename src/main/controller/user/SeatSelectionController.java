@@ -57,7 +57,7 @@ public class SeatSelectionController implements Initializable {
             public void handle(ActionEvent event) {
                 LocalDate date = datePicker.getValue();
                 DateTimeFormatter dateFormatter =
-                        DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 strDateFromDesk = dateFormatter.format(date);
                 try {
                     dataModel.desks.clear();

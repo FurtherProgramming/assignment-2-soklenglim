@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ReleaseBookingModel {
     Connection connection;
@@ -35,6 +37,21 @@ public class ReleaseBookingModel {
                         resultSet.getInt("seat_num"),
                         resultSet.getString("emp_username"),
                         resultSet.getString("current_date"));
+                if(desk.getStatus().equals("pending")){
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    try {
+                        Date bookingDate = dateFormat.parse(desk.getDate());
+                        Date currentTime = new Date(System.currentTimeMillis());
+                        Date now = dateFormat.parse(dateFormat.format(currentTime));
+                        long diff = bookingDate.getTime() - now.getTime();
+                        long diffDays = diff / (24 * 60 * 60 * 1000);
+                        if(diffDays <= 0){
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 DataModel.desks.add(desk);
             }
             return DataModel.desks;
