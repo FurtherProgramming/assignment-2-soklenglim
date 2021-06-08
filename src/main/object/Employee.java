@@ -5,7 +5,7 @@ public class Employee {
     private String userName, firstName, lastName, role, secretQ, secretA, password;
     private Boolean admin;
 
-    public Employee (int id, String userName, String firstName, String lastName, String role, String secretQ, String secretA, String password, Boolean admin) {
+    public Employee(int id, String userName, String firstName, String lastName, String role, String secretQ, String secretA, String password, Boolean admin) {
         this.id = id;
         this.userName = userName;
         this.role = role;

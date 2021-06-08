@@ -30,7 +30,7 @@ public class DataModel {
         stage.show();
     }
 
-    public void closeScene(Button btn){
+    public void closeScene(Button btn) {
         Stage stage = (Stage) btn.getScene().getWindow();
         stage.close();
     }
@@ -44,13 +44,13 @@ public class DataModel {
         questionBox.getItems().add("Where are you from?");
     }
 
-    public void displayAlertDialogBox(){
+    public void displayAlertDialogBox() {
         Alert alert = new Alert(Alert.AlertType.ERROR, "ERROR", ButtonType.OK);
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.show();
     }
 
-    public static void showDialogBox(String title, String content){
+    public static void showDialogBox(String title, String content) {
         //Creating a dialog
         Dialog<String> dialog = new Dialog<String>();
         //Setting the title

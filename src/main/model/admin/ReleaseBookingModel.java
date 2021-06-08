@@ -15,28 +15,28 @@ import java.util.Date;
 public class ReleaseBookingModel {
     Connection connection;
 
-    public ReleaseBookingModel(){
+    public ReleaseBookingModel() {
         connection = SQLConnection.connect();
         if (connection == null)
             System.exit(1);
     }
 
-    public ArrayList<Desk> displayAllDesk(){
+    public ArrayList<Desk> displayAllDesk() {
+        Desk desk;
+        ArrayList<Desk> desks = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
             String query = "select * from desk where status = 'pending'";
             ResultSet resultSet;
             resultSet = statement.executeQuery(query);
-            Desk desk;
-            DataModel.desks.clear();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 desk = new Desk(resultSet.getInt("seat_id"),
                         resultSet.getString("status"),
                         resultSet.getString("date"),
                         resultSet.getInt("seat_num"),
                         resultSet.getString("emp_username"),
                         resultSet.getString("current_date"));
-                if(desk.getStatus().equals("pending")){
+                if (desk.getStatus().equals("pending")) {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                     try {
                         Date bookingDate = dateFormat.parse(desk.getDate());
@@ -44,21 +44,23 @@ public class ReleaseBookingModel {
                         Date now = dateFormat.parse(dateFormat.format(currentTime));
                         long diff = bookingDate.getTime() - now.getTime();
                         long diffDays = diff / (24 * 60 * 60 * 1000);
-                        if(diffDays <= 0){
+                        if (diffDays <= 0) {
                             String queryCancel = "update desk SET status = 'cancel' WHERE seat_id = '" + desk.getDeskId() + "' and status = 'pending'";
                             statement.executeUpdate(queryCancel);
                             desk.setStatus("cancel");
+                            desks.add(desk);
+                        } else {
+                            desks.add(desk);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                DataModel.desks.add(desk);
             }
-            return DataModel.desks;
+            return desks;
         } catch (SQLException e) {
             e.printStackTrace();
-            return DataModel.desks;
+            return desks;
         }
     }
 
@@ -77,6 +79,7 @@ public class ReleaseBookingModel {
             return false;
         }
     }
+
     public Boolean ApproveBooking(String username) {
         try {
             Statement statement = connection.createStatement();

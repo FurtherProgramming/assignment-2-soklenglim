@@ -15,25 +15,24 @@ public class LoginModel {
     Connection connection;
 
 
-    public LoginModel(){
+    public LoginModel() {
 
         connection = SQLConnection.connect();
         if (connection == null)
             System.exit(1);
     }
 
-    public Boolean isDbConnected(){
+    public Boolean isDbConnected() {
         try {
             return !connection.isClosed();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
     public Employee isLogin(String user, String pass) throws SQLException {
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet=null;
+        ResultSet resultSet = null;
         String query = "select * from employee where username = ? and password= ?";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -53,19 +52,16 @@ public class LoginModel {
                         resultSet.getBoolean("admin"));
                 Main.isLogin = true;
                 return DataModel.emp;
-            }
-            else{
+            } else {
                 DataModel.emp = new Employee();
                 Main.isLogin = false;
                 return DataModel.emp;
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             DataModel.emp = new Employee();
             Main.isLogin = false;
             return DataModel.emp;
-        }finally {
+        } finally {
             preparedStatement.close();
             resultSet.close();
         }

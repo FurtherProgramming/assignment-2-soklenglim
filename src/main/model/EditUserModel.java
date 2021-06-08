@@ -10,7 +10,7 @@ import java.sql.*;
 public class EditUserModel {
     Connection connection;
 
-    public EditUserModel(){
+    public EditUserModel() {
 
         connection = SQLConnection.connect();
         if (connection == null)
@@ -21,10 +21,10 @@ public class EditUserModel {
     public Boolean updateCurrentEmp(int empId, String firstName, String lastName, String role, String userName, String password, String secretQuestion, String answer, int admin) throws SQLException {
         try {
             Statement statement = connection.createStatement();
-            String query = "update Employee SET firstName = '" + firstName + "', lastName = '" + lastName + "', role = '" + role + "', username = '" + userName + "', password = '" + password + "', secretQuestion = '" + secretQuestion + "', answerQuestion = '" + answer +"', admin = '" + admin + "' WHERE emp_id = '" + empId + "'";
+            String query = "update Employee SET firstName = '" + firstName + "', lastName = '" + lastName + "', role = '" + role + "', username = '" + userName + "', password = '" + password + "', secretQuestion = '" + secretQuestion + "', answerQuestion = '" + answer + "', admin = '" + admin + "' WHERE emp_id = '" + empId + "'";
             int status = statement.executeUpdate(query);
             if (status > 0) {
-                DataModel.emp = new Employee(DataModel.emp.getId(),userName, firstName, lastName, role, secretQuestion,answer, password, false);
+                DataModel.emp = new Employee(DataModel.emp.getId(), userName, firstName, lastName, role, secretQuestion, answer, password, false);
                 return true;
             } else {
                 return false;
@@ -34,8 +34,6 @@ public class EditUserModel {
             return false;
         }
     }
-
-
 
 
 }

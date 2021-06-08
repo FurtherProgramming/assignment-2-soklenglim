@@ -46,7 +46,7 @@ public class ManageAccountController implements Initializable {
     }
 
 
-    private void createTable(){
+    private void createTable() {
         TableColumn<String, Employee> columnFirstName = new TableColumn<>("First Name");
         TableColumn<String, Employee> columnLastName = new TableColumn<>("Last Name");
         TableColumn<Integer, Employee> columnId = new TableColumn<>("Emp ID");
@@ -69,10 +69,9 @@ public class ManageAccountController implements Initializable {
         columnAnswer.setCellValueFactory(new PropertyValueFactory<>("secretA"));
 
 
+        table.getColumns().addAll(columnId, columnFirstName, columnLastName, columnRole, columnUsername, columnPassword, columnQuestion, columnAnswer, columnAdmin);
 
-        table.getColumns().addAll(columnId,columnFirstName,columnLastName,columnRole,columnUsername,columnPassword,columnQuestion,columnAnswer,columnAdmin);
-
-        for(Employee emp : dataModel.emps){
+        for (Employee emp : dataModel.emps) {
             table.getItems().add(emp);
         }
 
@@ -83,6 +82,7 @@ public class ManageAccountController implements Initializable {
 
         anchorPane.getChildren().add(table);
     }
+
     private void addButtonDelete() {
         TableColumn<Employee, Void> colBtnDelete = new TableColumn("");
 
@@ -98,7 +98,7 @@ public class ManageAccountController implements Initializable {
                         btn.setTextFill(Color.WHITE);
                         btn.setOnAction((ActionEvent event) -> {
                             Employee emp = getTableView().getItems().get(getIndex());
-                            if(amm.deleteEmp(emp.getUserName())) {
+                            if (amm.deleteEmp(emp.getUserName())) {
                                 dataModel.showDialogBox("User Deleted!", emp.getUserName() + " has been deleted!");
                                 dataModel.emps.removeIf(t -> t.getUserName() == emp.getUserName());
                             } else {
@@ -107,7 +107,7 @@ public class ManageAccountController implements Initializable {
 
                             table.getItems().clear();
 
-                            for(Employee emps : dataModel.emps){
+                            for (Employee emps : dataModel.emps) {
                                 table.getItems().add(emps);
                             }
 
@@ -131,6 +131,7 @@ public class ManageAccountController implements Initializable {
         colBtnDelete.setCellFactory(cellFactory);
         table.getColumns().add(colBtnDelete);
     }
+
     private void addButtonEdit() {
         TableColumn<Employee, Void> colBtnEdit = new TableColumn("");
 
@@ -140,6 +141,7 @@ public class ManageAccountController implements Initializable {
                 final TableCell<Employee, Void> cell = new TableCell<Employee, Void>() {
 
                     private final Button btnEdit = new Button("Edit");
+
                     {
                         btnEdit.setId("btnEdit");
                         btnEdit.setTextFill(Color.WHITE);
@@ -163,7 +165,7 @@ public class ManageAccountController implements Initializable {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            setGraphic(btnEdit );
+                            setGraphic(btnEdit);
                         }
                     }
                 };

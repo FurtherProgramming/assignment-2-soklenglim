@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.scene.paint.Color;
 import main.model.LoginModel;
+
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -32,24 +33,25 @@ public class LoginController implements Initializable {
 
     // Check database connection
     @Override
-    public void initialize(URL location, ResourceBundle resources){
-        if (loginModel.isDbConnected()){
+    public void initialize(URL location, ResourceBundle resources) {
+        if (loginModel.isDbConnected()) {
             isConnected.setText("Connected");
             isConnected.setTextFill(Color.BLUE);
-        }else{
+        } else {
             isConnected.setText("Not Connected");
         }
     }
+
     /* login Action method
        check if user input is the same as database.
      */
     public void Login(ActionEvent event) throws Exception {
         try {
-            dataModel.emp = loginModel.isLogin(txtUsername.getText(),txtPassword.getText());
-            if (dataModel.emp.getUserName() != null && dataModel.emp.getRole() != null){
+            dataModel.emp = loginModel.isLogin(txtUsername.getText(), txtPassword.getText());
+            if (dataModel.emp.getUserName() != null && dataModel.emp.getRole() != null) {
                 // Login Successful
                 isConnected.setText("Logged in successfully");
-                if (dataModel.emp.getAdmin()==true) {
+                if (dataModel.emp.getAdmin() == true) {
                     dataModel.closeScene(btnLogin);
                     dataModel.showScene("../ui/AdminProfile.fxml", "Admin Profile");
 
@@ -57,9 +59,9 @@ public class LoginController implements Initializable {
                     dataModel.closeScene(btnLogin);
                     dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
                 }
-            }else if(txtUsername.getText().equals("") || txtPassword.getText().equals("")) {
+            } else if (txtUsername.getText().equals("") || txtPassword.getText().equals("")) {
                 dataModel.showDialogBox("Login Error", "Please input username and password");
-            }else{
+            } else {
                 dataModel.showDialogBox("Login Error", "Username and password is incorrect");
             }
         } catch (SQLException | NullPointerException e) {

@@ -93,7 +93,7 @@ public class ViewBookingController implements Initializable {
                                 Date now = dateFormat.parse(dateFormat.format(currentTime));
                                 long diff = now.getTime() - bookingDate.getTime();
                                 long diffHours = diff / (60 * 60 * 1000);
-                                if(diffHours > 48){
+                                if (diffHours > 48) {
                                     dataModel.showDialogBox("View Booking", "You cannot change booking after 48h!");
                                 } else {
                                     if(desk.getStatus().equals("pending")) {

@@ -16,6 +16,7 @@ public class ConfirmSeatController implements Initializable {
     private ConfirmSeatModel bcm = new ConfirmSeatModel();
     public static boolean editBooking = false;
     public static int deskId;
+    public static boolean isAdmin = false;
 
     // FXML variables
     @FXML
@@ -23,7 +24,11 @@ public class ConfirmSeatController implements Initializable {
     @FXML
     public Label lbDate;
     @FXML
-    public Button btnBook;
+    public Label date;
+    @FXML
+    public Label seat;
+    @FXML
+    public Button btnConfirm;
     @FXML
     private Button btnBack;
 
@@ -31,39 +36,71 @@ public class ConfirmSeatController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         lbDate.setText(dataModel.desk.getDate());
-        lbSeat.setText(dataModel.desk.getSeatNum()+"");
-    }
-    public void back(ActionEvent event) throws Exception {
-        dataModel.desk.setDate("");
-        dataModel.desk.setSeatNum(0);
-        if(editBooking == false) {
-            dataModel.closeScene(btnBack);
-            dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
-        } else {
-            dataModel.closeScene(btnBook);
-            dataModel.showScene("../ui/ViewBookingStatus.fxml", "View Booking");
-            editBooking = false;
+        lbSeat.setText(dataModel.desk.getSeatNum() + "");
+        if (isAdmin == true) {
+            date.setText("Date");
+            seat.setText("Seat");
         }
     }
 
-    public void book(ActionEvent event) throws Exception {
-        dataModel.desk.setStatus("pending");
-        if(editBooking == false) {
-            if (bcm.addBookingDesk(dataModel.emp.getUserName(), dataModel.desk.getStatus(), dataModel.desk.getDate(), dataModel.desk.getSeatNum())) {
-                dataModel.showDialogBox("Booking Completed!", "Your Booking on desk has been completed!");
-                dataModel.closeScene(btnBook);
-                dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
+    public void back(ActionEvent event) throws Exception {
+        if (!isAdmin) {
+            if (editBooking == false) {
+                dataModel.closeScene(btnBack);
+                dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
             } else {
-                dataModel.showDialogBox("Booking Failed!", "Please try again!");
-            }
-        } else {
-            if(bcm.updateBooking(deskId, dataModel.desk.getSeatNum(), dataModel.desk.getDate())){
-                dataModel.showDialogBox("Seat Modified!", "Your booking has been updated!");
-                dataModel.closeScene(btnBook);
+                dataModel.closeScene(btnConfirm);
                 dataModel.showScene("../ui/ViewBookingStatus.fxml", "View Booking");
                 editBooking = false;
             }
+        } else {
+            dataModel.closeScene(btnBack);
+            dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
         }
+
+    }
+
+    public void confirm(ActionEvent event) throws Exception {
+
+        if (!isAdmin) {
+            dataModel.desk.setStatus("pending");
+            if (editBooking == false) {
+                if (bcm.addBookingDesk(dataModel.emp.getUserName(), dataModel.desk.getStatus(), dataModel.desk.getDate(), dataModel.desk.getSeatNum())) {
+                    dataModel.showDialogBox("Booking Completed!", "Your Booking on desk has been completed!");
+                    dataModel.closeScene(btnConfirm);
+                    dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
+                } else {
+                    dataModel.showDialogBox("Booking Failed!", "Please try again!");
+                }
+            } else {
+                if (bcm.updateBooking(deskId, dataModel.desk.getSeatNum(), dataModel.desk.getDate())) {
+                    dataModel.showDialogBox("Seat Modified!", "Your booking has been updated!");
+                    dataModel.closeScene(btnConfirm);
+                    dataModel.showScene("../ui/ViewBookingStatus.fxml", "View Booking");
+                    editBooking = false;
+                }
+            }
+        } else {
+            if (dataModel.desk.getStatus().equals("available")) {
+                dataModel.desk.setStatus("lock");
+                if (bcm.lockSeat(dataModel.desk.getStatus(), dataModel.desk.getDate(), dataModel.desk.getSeatNum())) {
+                    dataModel.showDialogBox("Lock Completed!", "Seat has been locked!");
+                    dataModel.closeScene(btnConfirm);
+                    dataModel.showScene("../ui/AdminProfile.fxml", "Admin Profile");
+                } else {
+                    dataModel.showDialogBox("Lock Failed!", "Please try again!");
+                }
+            } else if (dataModel.desk.getStatus().equals("lock")) {
+                if (bcm.unlockSeat(dataModel.desk.getDate(), dataModel.desk.getSeatNum())) {
+                    dataModel.showDialogBox("Unlock Completed!", "Seat has been unlocked!");
+                    dataModel.closeScene(btnConfirm);
+                    dataModel.showScene("../ui/AdminProfile.fxml", "Admin Profile");
+                } else {
+                    dataModel.showDialogBox("Unlock Failed!", "Please try again!");
+                }
+            }
+        }
+
 
     }
 }

@@ -9,7 +9,7 @@ import java.sql.*;
 public class ForgetPasswordModel {
     Connection connection;
 
-    public ForgetPasswordModel(){
+    public ForgetPasswordModel() {
         connection = SQLConnection.connect();
         if (connection == null)
             System.exit(1);
@@ -19,8 +19,8 @@ public class ForgetPasswordModel {
     public Boolean ResetPassword(String userName, String question, String answer) throws SQLException {
         connection = SQLConnection.connect();
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet=null;
-        String query = "SELECT * FROM Employee WHERE username = '" + userName + "' AND secretQuestion = '"+ question +"' AND answerQuestion = '"+answer+"'";
+        ResultSet resultSet = null;
+        String query = "SELECT * FROM Employee WHERE username = '" + userName + "' AND secretQuestion = '" + question + "' AND answerQuestion = '" + answer + "'";
         try {
             preparedStatement = connection.prepareStatement(query);
 
@@ -37,22 +37,20 @@ public class ForgetPasswordModel {
                         resultSet.getBoolean("admin"));
 
                 return true;
-            }
-            else{
+            } else {
                 DataModel.emp = new Employee();
                 return false;
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             DataModel.emp = new Employee();
             return false;
-        }finally {
+        } finally {
             preparedStatement.close();
             resultSet.close();
         }
 
     }
+
     public Boolean updateCurrentEmp(int empId, String password) throws SQLException {
         try {
             Statement statement = connection.createStatement();

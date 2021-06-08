@@ -57,16 +57,16 @@ public class ForgetPasswordController implements Initializable {
                 txtFieldEmpty = true;
             }
         }
-        if(!txtFieldEmpty){
-            if(fpm.ResetPassword(userName, question, answer)){
+        if (!txtFieldEmpty) {
+            if (fpm.ResetPassword(userName, question, answer)) {
                 Random rnd = new Random();
                 String password = rnd.nextInt(999999) + "";
                 fpm.updateCurrentEmp(dataModel.emp.getId(), password);
-                dataModel.showDialogBox("Reset Password!" , "Your new password is " + password);
+                dataModel.showDialogBox("Reset Password!", "Your new password is " + password);
                 dataModel.closeScene(btnResetPassword);
                 dataModel.showScene("../ui/Login.fxml", "Login");
             } else {
-                dataModel.showDialogBox("Reset Password!" , "Please input the right information.");
+                dataModel.showDialogBox("Reset Password!", "Please input the right information.");
             }
 
         }

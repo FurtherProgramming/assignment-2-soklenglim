@@ -1,4 +1,5 @@
 package main.model.user;
+
 import main.SQLConnection;
 
 import java.sql.*;
@@ -11,8 +12,6 @@ public class UserModel {
         if (connection == null)
             System.exit(1);
     }
-
-
 
 
 }

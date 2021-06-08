@@ -14,6 +14,7 @@ import main.model.user.ViewAccountModel;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
 public class ViewAccountController implements Initializable {
 
     private ViewAccountModel mam = new ViewAccountModel();
@@ -43,14 +44,13 @@ public class ViewAccountController implements Initializable {
 
     // Check database connection
     @Override
-    public void initialize(URL location, ResourceBundle resources){
+    public void initialize(URL location, ResourceBundle resources) {
         try {
             displayCurrentEmp();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
-
 
 
     public void displayCurrentEmp() throws SQLException {
@@ -64,8 +64,6 @@ public class ViewAccountController implements Initializable {
         lbAnswer.setText(dataModel.emp.getSecretA());
 
     }
-
-
 
 
     public void Cancel(ActionEvent event) throws Exception {

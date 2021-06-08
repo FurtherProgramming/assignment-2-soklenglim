@@ -16,17 +16,16 @@ import java.util.ArrayList;
 public class SeatSelectionModel {
     Connection connection;
 
-    public SeatSelectionModel(){
+    public SeatSelectionModel() {
         connection = SQLConnection.connect();
         if (connection == null)
             System.exit(1);
     }
 
 
-
-    public ArrayList<Desk> checkDesk(String date) throws SQLException  {
+    public ArrayList<Desk> checkDesk(String date) throws SQLException {
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet=null;
+        ResultSet resultSet = null;
         String query = "select * from desk where date = ?";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -42,9 +41,7 @@ public class SeatSelectionModel {
                 DataModel.desks.add(DataModel.desk);
             }
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return DataModel.desks;
         } finally {
             preparedStatement.close();
@@ -55,11 +52,11 @@ public class SeatSelectionModel {
 
 
     //Disable past dates
-    public Callback<DatePicker, DateCell> getDayCellFactory(){
-        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>(){
-            public DateCell call(final DatePicker datePicker){
-                return new DateCell(){
-                    public void updateItem(LocalDate item, boolean empty){
+    public Callback<DatePicker, DateCell> getDayCellFactory() {
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+                    public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
                         LocalDate today = LocalDate.now();
                         setDisable(empty || item.compareTo(today) < 1);
@@ -75,6 +72,7 @@ public class SeatSelectionModel {
     public StringConverter<LocalDate> converter = new StringConverter<LocalDate>() {
         DateTimeFormatter dateFormatter =
                 DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         @Override
         public String toString(LocalDate date) {
             if (date != null) {
@@ -83,6 +81,7 @@ public class SeatSelectionModel {
                 return "";
             }
         }
+
         @Override
         public LocalDate fromString(String string) {
             if (string != null && !string.isEmpty()) {

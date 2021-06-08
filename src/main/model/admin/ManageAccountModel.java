@@ -54,7 +54,7 @@ public class ManageAccountModel{
     public Boolean deleteEmp(String username){
         try {
             Statement statement = connection.createStatement();
-            int status = statement.executeUpdate("DELETE FROM Employee WHERE username = '"+ username +"';");
+            int status = statement.executeUpdate("DELETE FROM Employee WHERE username = '" + username + "';");
             if (status > 0) {
                 return true;
             } else {

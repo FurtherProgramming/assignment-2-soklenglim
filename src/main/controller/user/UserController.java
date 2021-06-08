@@ -54,7 +54,7 @@ public class UserController implements Initializable {
     }
 
     public void View(ActionEvent event) throws Exception {
-        if(!checkStatus(vbm.ViewBooking(dataModel.emp.getUserName()))){
+        if (!checkStatus(vbm.ViewBooking(dataModel.emp.getUserName()))) {
             dataModel.closeScene(btnView);
             dataModel.showScene("../ui/ViewBookingStatus.fxml", "View Booking");
         } else {
@@ -64,7 +64,7 @@ public class UserController implements Initializable {
     }
 
     public void Book(ActionEvent event) throws Exception {
-        if(checkStatus(vbm.ViewBooking(dataModel.emp.getUserName()))) {
+        if (checkStatus(vbm.ViewBooking(dataModel.emp.getUserName()))) {
             dataModel.closeScene(btnBook);
             dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
         } else {
@@ -72,9 +72,9 @@ public class UserController implements Initializable {
         }
     }
 
-    private Boolean checkStatus(ArrayList<Desk> desks){
+    private Boolean checkStatus(ArrayList<Desk> desks) {
         List<Desk> desk = desks.stream().filter(d -> d.getStatus().equals("pending")).collect(Collectors.toList());
-        if(desk.size() == 0)
+        if (desk.size() == 0)
             return true;
         else
             return false;

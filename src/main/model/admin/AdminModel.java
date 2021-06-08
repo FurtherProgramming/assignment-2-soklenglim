@@ -14,11 +14,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class AdminModel  {
+public class AdminModel {
     Connection connection;
 
 
-    public AdminModel(){
+    public AdminModel() {
         connection = SQLConnection.connect();
         if (connection == null)
             System.exit(1);
@@ -52,7 +52,7 @@ public class AdminModel  {
             ResultSet result = statement.executeQuery(queryBooking);
             bw = new BufferedWriter(new FileWriter("Report/Booking.csv"));
             bw.write("seat_id, status, date, seat_num, emp_username, current_date");
-            while (result.next()){
+            while (result.next()) {
                 int seatId = result.getInt("seat_id");
                 String status = result.getString("status");
                 String date = result.getString("date");
@@ -67,7 +67,7 @@ public class AdminModel  {
             statement.close();
             bw.close();
             connection.close();
-        } catch(SQLException | IOException e) {
+        } catch (SQLException | IOException e) {
             DataModel.showDialogBox("Error", e.getMessage());
         }
     }

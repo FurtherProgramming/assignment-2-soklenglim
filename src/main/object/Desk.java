@@ -8,8 +8,10 @@ public class Desk {
     private String currentDate;
     private String empUsername;
 
-    public Desk(){}
-    public Desk(int deskId, String status, String date, int seatNum, String empUsername, String currentDate){
+    public Desk() {
+    }
+
+    public Desk(int deskId, String status, String date, int seatNum, String empUsername, String currentDate) {
         this.deskId = deskId;
         this.status = status;
         this.date = date;
@@ -19,10 +21,11 @@ public class Desk {
     }
 
 
-    public void setDate(String date){
+    public void setDate(String date) {
         this.date = date;
     }
-    public void setSeatNum(int seatNum){
+
+    public void setSeatNum(int seatNum) {
         this.seatNum = seatNum;
     }
 

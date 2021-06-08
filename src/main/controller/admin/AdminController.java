@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import main.Main;
 import main.controller.DataModel;
+import main.controller.user.ConfirmSeatController;
 import main.controller.user.SeatSelectionController;
 import main.model.admin.AdminModel;
 
@@ -39,6 +40,7 @@ public class AdminController implements Initializable {
     public void viewDesk(ActionEvent event) throws Exception {
         dataModel.closeScene(btnViewDesk);
         SeatSelectionController.isAdmin = true;
+        ConfirmSeatController.isAdmin = true;
         dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
     }
 
@@ -50,7 +52,7 @@ public class AdminController implements Initializable {
 
     public void report(ActionEvent event) throws Exception {
         am.generateReport();
-        dataModel.showDialogBox("Report Generated","All Employee and Desk report has been generated!");
+        dataModel.showDialogBox("Report Generated", "All Employee and Desk report has been generated!");
     }
 
     public void releaseBooking(ActionEvent event) throws Exception {

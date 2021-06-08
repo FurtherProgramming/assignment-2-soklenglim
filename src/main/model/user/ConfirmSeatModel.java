@@ -11,9 +11,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ConfirmSeatModel {
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    LocalDateTime now = LocalDateTime.now();
     Connection connection;
 
-    public ConfirmSeatModel(){
+    public ConfirmSeatModel() {
         connection = SQLConnection.connect();
         if (connection == null)
             System.exit(1);
@@ -21,11 +23,8 @@ public class ConfirmSeatModel {
 
     public Boolean addBookingDesk(String empUsername, String status, String date, int seatNum) throws SQLException {
         try {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-            LocalDateTime now = LocalDateTime.now();
-
             Statement statement = connection.createStatement();
-            int query = statement.executeUpdate("insert into desk (emp_username, status, date, seat_num, current_date) values ('"+empUsername+"','"+ status +"','"+date+"','"+seatNum+"','"+dtf.format(now)+"') ");
+            int query = statement.executeUpdate("insert into desk (emp_username, status, date, seat_num, current_date) values ('" + empUsername + "','" + status + "','" + date + "','" + seatNum + "','" + dtf.format(now) + "') ");
             if (query > 0) {
                 return true;
             } else {
@@ -37,7 +36,7 @@ public class ConfirmSeatModel {
         }
     }
 
-    public boolean updateBooking(int seatId, int seatNum, String date){
+    public boolean updateBooking(int seatId, int seatNum, String date) {
         try {
             Statement statement = connection.createStatement();
             String query = "update desk SET seat_num = '" + seatNum + "', date = '" + date + "' WHERE seat_id = '" + seatId + "'";
@@ -53,11 +52,25 @@ public class ConfirmSeatModel {
         }
     }
 
-    public boolean lockSeat(int seatId){
+    public boolean lockSeat(String status, String date, int seatNum) {
         try {
             Statement statement = connection.createStatement();
-            String query = "update desk SET status = 'lock' WHERE seat_id = '" + seatId + "'";
-            int status = statement.executeUpdate(query);
+            int query = statement.executeUpdate("insert into desk (emp_username, status, date, seat_num, current_date) values ('','" + status + "','" + date + "','" + seatNum + "','" + dtf.format(now) + "') ");
+            if (query > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean unlockSeat(String date, int seatNum) {
+        try {
+            Statement statement = connection.createStatement();
+            int status = statement.executeUpdate("DELETE FROM desk WHERE date = '" + date + "' and seat_num = '" + seatNum + "';");
             if (status > 0) {
                 return true;
             } else {

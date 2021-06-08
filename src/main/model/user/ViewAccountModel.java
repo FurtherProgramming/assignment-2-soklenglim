@@ -9,16 +9,16 @@ import java.sql.*;
 public class ViewAccountModel {
     Connection connection;
 
-    public ViewAccountModel(){
+    public ViewAccountModel() {
 
         connection = SQLConnection.connect();
         if (connection == null)
             System.exit(1);
     }
 
-    public Employee displayCurrentEmployee() throws SQLException  {
+    public Employee displayCurrentEmployee() throws SQLException {
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet=null;
+        ResultSet resultSet = null;
         String query = "select * from employee where username = ?";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -36,25 +36,18 @@ public class ViewAccountModel {
                         resultSet.getBoolean("admin"));
 
                 return DataModel.emp;
-            }
-            else{
+            } else {
                 DataModel.emp = new Employee();
                 return DataModel.emp;
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             DataModel.emp = new Employee();
             return DataModel.emp;
-        }finally {
+        } finally {
             preparedStatement.close();
             resultSet.close();
         }
     }
-
-
-
-
 
 
 }

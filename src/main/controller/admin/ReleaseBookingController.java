@@ -40,7 +40,8 @@ public class ReleaseBookingController implements Initializable {
         addButtonApprove();
         addButtonReject();
     }
-    private void createTable(){
+
+    private void createTable() {
         TableColumn<String, Desk> columnUsername = new TableColumn<>("Employee Username");
         TableColumn<Integer, Desk> columnSeatNum = new TableColumn<>("Seat Number");
         TableColumn<String, Desk> columnDate = new TableColumn<>("Date");
@@ -49,9 +50,9 @@ public class ReleaseBookingController implements Initializable {
         columnSeatNum.setCellValueFactory(new PropertyValueFactory<>("seatNum"));
         columnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         columnDateOfBooking.setCellValueFactory(new PropertyValueFactory<>("currentDate"));
-        table.getColumns().addAll(columnUsername,columnSeatNum,columnDate,columnDateOfBooking);
+        table.getColumns().addAll(columnUsername, columnSeatNum, columnDate, columnDateOfBooking);
 
-        for(Desk desk : dataModel.desks){
+        for (Desk desk : rbm.displayAllDesk()) {
             table.getItems().add(desk);
         }
 
@@ -62,6 +63,7 @@ public class ReleaseBookingController implements Initializable {
 
         anchorPane.getChildren().add(table);
     }
+
     private void addButtonApprove() {
         TableColumn<Desk, Void> colBtnApprove = new TableColumn("");
 
@@ -77,7 +79,7 @@ public class ReleaseBookingController implements Initializable {
                         btn.setTextFill(Color.WHITE);
                         btn.setOnAction((ActionEvent event) -> {
                             Desk desk = getTableView().getItems().get(getIndex());
-                            if(rbm.ApproveBooking(desk.getEmpUsername())) {
+                            if (rbm.ApproveBooking(desk.getEmpUsername())) {
                                 dataModel.showDialogBox("User Approved!", desk.getEmpUsername() + " has been approved on seat " + desk.getSeatNum());
                                 dataModel.desks.removeIf(t -> t.getEmpUsername() == desk.getEmpUsername());
                             } else {
@@ -86,7 +88,7 @@ public class ReleaseBookingController implements Initializable {
 
                             table.getItems().clear();
 
-                            for(Desk desks : dataModel.desks){
+                            for (Desk desks : dataModel.desks) {
                                 table.getItems().add(desks);
                             }
 
@@ -111,6 +113,7 @@ public class ReleaseBookingController implements Initializable {
         colBtnApprove.setCellFactory(cellFactory);
         table.getColumns().add(colBtnApprove);
     }
+
     private void addButtonReject() {
         TableColumn<Desk, Void> colBtnReject = new TableColumn("");
         Callback<TableColumn<Desk, Void>, TableCell<Desk, Void>> cellFactory = new Callback<TableColumn<Desk, Void>, TableCell<Desk, Void>>() {
@@ -118,12 +121,13 @@ public class ReleaseBookingController implements Initializable {
             public TableCell<Desk, Void> call(final TableColumn<Desk, Void> param) {
                 final TableCell<Desk, Void> cell = new TableCell<Desk, Void>() {
                     private final Button btn = new Button("Reject");
+
                     {
                         btn.setId("btnSignOut");
                         btn.setTextFill(Color.WHITE);
                         btn.setOnAction((ActionEvent event) -> {
                             Desk desk = getTableView().getItems().get(getIndex());
-                            if(rbm.RejectBooking(desk.getEmpUsername())) {
+                            if (rbm.RejectBooking(desk.getEmpUsername())) {
                                 dataModel.showDialogBox("User Rejected!", desk.getEmpUsername() + " has been rejected on seat " + desk.getSeatNum());
                                 dataModel.desks.removeIf(t -> t.getEmpUsername() == desk.getEmpUsername());
                             } else {
@@ -132,7 +136,7 @@ public class ReleaseBookingController implements Initializable {
 
                             table.getItems().clear();
 
-                            for(Desk desks : dataModel.desks){
+                            for (Desk desks : dataModel.desks) {
                                 table.getItems().add(desks);
                             }
                         });

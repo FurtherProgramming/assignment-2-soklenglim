@@ -1,4 +1,5 @@
 package main.model;
+
 import main.SQLConnection;
 
 import java.sql.*;
@@ -6,7 +7,7 @@ import java.sql.*;
 public class RegisterModel {
     Connection connection;
 
-    public RegisterModel(){
+    public RegisterModel() {
         connection = SQLConnection.connect();
         if (connection == null)
             System.exit(1);
@@ -17,7 +18,7 @@ public class RegisterModel {
         connection = SQLConnection.connect();
         try {
             Statement statement = connection.createStatement();
-            int status = statement.executeUpdate("insert into Employee (firstName, lastName, role, username, password, secretQuestion, answerQuestion, admin) values ('"+firstName+"','"+lastName+"','"+role+"','"+userName+"','"+password+"','"+secretQuestion+"','"+answer+"','"+admin+"') ");
+            int status = statement.executeUpdate("insert into Employee (firstName, lastName, role, username, password, secretQuestion, answerQuestion, admin) values ('" + firstName + "','" + lastName + "','" + role + "','" + userName + "','" + password + "','" + secretQuestion + "','" + answer + "','" + admin + "') ");
             if (status > 0) {
                 return true;
             } else {
@@ -30,9 +31,9 @@ public class RegisterModel {
     }
 
 
-    public Boolean checkIfUserExist(String userName)throws SQLException {
+    public Boolean checkIfUserExist(String userName) throws SQLException {
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet=null;
+        ResultSet resultSet = null;
         String query = "select * from employee where username = ?";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -40,15 +41,12 @@ public class RegisterModel {
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return false;
-        }finally {
+        } finally {
             preparedStatement.close();
             resultSet.close();
         }

@@ -42,11 +42,10 @@ public class RegisterController implements Initializable {
     public RegisterModel registerModel = new RegisterModel();
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         dataModel.setupQuestion(questionBox);
-        if(isAdmin==false){
+        if (isAdmin == false) {
             checkbox.setVisible(false);
         } else {
             checkbox.setVisible(true);
@@ -56,13 +55,13 @@ public class RegisterController implements Initializable {
 
     @FXML
     private void Cancel(ActionEvent event) throws Exception {
-        if(isAdmin==false) {
+        if (isAdmin == false) {
             dataModel.closeScene(btnCancel);
             dataModel.showScene("../ui/Login.fxml", "Login");
         } else {
             dataModel.closeScene(btnCancel);
             dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");
-            isAdmin=false;
+            isAdmin = false;
         }
     }
 
@@ -87,25 +86,25 @@ public class RegisterController implements Initializable {
                     txtFieldEmpty = true;
                 }
             }
-            if(checkbox.isSelected()){
+            if (checkbox.isSelected()) {
                 admin = 1;
             } else {
                 admin = 0;
             }
 
             if (!txtFieldEmpty) {
-                if(registerModel.Register(firstName, lastName, role, userName, password, question, answer, admin)) {
+                if (registerModel.Register(firstName, lastName, role, userName, password, question, answer, admin)) {
                     dataModel.showDialogBox("Register Completed!", "Your account has been created!");
                 } else {
                     dataModel.showDialogBox("Register Failed!", "Please try again!");
                 }
-                if(isAdmin==false) {
+                if (isAdmin == false) {
                     dataModel.closeScene(btnRegister);
                     dataModel.showScene("../ui/Login.fxml", "Login");
                 } else {
                     dataModel.closeScene(btnRegister);
                     dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");
-                    isAdmin=false;
+                    isAdmin = false;
                 }
 
             }

@@ -49,7 +49,7 @@ public class EditUserController implements Initializable {
     public static Employee emp = new Employee();
     private RegisterModel rm = new RegisterModel();
 
-    public void Update(ActionEvent event) throws Exception{
+    public void Update(ActionEvent event) throws Exception {
         String firstName = txtFirstName.getText();
         String lastName = txtLastName.getText();
         String role = txtRole.getText();
@@ -65,18 +65,18 @@ public class EditUserController implements Initializable {
             }
         }
 
-        if(checkbox.isSelected()){
+        if (checkbox.isSelected()) {
             admin = 1;
         } else {
             admin = 0;
         }
 
-        if(!txtField){
-            if(emp.getUserName().equals(userName)){
-                if(eum.updateCurrentEmp(emp.getId(), firstName, lastName, role, userName, password, question, answer, admin)){
+        if (!txtField) {
+            if (emp.getUserName().equals(userName)) {
+                if (eum.updateCurrentEmp(emp.getId(), firstName, lastName, role, userName, password, question, answer, admin)) {
                     dataModel.showDialogBox("Account Updated!", "User detail has been updated!");
                     dataModel.closeScene(btnConfirm);
-                    if(isAdmin == false){
+                    if (isAdmin == false) {
                         dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
                     } else {
                         dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");
@@ -85,11 +85,11 @@ public class EditUserController implements Initializable {
                     dataModel.showDialogBox("Account Updated Fail!", "Fail to update!");
                 }
             } else {
-                if(!rm.checkIfUserExist(userName)){
-                    if(eum.updateCurrentEmp(emp.getId(), firstName, lastName, role, userName, password, question, answer, admin)){
+                if (!rm.checkIfUserExist(userName)) {
+                    if (eum.updateCurrentEmp(emp.getId(), firstName, lastName, role, userName, password, question, answer, admin)) {
                         dataModel.showDialogBox("Account Updated!", "User detail has been updated!");
                         dataModel.closeScene(btnConfirm);
-                        if(isAdmin == false) {
+                        if (isAdmin == false) {
                             dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
                         } else {
                             dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");
@@ -112,7 +112,7 @@ public class EditUserController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             EditCurrentEmp(emp);
-            if(isAdmin == false){
+            if (isAdmin == false) {
                 checkbox.setVisible(false);
                 txtUsername.setEditable(false);
             } else {
@@ -138,7 +138,7 @@ public class EditUserController implements Initializable {
     }
 
     public void Cancel(ActionEvent event) throws Exception {
-        if(isAdmin == false) {
+        if (isAdmin == false) {
             dataModel.closeScene(btnCancel);
             dataModel.showScene("../ui/ViewAccount.fxml", "Manage Account");
         } else {
