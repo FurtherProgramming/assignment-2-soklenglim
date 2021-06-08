@@ -11,7 +11,6 @@ import javafx.util.Callback;
 import main.controller.DataModel;
 import main.model.user.ViewBookingModel;
 import main.object.Desk;
-import main.object.Employee;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -98,8 +97,8 @@ public class ViewBookingController implements Initializable {
                                     dataModel.showDialogBox("View Booking", "You cannot change booking after 48h!");
                                 } else {
                                     if(desk.getStatus().equals("pending")) {
-                                        BookingConfirmController.editBooking = true;
-                                        BookingConfirmController.deskId = desk.getDeskId();
+                                        ConfirmSeatController.editBooking = true;
+                                        ConfirmSeatController.deskId = desk.getDeskId();
                                         dataModel.closeScene(btn);
                                         try {
                                             dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");

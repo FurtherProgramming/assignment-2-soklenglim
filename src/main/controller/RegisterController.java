@@ -28,8 +28,6 @@ public class RegisterController implements Initializable {
     @FXML
     private TextField txtAnswer;
     @FXML
-    private Label alertTxt;
-    @FXML
     private CheckBox checkbox;
     @FXML
     private ComboBox questionBox;
@@ -85,8 +83,7 @@ public class RegisterController implements Initializable {
             Boolean txtFieldEmpty = false;
             for (TextField field : textFields) {
                 if (field.getText().isEmpty() || question == null) {
-                    alertTxt.setText("Please fill all the information below");
-                    alertTxt.setTextFill(Color.web("#FF0000"));
+                    dataModel.showDialogBox("Register Failed!", "Please fill all the information below");
                     txtFieldEmpty = true;
                 }
             }
@@ -113,8 +110,7 @@ public class RegisterController implements Initializable {
 
             }
         } else {
-            alertTxt.setText("User Name is Taken");
-            alertTxt.setTextFill(Color.web("#FF0000"));
+            dataModel.showDialogBox("Register Failed!", "User Name is Taken");
         }
     }
 }

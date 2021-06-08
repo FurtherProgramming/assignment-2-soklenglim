@@ -50,7 +50,7 @@ public class DataModel {
         alert.show();
     }
 
-    public void showDialogBox(String title, String content){
+    public static void showDialogBox(String title, String content){
         //Creating a dialog
         Dialog<String> dialog = new Dialog<String>();
         //Setting the title

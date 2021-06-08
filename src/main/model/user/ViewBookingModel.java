@@ -5,9 +5,7 @@ import main.object.Desk;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ViewBookingModel {
@@ -36,6 +34,24 @@ public class ViewBookingModel {
                         resultSet.getInt("seat_num"),
                         resultSet.getString("emp_username"),
                         resultSet.getString("current_date"));
+                if(desk.getStatus().equals("pending")){
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    try {
+                        Date bookingDate = dateFormat.parse(desk.getDate());
+                        Date currentTime = new Date(System.currentTimeMillis());
+                        Date now = dateFormat.parse(dateFormat.format(currentTime));
+                        long diff = bookingDate.getTime() - now.getTime();
+                        long diffDays = diff / (24 * 60 * 60 * 1000);
+                        if(diffDays <= 0){
+                            Statement statement = connection.createStatement();
+                            String queryCancel = "update desk SET status = 'cancel' WHERE seat_id = '" + desk.getDeskId() + "' and status = 'pending'";
+                            statement.executeUpdate(queryCancel);
+                            desk.setStatus("cancel");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 desks.add(desk);
             }
 

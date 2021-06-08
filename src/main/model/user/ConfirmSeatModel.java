@@ -10,10 +10,10 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class BookingConfirmModel  {
+public class ConfirmSeatModel {
     Connection connection;
 
-    public BookingConfirmModel(){
+    public ConfirmSeatModel(){
         connection = SQLConnection.connect();
         if (connection == null)
             System.exit(1);
@@ -41,6 +41,22 @@ public class BookingConfirmModel  {
         try {
             Statement statement = connection.createStatement();
             String query = "update desk SET seat_num = '" + seatNum + "', date = '" + date + "' WHERE seat_id = '" + seatId + "'";
+            int status = statement.executeUpdate(query);
+            if (status > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean lockSeat(int seatId){
+        try {
+            Statement statement = connection.createStatement();
+            String query = "update desk SET status = 'lock' WHERE seat_id = '" + seatId + "'";
             int status = statement.executeUpdate(query);
             if (status > 0) {
                 return true;

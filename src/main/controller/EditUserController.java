@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.paint.Color;
+import main.model.RegisterModel;
 import main.object.Employee;
 import main.model.EditUserModel;
 import main.model.user.ViewAccountModel;
@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class EditUserController implements Initializable {
-    private EditUserModel maem = new EditUserModel();
-    private ViewAccountModel mam = new ViewAccountModel();
+    private EditUserModel eum = new EditUserModel();
+
     @FXML
     private CheckBox checkbox;
 
@@ -47,6 +47,7 @@ public class EditUserController implements Initializable {
     public static boolean isAdmin = false;
     private DataModel dataModel = new DataModel();
     public static Employee emp = new Employee();
+    private RegisterModel rm = new RegisterModel();
 
     public void Update(ActionEvent event) throws Exception{
         String firstName = txtFirstName.getText();
@@ -71,20 +72,39 @@ public class EditUserController implements Initializable {
         }
 
         if(!txtField){
-            maem.updateCurrentEmp(emp.getId(), firstName, lastName, role, userName, password, question, answer, admin);
-
-            if(isAdmin == false){
-                dataModel.showDialogBox("Account Updated!", "Your account detail has been updated!");
-                dataModel.closeScene(btnConfirm);
-                dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
+            if(emp.getUserName().equals(userName)){
+                if(eum.updateCurrentEmp(emp.getId(), firstName, lastName, role, userName, password, question, answer, admin)){
+                    dataModel.showDialogBox("Account Updated!", "User detail has been updated!");
+                    dataModel.closeScene(btnConfirm);
+                    if(isAdmin == false){
+                        dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
+                    } else {
+                        dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");
+                    }
+                } else {
+                    dataModel.showDialogBox("Account Updated Fail!", "Fail to update!");
+                }
             } else {
-                dataModel.showDialogBox("Account Updated!", "User detail has been updated!");
-                dataModel.closeScene(btnConfirm);
-                dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");
+                if(!rm.checkIfUserExist(userName)){
+                    if(eum.updateCurrentEmp(emp.getId(), firstName, lastName, role, userName, password, question, answer, admin)){
+                        dataModel.showDialogBox("Account Updated!", "User detail has been updated!");
+                        dataModel.closeScene(btnConfirm);
+                        if(isAdmin == false) {
+                            dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
+                        } else {
+                            dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");
+                        }
+                    } else {
+                        dataModel.showDialogBox("Account Updated Fail!", "Fail to update!");
+                    }
+
+                } else {
+                    dataModel.showDialogBox("Account Updated Fail!", "Username is already existed!");
+                }
             }
+
         } else {
-            labelError.setText("Please fill all the information below");
-            labelError.setTextFill(Color.web("#FF0000"));
+            dataModel.showDialogBox("Error Message!", "Please fill all the information below!");
         }
     }
 
@@ -120,7 +140,7 @@ public class EditUserController implements Initializable {
     public void Cancel(ActionEvent event) throws Exception {
         if(isAdmin == false) {
             dataModel.closeScene(btnCancel);
-            dataModel.showScene("../ui/ManageAccount.fxml", "Manage Account");
+            dataModel.showScene("../ui/ViewAccount.fxml", "Manage Account");
         } else {
             dataModel.closeScene(btnCancel);
             dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");

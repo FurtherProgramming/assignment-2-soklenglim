@@ -62,7 +62,7 @@ public class SeatSelectionModel {
                     public void updateItem(LocalDate item, boolean empty){
                         super.updateItem(item, empty);
                         LocalDate today = LocalDate.now();
-                        setDisable(empty || item.compareTo(today) < 0);
+                        setDisable(empty || item.compareTo(today) < 1);
                     }
                 };
             }

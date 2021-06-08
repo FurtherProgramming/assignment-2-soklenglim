@@ -6,12 +6,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import main.controller.DataModel;
-import main.model.user.BookingConfirmModel;
+import main.model.user.ConfirmSeatModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class BookingConfirmController implements Initializable {
+public class ConfirmSeatController implements Initializable {
+    private DataModel dataModel = new DataModel();
+    private ConfirmSeatModel bcm = new ConfirmSeatModel();
+    public static boolean editBooking = false;
+    public static int deskId;
+
+    // FXML variables
     @FXML
     public Label lbSeat;
     @FXML
@@ -20,10 +26,7 @@ public class BookingConfirmController implements Initializable {
     public Button btnBook;
     @FXML
     private Button btnBack;
-    private DataModel dataModel = new DataModel();
-    private BookingConfirmModel bcm = new BookingConfirmModel();
-    public static boolean editBooking = false;
-    public static int deskId;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -33,8 +36,14 @@ public class BookingConfirmController implements Initializable {
     public void back(ActionEvent event) throws Exception {
         dataModel.desk.setDate("");
         dataModel.desk.setSeatNum(0);
-        dataModel.closeScene(btnBack);
-        dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
+        if(editBooking == false) {
+            dataModel.closeScene(btnBack);
+            dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
+        } else {
+            dataModel.closeScene(btnBook);
+            dataModel.showScene("../ui/ViewBookingStatus.fxml", "View Booking");
+            editBooking = false;
+        }
     }
 
     public void book(ActionEvent event) throws Exception {

@@ -76,7 +76,7 @@ public class ViewAccountController implements Initializable {
     public void Edit(ActionEvent event) throws Exception {
         dataModel.closeScene(btnEdit);
         maem.emp = dataModel.emp;
-        dataModel.showScene("../ui/ManageAccountEdit.fxml", "Editing Information");
+        dataModel.showScene("../ui/EditUser.fxml", "Editing Information");
 
     }
 

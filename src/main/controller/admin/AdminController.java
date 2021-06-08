@@ -8,11 +8,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import main.Main;
 import main.controller.DataModel;
+import main.controller.user.SeatSelectionController;
+import main.model.admin.AdminModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
+    private DataModel dataModel = new DataModel();
+    private AdminModel am = new AdminModel();
+
+    // FXML variables
     @FXML
     private Label lbAdmin;
     @FXML
@@ -20,12 +26,9 @@ public class AdminController implements Initializable {
     @FXML
     private Button btnManagement;
     @FXML
-    private Button btnViewBooking;
-    @FXML
-    private Button btnReport;
+    private Button btnViewDesk;
     @FXML
     private Button btnReleaseBooking;
-    private DataModel dataModel = new DataModel();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -33,9 +36,10 @@ public class AdminController implements Initializable {
     }
 
 
-    public void viewBooking(ActionEvent event) throws Exception {
-        dataModel.closeScene(btnViewBooking);
-        dataModel.showScene("../ui/Login.fxml", "Login");
+    public void viewDesk(ActionEvent event) throws Exception {
+        dataModel.closeScene(btnViewDesk);
+        SeatSelectionController.isAdmin = true;
+        dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
     }
 
     public void signOut(ActionEvent event) throws Exception {
@@ -45,8 +49,8 @@ public class AdminController implements Initializable {
     }
 
     public void report(ActionEvent event) throws Exception {
-        dataModel.closeScene(btnReport);
-        dataModel.showScene("../ui/Login.fxml", "Login");
+        am.generateReport();
+        dataModel.showDialogBox("Report Generated","All Employee and Desk report has been generated!");
     }
 
     public void releaseBooking(ActionEvent event) throws Exception {

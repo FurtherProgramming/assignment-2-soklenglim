@@ -24,8 +24,10 @@ import java.util.ResourceBundle;
 public class ManageAccountController implements Initializable {
     private ManageAccountModel amm = new ManageAccountModel();
     private DataModel dataModel = new DataModel();
-    private EditUserController maec = new EditUserController();
+    private EditUserController euc = new EditUserController();
     private RegisterController rc = new RegisterController();
+
+    // FXML variable
     @FXML
     private TableView table = new TableView();
     @FXML
@@ -143,11 +145,11 @@ public class ManageAccountController implements Initializable {
                         btnEdit.setTextFill(Color.WHITE);
                         btnEdit.setOnAction((ActionEvent event) -> {
                             Employee emp = getTableView().getItems().get(getIndex());
-                            maec.emp = emp;
-                            maec.isAdmin = true;
+                            euc.emp = emp;
+                            euc.isAdmin = true;
                             dataModel.closeScene(btnEdit);
                             try {
-                                dataModel.showScene("../ui/ManageAccountEdit.fxml", "Editing Information");
+                                dataModel.showScene("../ui/EditUser.fxml", "Editing Information");
 
                             } catch (Exception e) {
                                 e.printStackTrace();

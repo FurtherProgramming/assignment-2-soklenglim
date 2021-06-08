@@ -3,7 +3,6 @@ package main.model.admin;
 import main.SQLConnection;
 import main.controller.DataModel;
 import main.object.Desk;
-import main.object.Employee;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,7 +21,7 @@ public class ReleaseBookingModel {
             System.exit(1);
     }
 
-    public ArrayList<Desk> displayAllUsers(){
+    public ArrayList<Desk> displayAllDesk(){
         try {
             Statement statement = connection.createStatement();
             String query = "select * from desk where status = 'pending'";
@@ -46,7 +45,9 @@ public class ReleaseBookingModel {
                         long diff = bookingDate.getTime() - now.getTime();
                         long diffDays = diff / (24 * 60 * 60 * 1000);
                         if(diffDays <= 0){
-
+                            String queryCancel = "update desk SET status = 'cancel' WHERE seat_id = '" + desk.getDeskId() + "' and status = 'pending'";
+                            statement.executeUpdate(queryCancel);
+                            desk.setStatus("cancel");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

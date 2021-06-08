@@ -58,11 +58,9 @@ public class LoginController implements Initializable {
                     dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
                 }
             }else if(txtUsername.getText().equals("") || txtPassword.getText().equals("")) {
-                isConnected.setText("Please input username and password");
-                isConnected.setTextFill(Color.RED);
+                dataModel.showDialogBox("Login Error", "Please input username and password");
             }else{
-                isConnected.setText("Username and password is incorrect");
-                isConnected.setTextFill(Color.RED);
+                dataModel.showDialogBox("Login Error", "Username and password is incorrect");
             }
         } catch (SQLException | NullPointerException e) {
             e.printStackTrace();

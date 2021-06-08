@@ -36,13 +36,11 @@ public class SeatSelectionController implements Initializable {
     private Button btnBook;
     @FXML
     private Label lbAction;
-    @FXML
-    private Label lbWarning;
     private SeatSelectionModel ssm = new SeatSelectionModel();
     private DataModel dataModel = new DataModel();
     private int previousSelected;
     private String strDateFromDesk = "";
-    private String strDateFromBookingDesk = "";
+    public static boolean isAdmin = false;
 
 
 
@@ -65,7 +63,6 @@ public class SeatSelectionController implements Initializable {
                     previousSelected = 20;
                     displayAllSeat();
                     lbAction.setText("");
-                    lbWarning.setText("");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -76,6 +73,7 @@ public class SeatSelectionController implements Initializable {
 
 
     private void displayAllSeat(){
+        // setup desk
         for(int i=0; i < btns.length; i++){
             btns[i] = new Button();
             btns[i].setText("" +(i+1));
@@ -161,29 +159,34 @@ public class SeatSelectionController implements Initializable {
                 btns[i].setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        lbWarning.setText("");
-                        int disable = 20;
-                        for (int k = 0; k < btns.length; k++) {
-                            String status = setupDesk(dataModel.desks, k);
-                            if(status.equals("unavailable") || status.equals("pending")){
-                                btns[k].setStyle("-fx-background-color: red;");
-                                disable = k;
-                            } else if (status.equals("lock")){
-                                btns[k].setStyle("-fx-background-color: orange;");
-                                disable = k;
-                            } else {
-                                btns[k].setStyle("-fx-background-color: #90ee90;");
+                        if(isAdmin == false){
+                            int disable = 20;
+                            for (int k = 0; k < btns.length; k++) {
+                                String status = setupDesk(dataModel.desks, k);
+                                if(status.equals("unavailable") || status.equals("pending")){
+                                    btns[k].setStyle("-fx-background-color: red;");
+                                    disable = k;
+                                } else if (status.equals("lock")){
+                                    btns[k].setStyle("-fx-background-color: orange;");
+                                    disable = k;
+                                } else {
+                                    btns[k].setStyle("-fx-background-color: #90ee90;");
+                                }
                             }
-                        }
-                        if (j == disable) {
-                            if (previousSelected <= btns.length) {
+                            if (j == disable) {
+                                if (previousSelected <= btns.length) {
+                                    btns[previousSelected].setStyle("-fx-background-color: #017d0c;");
+                                }
+                            } else {
+                                previousSelected = j;
                                 btns[previousSelected].setStyle("-fx-background-color: #017d0c;");
+                                lbAction.setText(btns[j].getText());
                             }
                         } else {
-                            previousSelected = j;
-                            btns[previousSelected].setStyle("-fx-background-color: #017d0c;");
-                            lbAction.setText(btns[j].getText());
+
                         }
+
+
                     }
                 });
             }
@@ -204,18 +207,24 @@ public class SeatSelectionController implements Initializable {
 
     public void book(ActionEvent event) throws Exception {
         if(lbAction.getText().equals("") || strDateFromDesk.equals("")){
-            lbWarning.setText("Please select a seat and date");
+            dataModel.showDialogBox("Error Message", "Please select a seat and date");
         } else {
             dataModel.desk.setDate(strDateFromDesk);
             dataModel.desk.setSeatNum(Integer.parseInt(lbAction.getText()));
             dataModel.closeScene(btnBook);
-            dataModel.showScene("../ui/BookingConfirm.fxml", "Confirmation");
+            dataModel.showScene("../ui/ConfirmSeat.fxml", "Confirmation");
 
         }
     }
 
     public void back(ActionEvent event) throws Exception {
-        dataModel.closeScene(btnBack);
-        dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
+        if(isAdmin == false) {
+            dataModel.closeScene(btnBack);
+            dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
+        } else {
+            dataModel.closeScene(btnBack);
+            dataModel.showScene("../ui/AdminProfile.fxml", "Admin Profile");
+            isAdmin = false;
+        }
     }
 }

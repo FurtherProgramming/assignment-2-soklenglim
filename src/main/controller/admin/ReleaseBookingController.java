@@ -14,7 +14,7 @@ import javafx.util.Callback;
 import main.controller.DataModel;
 import main.model.admin.ReleaseBookingModel;
 import main.object.Desk;
-import main.object.Employee;
+
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +22,8 @@ import java.util.ResourceBundle;
 public class ReleaseBookingController implements Initializable {
     private ReleaseBookingModel rbm = new ReleaseBookingModel();
     private DataModel dataModel = new DataModel();
+
+    // FXML variables
     @FXML
     private TableView table = new TableView();
     @FXML
@@ -32,7 +34,8 @@ public class ReleaseBookingController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        rbm.displayAllUsers();
+        // query all booking and add buttons to table
+        rbm.displayAllDesk();
         createTable();
         addButtonApprove();
         addButtonReject();
@@ -59,7 +62,6 @@ public class ReleaseBookingController implements Initializable {
 
         anchorPane.getChildren().add(table);
     }
-
     private void addButtonApprove() {
         TableColumn<Desk, Void> colBtnApprove = new TableColumn("");
 
@@ -152,8 +154,6 @@ public class ReleaseBookingController implements Initializable {
         colBtnReject.setCellFactory(cellFactory);
         table.getColumns().add(colBtnReject);
     }
-
-
 
     public void back(ActionEvent event) throws Exception {
         dataModel.closeScene(btnAdminBack);
