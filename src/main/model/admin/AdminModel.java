@@ -24,7 +24,7 @@ public class AdminModel {
             System.exit(1);
     }
 
-    public void generateReport() throws SQLException, IOException {
+    public void generateEmpReport() throws SQLException, IOException {
         try {
             Statement statement = connection.createStatement();
             String queryEmp = "select * from Employee";
@@ -41,16 +41,24 @@ public class AdminModel {
                 String secretQuestion = resultSet.getString("secretQuestion");
                 String answerQuestion = resultSet.getString("answerQuestion");
                 Boolean admin = resultSet.getBoolean("admin");
-
                 String line = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s", empId, firstName, lastName, role, username, password, secretQuestion, answerQuestion, admin);
-
                 bw.newLine();
                 bw.write(line);
             }
 
+            statement.close();
+            bw.close();
+        } catch (SQLException | IOException e) {
+            DataModel.showDialogBox("Error", e.getMessage());
+        }
+    }
+
+    public void generateBookingReport(){
+        try {
+            Statement statement = connection.createStatement();
+            BufferedWriter bw = new BufferedWriter(new FileWriter("Report/Booking.csv"));
             String queryBooking = "select * from desk";
             ResultSet result = statement.executeQuery(queryBooking);
-            bw = new BufferedWriter(new FileWriter("Report/Booking.csv"));
             bw.write("seat_id, status, date, seat_num, emp_username, current_date");
             while (result.next()) {
                 int seatId = result.getInt("seat_id");
@@ -66,11 +74,9 @@ public class AdminModel {
 
             statement.close();
             bw.close();
-            connection.close();
         } catch (SQLException | IOException e) {
             DataModel.showDialogBox("Error", e.getMessage());
         }
     }
-
 
 }

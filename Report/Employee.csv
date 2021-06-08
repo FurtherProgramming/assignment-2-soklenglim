@@ -1,0 +1,13 @@
+emp_id, firstName, lastName, role, username, password, secretQuestion, answerQuestion, admin
+1,sokleng,lim,tutor,soklenglim,123,Where are you from?,Cambodia,true
+2,michael,liam,tester,michael,123,Where are you from?,Brazil,false
+3,logan,sam,tester,logan,123,Where are you from?,United States,false
+4,ethan,jame,programmer,ethan,123,What is your favourite TV show?,new amsterdam,false
+5,jason,davis,developer,jason,123,What is your favourite TV show?,supernatural,false
+6,lucas,jone,HR,lucas,123,What is your favourite TV show?,game of throne,false
+7,william,jade,HR,william,123,What is your dog name ?,hamster,false
+8,noah,ruby,team lead,noah,123,What is your dog name ?,cat,false
+9,eva,rose,engineer,eva,123,What is your dog name ?,dog,false
+11,john,doe,developer,john,123,What is your teacher name ?,sokleng,false
+12,jane,doe,programmer,jane,123,What is your favourite sport?,fast food,false
+13,sokleng,lim,bosss,sokleng,test,What is your dog name ?,123,false

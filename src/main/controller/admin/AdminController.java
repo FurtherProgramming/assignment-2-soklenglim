@@ -51,7 +51,8 @@ public class AdminController implements Initializable {
     }
 
     public void report(ActionEvent event) throws Exception {
-        am.generateReport();
+        am.generateEmpReport();
+        am.generateBookingReport();
         dataModel.showDialogBox("Report Generated", "All Employee and Desk report has been generated!");
     }
 
