@@ -54,13 +54,15 @@ public class ViewBookingController implements Initializable {
         TableColumn<Integer, Desk> columnSeatNum = new TableColumn<>("Seat Number");
         TableColumn<String, Desk> columnDate = new TableColumn<>("Date");
         TableColumn<String, Desk> columnStatus = new TableColumn<>("Status");
+        TableColumn<String, Desk> columnDateOfBooking = new TableColumn<>("Status");
         columnUsername.setCellValueFactory(new PropertyValueFactory<>("empUsername"));
         columnStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         columnSeatNum.setCellValueFactory(new PropertyValueFactory<>("seatNum"));
         columnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        columnDateOfBooking.setCellValueFactory(new PropertyValueFactory<>("currentDate"));
 
 
-        table.getColumns().addAll(columnUsername,columnSeatNum,columnDate,columnStatus);
+        table.getColumns().addAll(columnUsername,columnSeatNum,columnDate,columnStatus,columnDateOfBooking);
 
         for(Desk desk : vbm.ViewBooking(dataModel.emp.getUserName())){
             table.getItems().add(desk);
@@ -86,33 +88,23 @@ public class ViewBookingController implements Initializable {
                         btn.setTextFill(Color.WHITE);
                         btn.setOnAction((ActionEvent event) -> {
                             Desk desk = getTableView().getItems().get(getIndex());
-                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                            try {
-                                Date bookingDate = dateFormat.parse(desk.getCurrentDate());
-                                Date currentTime = new Date(System.currentTimeMillis());
-                                Date now = dateFormat.parse(dateFormat.format(currentTime));
-                                long diff = now.getTime() - bookingDate.getTime();
-                                long diffHours = diff / (60 * 60 * 1000);
-                                if (diffHours > 48) {
-                                    dataModel.showDialogBox("View Booking", "You cannot change booking after 48h!");
-                                } else {
-                                    if(desk.getStatus().equals("pending")) {
-                                        ConfirmSeatController.editBooking = true;
-                                        ConfirmSeatController.deskId = desk.getDeskId();
-                                        dataModel.closeScene(btn);
-                                        try {
-                                            dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    } else {
-                                        dataModel.showDialogBox("View Booking", "Your status is not pending!");
+                            long timeDiff = dataModel.TimeValidation(desk.getCurrentDate(), "hours");
+                            if(timeDiff < -48){
+                                dataModel.showDialogBox("View Booking", "You cannot change booking after 48h!");
+                            } else {
+                                if(desk.getStatus().equals("pending")) {
+                                    ConfirmSeatController.editBooking = true;
+                                    ConfirmSeatController.deskId = desk.getDeskId();
+                                    dataModel.closeScene(btn);
+                                    try {
+                                        dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
+                                } else {
+                                    dataModel.showDialogBox("View Booking", "Your status is not pending!");
                                 }
-                            } catch (Exception e){
-                                e.printStackTrace();
                             }
-
                         });
                     }
 
@@ -144,17 +136,33 @@ public class ViewBookingController implements Initializable {
                         btn.setTextFill(Color.WHITE);
                         btn.setOnAction((ActionEvent event) -> {
                             Desk desk = getTableView().getItems().get(getIndex());
-                            if(desk.getStatus().equals("approve")){
-                                if(vbm.CheckIn(desk.getDeskId())) {
-                                    dataModel.showDialogBox("Checking in!", "Your check-in has been successful.");
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            try {
+                                Date bookingDate = dateFormat.parse(desk.getDate());
+                                Date currentTime = new Date(System.currentTimeMillis());
+                                Date now = dateFormat.parse(dateFormat.format(currentTime));
+                                long diff = bookingDate.getTime() - now.getTime();
+                                long diffDays = diff / (24 * 60 * 60 * 1000);
+                                if (diffDays == 0) {
+                                    System.out.println(desk.getDeskId());
+                                    if(desk.getStatus().equals("approve")){
+                                        if(vbm.CheckIn(desk.getDeskId())) {
+                                            dataModel.showDialogBox("Checking in!", "Your check-in has been successful.");
+                                        } else {
+                                            dataModel.showDialogBox("Checking in!", "Fail to check-in, Please try again!");
+                                        }
+                                    } else if(desk.getStatus().equals("check in")) {
+                                        dataModel.showDialogBox("Checking in!", "You already check in!");
+                                    } else {
+                                        dataModel.showDialogBox("Checking in!", "Your seat has not been approved yet.");
+                                    }
                                 } else {
-                                    dataModel.showDialogBox("Checking in!", "Fail to check-in, Please try again!");
+                                    dataModel.showDialogBox("Checking in!", "You cannot check-in before the booking date.");
                                 }
-                            } else if(desk.getStatus().equals("check in")) {
-                                dataModel.showDialogBox("Checking in!", "You already check in!");
-                            } else {
-                                dataModel.showDialogBox("Checking in!", "Your seat has not been approved yet.");
+                            }  catch (Exception e) {
+                                e.printStackTrace();
                             }
+
 
 
                             table.getItems().clear();

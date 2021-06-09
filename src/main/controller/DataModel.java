@@ -10,7 +10,11 @@ import javafx.stage.Stage;
 import main.object.Desk;
 import main.object.Employee;
 
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class DataModel {
     public static Employee emp = new Employee();
@@ -64,5 +68,40 @@ public class DataModel {
         dialog.getDialogPane().setPrefSize(300, 100);
         //Creating a vbox to hold the button and the label
         dialog.showAndWait();
+    }
+
+    public long TimeValidation(String date, String status){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date bookingDate = dateFormat.parse(date);
+            Date currentTime = new Date(System.currentTimeMillis());
+            Date now = dateFormat.parse(dateFormat.format(currentTime));
+            long diff = bookingDate.getTime() - now.getTime();
+            long timeDiff = 0;
+            if(status.equals("hours")){
+                timeDiff = diff / (60 * 60 * 1000);
+            } else if(status.equals("days")){
+                timeDiff = diff / (24 * 60 * 60 * 1000);
+            }
+            return timeDiff;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public String addDaysToDate(String dateString, int days){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date date = dateFormat.parse(dateString);
+            Calendar c = Calendar.getInstance();
+            c.setTime(date);
+            c.add(Calendar.DATE, days);
+            date = c.getTime();
+            return dateFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 }

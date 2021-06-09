@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ConfirmSeatModel {
+    private DataModel dataModel = new DataModel();
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     LocalDateTime now = LocalDateTime.now();
     Connection connection;
@@ -26,7 +27,11 @@ public class ConfirmSeatModel {
             Statement statement = connection.createStatement();
             int query = statement.executeUpdate("insert into desk (emp_username, status, date, seat_num, current_date) values ('" + empUsername + "','" + status + "','" + date + "','" + seatNum + "','" + dtf.format(now) + "') ");
             if (query > 0) {
-                return true;
+                int queryLock = statement.executeUpdate("insert into desk (emp_username, status, date, seat_num, current_date) values ('','lock','" + dataModel.addDaysToDate(date, 1) + "','" + seatNum + "','" + dtf.format(now) + "') ");
+                if(queryLock > 0)
+                    return true;
+                else
+                    return false;
             } else {
                 return false;
             }

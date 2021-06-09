@@ -14,6 +14,7 @@ import java.util.Date;
 
 public class ReleaseBookingModel {
     Connection connection;
+    private DataModel dataModel = new DataModel();
 
     public ReleaseBookingModel() {
         connection = SQLConnection.connect();
@@ -37,23 +38,14 @@ public class ReleaseBookingModel {
                         resultSet.getString("emp_username"),
                         resultSet.getString("current_date"));
                 if (desk.getStatus().equals("pending")) {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    try {
-                        Date bookingDate = dateFormat.parse(desk.getDate());
-                        Date currentTime = new Date(System.currentTimeMillis());
-                        Date now = dateFormat.parse(dateFormat.format(currentTime));
-                        long diff = bookingDate.getTime() - now.getTime();
-                        long diffDays = diff / (24 * 60 * 60 * 1000);
-                        if (diffDays <= 0) {
-                            String queryCancel = "update desk SET status = 'cancel' WHERE seat_id = '" + desk.getDeskId() + "' and status = 'pending'";
-                            statement.executeUpdate(queryCancel);
-                            desk.setStatus("cancel");
-                            desks.add(desk);
-                        } else {
-                            desks.add(desk);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    long timeDiff = dataModel.TimeValidation(desk.getDate(), "days");
+                    if(timeDiff == 0){
+                        String queryCancel = "update desk SET status = 'cancel' WHERE seat_id = '" + desk.getDeskId() + "' and status = 'pending'";
+                        statement.executeUpdate(queryCancel);
+                        desk.setStatus("cancel");
+                        desks.add(desk);
+                    } else {
+                        desks.add(desk);
                     }
                 }
             }

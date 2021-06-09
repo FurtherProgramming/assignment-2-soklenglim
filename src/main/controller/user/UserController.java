@@ -73,7 +73,7 @@ public class UserController implements Initializable {
     }
 
     private Boolean checkStatus(ArrayList<Desk> desks) {
-        List<Desk> desk = desks.stream().filter(d -> d.getStatus().equals("pending")).collect(Collectors.toList());
+        List<Desk> desk = desks.stream().filter(d -> d.getStatus().equals("pending") || d.getStatus().equals("approve")).collect(Collectors.toList());
         if (desk.size() == 0)
             return true;
         else
