@@ -150,11 +150,21 @@
 
 #btnBack{
     -fx-background-radius: 8;
-    -fx-background-radius: 8; -fx-background-color: #dc2430,        linear-gradient(#eb3349  0%, #f45c43 20%, #f45c43 100%),        linear-gradient(#eb3349, #f45c43);
+    -fx-background-color: #dc2430,        linear-gradient(#eb3349  0%, #f45c43 20%, #f45c43 100%),        linear-gradient(#eb3349, #f45c43);
     -fx-font-weight: bold;
     -fx-text-fill: WHITE;
 }
 
 #btnBack:hover{
     -fx-background-color: #981100;
+}
+#btnLock{
+    -fx-background-radius: 8;
+    -fx-background-color: orange;
+    -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+}
+
+#btnLock:hover{
+    -fx-background-color: #B59700;
 }

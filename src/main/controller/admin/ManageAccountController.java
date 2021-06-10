@@ -14,18 +14,19 @@ import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import main.controller.DataModel;
 import main.controller.EditUserController;
-import main.controller.RegisterController;
 import main.model.admin.ManageAccountModel;
 import main.object.Employee;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ManageAccountController implements Initializable {
     private ManageAccountModel amm = new ManageAccountModel();
     private DataModel dataModel = new DataModel();
     private EditUserController euc = new EditUserController();
-    private RegisterController rc = new RegisterController();
+    private ArrayList<Employee> emps = new ArrayList<>();
+
 
     // FXML variable
     @FXML
@@ -39,7 +40,7 @@ public class ManageAccountController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        amm.displayAllUsers();
+        emps = amm.displayAllUsers();
         createTable();
         addButtonDelete();
         addButtonEdit();
@@ -57,7 +58,6 @@ public class ManageAccountController implements Initializable {
         TableColumn<String, Employee> columnAnswer = new TableColumn<>("Answer");
         TableColumn<Boolean, Employee> columnAdmin = new TableColumn<>("Admin");
 
-
         columnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         columnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         columnAdmin.setCellValueFactory(new PropertyValueFactory<>("admin"));
@@ -68,16 +68,15 @@ public class ManageAccountController implements Initializable {
         columnQuestion.setCellValueFactory(new PropertyValueFactory<>("secretQ"));
         columnAnswer.setCellValueFactory(new PropertyValueFactory<>("secretA"));
 
-
         table.getColumns().addAll(columnId, columnFirstName, columnLastName, columnRole, columnUsername, columnPassword, columnQuestion, columnAnswer, columnAdmin);
 
-        for (Employee emp : dataModel.emps) {
+        for (Employee emp : emps) {
             table.getItems().add(emp);
         }
 
         table.setLayoutX(40);
         table.setLayoutY(90);
-        table.setPrefHeight(600);
+        table.setPrefHeight(450);
         table.setPrefWidth(910);
 
         anchorPane.getChildren().add(table);
@@ -100,15 +99,14 @@ public class ManageAccountController implements Initializable {
                             Employee emp = getTableView().getItems().get(getIndex());
                             if (amm.deleteEmp(emp.getUserName())) {
                                 dataModel.showDialogBox("User Deleted!", emp.getUserName() + " has been deleted!");
-                                dataModel.emps.removeIf(t -> t.getUserName() == emp.getUserName());
+                                emps.removeIf(t -> t.getUserName() == emp.getUserName());
                             } else {
                                 dataModel.showDialogBox("Delete Fail!", "Fail to delete, Please try again!");
                             }
 
                             table.getItems().clear();
-
-                            for (Employee emps : dataModel.emps) {
-                                table.getItems().add(emps);
+                            for (Employee employee : emps) {
+                                table.getItems().add(employee);
                             }
 
                         });
@@ -148,11 +146,10 @@ public class ManageAccountController implements Initializable {
                         btnEdit.setOnAction((ActionEvent event) -> {
                             Employee emp = getTableView().getItems().get(getIndex());
                             euc.emp = emp;
-                            euc.isAdmin = true;
+                            dataModel.isAdmin = true;
                             dataModel.closeScene(btnEdit);
                             try {
                                 dataModel.showScene("../ui/EditUser.fxml", "Editing Information");
-
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -179,7 +176,7 @@ public class ManageAccountController implements Initializable {
 
 
     public void addUser(ActionEvent event) throws Exception {
-        rc.isAdmin = true;
+        dataModel.isAdmin = true;
         dataModel.closeScene(btnAddUser);
         dataModel.showScene("../ui/Register.fxml", "Add New User");
     }

@@ -10,11 +10,14 @@ import main.object.Desk;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class SeatSelectionModel {
     Connection connection;
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    LocalDateTime now = LocalDateTime.now();
 
     public SeatSelectionModel() {
         connection = SQLConnection.connect();
@@ -50,6 +53,20 @@ public class SeatSelectionModel {
         return DataModel.desks;
     }
 
+    public boolean lockSeat(String date, int seatNum) {
+        try {
+            Statement statement = connection.createStatement();
+            int query = statement.executeUpdate("insert into desk (emp_username, status, date, seat_num, current_date) values ('','lock','" + date + "','" + seatNum + "','" + dtf.format(now) + "') ");
+            if (query > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     //Disable past dates
     public Callback<DatePicker, DateCell> getDayCellFactory() {

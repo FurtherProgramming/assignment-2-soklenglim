@@ -39,13 +39,13 @@ public class AdminController implements Initializable {
 
     public void viewDesk(ActionEvent event) throws Exception {
         dataModel.closeScene(btnViewDesk);
-        SeatSelectionController.isAdmin = true;
-        ConfirmSeatController.isAdmin = true;
+        dataModel.isAdmin = true;
         dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
     }
 
     public void signOut(ActionEvent event) throws Exception {
         Main.isLogin = false;
+        dataModel.isAdmin = false;
         dataModel.closeScene(btnSignOut);
         dataModel.showScene("../ui/Login.fxml", "Login");
     }

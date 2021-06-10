@@ -7,7 +7,6 @@ import javafx.scene.control.*;
 import main.model.RegisterModel;
 import main.object.Employee;
 import main.model.EditUserModel;
-import main.model.user.ViewAccountModel;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -44,7 +43,6 @@ public class EditUserController implements Initializable {
     public Label labelError;
 
     private int admin = 0;
-    public static boolean isAdmin = false;
     private DataModel dataModel = new DataModel();
     public static Employee emp = new Employee();
     private RegisterModel rm = new RegisterModel();
@@ -76,7 +74,7 @@ public class EditUserController implements Initializable {
                 if (eum.updateCurrentEmp(emp.getId(), firstName, lastName, role, userName, password, question, answer, admin)) {
                     dataModel.showDialogBox("Account Updated!", "User detail has been updated!");
                     dataModel.closeScene(btnConfirm);
-                    if (isAdmin == false) {
+                    if (dataModel.isAdmin == false) {
                         dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
                     } else {
                         dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");
@@ -89,7 +87,7 @@ public class EditUserController implements Initializable {
                     if (eum.updateCurrentEmp(emp.getId(), firstName, lastName, role, userName, password, question, answer, admin)) {
                         dataModel.showDialogBox("Account Updated!", "User detail has been updated!");
                         dataModel.closeScene(btnConfirm);
-                        if (isAdmin == false) {
+                        if (dataModel.isAdmin == false) {
                             dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
                         } else {
                             dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");
@@ -112,7 +110,7 @@ public class EditUserController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             EditCurrentEmp(emp);
-            if (isAdmin == false) {
+            if (dataModel.isAdmin == false) {
                 checkbox.setVisible(false);
                 txtUsername.setEditable(false);
             } else {
@@ -138,13 +136,13 @@ public class EditUserController implements Initializable {
     }
 
     public void Cancel(ActionEvent event) throws Exception {
-        if (isAdmin == false) {
+        if (dataModel.isAdmin == false) {
             dataModel.closeScene(btnCancel);
             dataModel.showScene("../ui/ViewAccount.fxml", "Manage Account");
         } else {
             dataModel.closeScene(btnCancel);
             dataModel.showScene("../ui/AdminManagement.fxml", "Manage All Users Account");
-            isAdmin = false;
+            dataModel.isAdmin = false;
         }
     }
 }

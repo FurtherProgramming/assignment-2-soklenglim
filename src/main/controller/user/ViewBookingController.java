@@ -22,10 +22,7 @@ public class ViewBookingController implements Initializable {
     private ViewBookingModel vbm = new ViewBookingModel();
     private DataModel dataModel = new DataModel();
 
-    @FXML
-    private Label lbDate;
-    @FXML
-    private Label lbSeat;
+
     @FXML
     private Button btnBack;
     @FXML
@@ -54,7 +51,7 @@ public class ViewBookingController implements Initializable {
         TableColumn<Integer, Desk> columnSeatNum = new TableColumn<>("Seat Number");
         TableColumn<String, Desk> columnDate = new TableColumn<>("Date");
         TableColumn<String, Desk> columnStatus = new TableColumn<>("Status");
-        TableColumn<String, Desk> columnDateOfBooking = new TableColumn<>("Status");
+        TableColumn<String, Desk> columnDateOfBooking = new TableColumn<>("Date of Booking");
         columnUsername.setCellValueFactory(new PropertyValueFactory<>("empUsername"));
         columnStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         columnSeatNum.setCellValueFactory(new PropertyValueFactory<>("seatNum"));
@@ -68,10 +65,10 @@ public class ViewBookingController implements Initializable {
             table.getItems().add(desk);
         }
 
-        table.setLayoutX(40);
+        table.setLayoutX(30);
         table.setLayoutY(90);
         table.setPrefHeight(300);
-        table.setPrefWidth(500);
+        table.setPrefWidth(610);
 
         anchorPane.getChildren().add(table);
     }

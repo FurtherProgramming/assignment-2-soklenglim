@@ -28,8 +28,7 @@ public class SeatSelectionController implements Initializable {
     private DataModel dataModel = new DataModel();
     private int previousSelected;
     private String strDateFromDesk = "";
-    public static boolean isAdmin = false;
-
+    private String state = "";
     // FXML variables
     @FXML
     public DatePicker datePicker;
@@ -43,12 +42,24 @@ public class SeatSelectionController implements Initializable {
     private Button btnBook;
     @FXML
     private Label lbAction;
+    @FXML
+    private Button btnLock;
+
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if(!dataModel.isAdmin){
+            btnLock.setDisable(true);
+            btnLock.setVisible(false);
+        } else {
+            btnLock.setDisable(false);
+            btnLock.setVisible(true);
+            btnBook.setText("Lock");
+        }
         datePicker.setDayCellFactory(ssm.getDayCellFactory());
         datePicker.setConverter(ssm.converter);
+        dataModel.desks.clear();
         displayAllSeat();
         lbAction.setVisible(false);
         datePicker.setOnAction(new EventHandler<ActionEvent>() {
@@ -151,9 +162,10 @@ public class SeatSelectionController implements Initializable {
 
             String status = setupDesk(dataModel.desks, i);
             ArrayList<String> lock = new ArrayList<>();
-            if (status.equals("unavailable") || status.equals("pending")) {
+            if (status.equals("unavailable") || status.equals("pending") || status.equals("approve") || status.equals("check in")) {
                 btns[i].setStyle("-fx-background-color: red;");
             } else {
+                lock.clear();
                 if (status.equals("lock")) {
                     btns[i].setStyle("-fx-background-color: orange;");
                     lock.add(btns[i].getText());
@@ -161,18 +173,18 @@ public class SeatSelectionController implements Initializable {
                     btns[i].setStyle("-fx-background-color: #90ee90;");
                 }
                 int j = i;
+
                 btns[i].setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-
                         int disable = 20;
                         for (int k = 0; k < btns.length; k++) {
                             String status = setupDesk(dataModel.desks, k);
-                            if (status.equals("unavailable") || status.equals("pending")) {
+                            if (status.equals("unavailable") || status.equals("pending") || status.equals("approve") || status.equals("check in")) {
                                 btns[k].setStyle("-fx-background-color: red;");
                                 disable = k;
                             } else if (status.equals("lock")) {
-                                if (!isAdmin) {
+                                if (!dataModel.isAdmin) {
                                     disable = k;
                                 }
                                 btns[k].setStyle("-fx-background-color: orange;");
@@ -182,7 +194,7 @@ public class SeatSelectionController implements Initializable {
                         }
                         if (j == disable) {
                             if (previousSelected <= btns.length) {
-                                if (isAdmin) {
+                                if (dataModel.isAdmin) {
                                     if (lock.contains(btns[previousSelected].getText()))
                                         btns[previousSelected].setStyle("-fx-background-color: #B59700;");
                                     else
@@ -193,16 +205,22 @@ public class SeatSelectionController implements Initializable {
                             }
                         } else {
                             previousSelected = j;
-                            if (lock.contains(btns[previousSelected].getText())) {
+                            if (lock.contains(btns[previousSelected].getText()) && dataModel.isAdmin) {
                                 btns[previousSelected].setStyle("-fx-background-color: #B59700;");
-                                dataModel.desk.setStatus("lock");
-                            } else {
+                                state = "lock";
+                                lbAction.setText(btns[j].getText());
+                            } else if (!lock.contains(btns[previousSelected].getText())) {
                                 btns[previousSelected].setStyle("-fx-background-color: #017d0c;");
-                                dataModel.desk.setStatus("available");
+                                lbAction.setText(btns[j].getText());
+                                if(dataModel.isAdmin)
+                                    state = "available";
+                                else
+                                    state = "pending";
+
                             }
-                            lbAction.setText(btns[j].getText());
+
                         }
-                        lock.clear();
+
 
                     }
                 });
@@ -215,32 +233,61 @@ public class SeatSelectionController implements Initializable {
 
     private String setupDesk(ArrayList<Desk> desks, int seatNum) {
         List<Desk> desk = desks.stream().filter(d -> d.getSeatNum() - 1 == seatNum).collect(Collectors.toList());
-        if (desk.size() == 0)
-            return "available";
-        else
-            return desk.get(0).getStatus();
+        if (desk.size() == 0) {
+            return "available";}
+        else{
+            return desk.get(0).getStatus();}
     }
 
 
     public void book(ActionEvent event) throws Exception {
         if (lbAction.getText().equals("") || strDateFromDesk.equals("")) {
             dataModel.showDialogBox("Error Message", "Please select a seat and date");
-        } else {
+        } else if(!dataModel.isAdmin){
             dataModel.desk.setDate(strDateFromDesk);
             dataModel.desk.setSeatNum(Integer.parseInt(lbAction.getText()));
+            dataModel.desk.setStatus(state);
+            dataModel.closeScene(btnBook);
+            dataModel.showScene("../ui/ConfirmSeat.fxml", "Confirmation");
+        } else if(dataModel.isAdmin){
+            dataModel.desk.setDate(strDateFromDesk);
+            dataModel.desk.setSeatNum(Integer.parseInt(lbAction.getText()));
+            dataModel.desk.setStatus(state);
             dataModel.closeScene(btnBook);
             dataModel.showScene("../ui/ConfirmSeat.fxml", "Confirmation");
         }
     }
 
     public void back(ActionEvent event) throws Exception {
-        if (isAdmin == false) {
+        if (dataModel.isAdmin == false) {
             dataModel.closeScene(btnBack);
             dataModel.showScene("../ui/UserProfile.fxml", "User Profile");
         } else {
+            dataModel.isAdmin = false;
             dataModel.closeScene(btnBack);
             dataModel.showScene("../ui/AdminProfile.fxml", "Admin Profile");
-            isAdmin = false;
+        }
+    }
+
+    public void lock(ActionEvent event) throws Exception {
+        if(strDateFromDesk.isEmpty()){
+            dataModel.showDialogBox("Lock fail!","Please pick a date first.");
+        } else {
+            int[] j = new int [btns.length];
+            for (int i = 0; i < btns.length; i++) {
+                if(dataModel.desks.size() > i){
+                    j[i] = dataModel.desks.get(i).getSeatNum();
+                }
+            }
+            for(int k=0; k < j.length; k++){
+                if(j[k] == 0){
+                    ssm.lockSeat(strDateFromDesk, k + 1);
+                }
+            }
+            j = null;
+            dataModel.showDialogBox("Lock Complete", "All Seat on "+ strDateFromDesk + " has been locked");
+            dataModel.closeScene(btnLock);
+            dataModel.showScene("../ui/AdminProfile.fxml", "Admin Profile");
         }
     }
 }

@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import main.object.Desk;
 import main.object.Employee;
 
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,6 +20,7 @@ public class DataModel {
     public static Desk desk = new Desk();
     public static ArrayList<Desk> desks = new ArrayList<>();
     public static ArrayList<Employee> emps = new ArrayList<>();
+    public static boolean isAdmin = false;
 
     public void showScene(String resource, String title) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));

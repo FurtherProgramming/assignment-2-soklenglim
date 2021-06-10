@@ -3,14 +3,12 @@ package main.model.admin;
 import main.SQLConnection;
 import main.controller.DataModel;
 import main.object.Desk;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 public class ReleaseBookingModel {
     Connection connection;
@@ -22,7 +20,7 @@ public class ReleaseBookingModel {
             System.exit(1);
     }
 
-    public ArrayList<Desk> displayAllDesk() {
+    public ArrayList<Desk> displayPendingDesk() {
         Desk desk;
         ArrayList<Desk> desks = new ArrayList<>();
         try {
@@ -87,4 +85,29 @@ public class ReleaseBookingModel {
             return false;
         }
     }
+
+    public ArrayList<Desk> displayAllDesk() {
+        Desk desk;
+        ArrayList<Desk> desks = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "select * from desk ORDER BY status";
+            ResultSet resultSet;
+            resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                desk = new Desk(resultSet.getInt("seat_id"),
+                        resultSet.getString("status"),
+                        resultSet.getString("date"),
+                        resultSet.getInt("seat_num"),
+                        resultSet.getString("emp_username"),
+                        resultSet.getString("current_date"));
+                desks.add(desk);
+            }
+            return desks;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return desks;
+        }
+    }
+
 }

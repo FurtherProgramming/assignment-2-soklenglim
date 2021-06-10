@@ -2,7 +2,6 @@ package main.model.user;
 
 import main.SQLConnection;
 import main.controller.DataModel;
-import main.object.Employee;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -57,10 +56,10 @@ public class ConfirmSeatModel {
         }
     }
 
-    public boolean lockSeat(String status, String date, int seatNum) {
+    public boolean lockSeat(String date, int seatNum) {
         try {
             Statement statement = connection.createStatement();
-            int query = statement.executeUpdate("insert into desk (emp_username, status, date, seat_num, current_date) values ('','" + status + "','" + date + "','" + seatNum + "','" + dtf.format(now) + "') ");
+            int query = statement.executeUpdate("insert into desk (emp_username, status, date, seat_num, current_date) values ('','lock','" + date + "','" + seatNum + "','" + dtf.format(now) + "') ");
             if (query > 0) {
                 return true;
             } else {

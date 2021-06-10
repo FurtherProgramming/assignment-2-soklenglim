@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
 import main.model.ForgetPasswordModel;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;

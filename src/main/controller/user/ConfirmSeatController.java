@@ -16,7 +16,6 @@ public class ConfirmSeatController implements Initializable {
     private ConfirmSeatModel bcm = new ConfirmSeatModel();
     public static boolean editBooking = false;
     public static int deskId;
-    public static boolean isAdmin = false;
 
     // FXML variables
     @FXML
@@ -37,14 +36,14 @@ public class ConfirmSeatController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         lbDate.setText(dataModel.desk.getDate());
         lbSeat.setText(dataModel.desk.getSeatNum() + "");
-        if (isAdmin == true) {
+        if (dataModel.isAdmin == true) {
             date.setText("Date");
             seat.setText("Seat");
         }
     }
 
     public void back(ActionEvent event) throws Exception {
-        if (!isAdmin) {
+        if (!dataModel.isAdmin) {
             if (editBooking == false) {
                 dataModel.closeScene(btnBack);
                 dataModel.showScene("../ui/SeatSelection.fxml", "Seat Selection");
@@ -61,8 +60,7 @@ public class ConfirmSeatController implements Initializable {
     }
 
     public void confirm(ActionEvent event) throws Exception {
-
-        if (!isAdmin) {
+        if (!dataModel.isAdmin) {
             dataModel.desk.setStatus("pending");
             if (editBooking == false) {
                 if (bcm.addBookingDesk(dataModel.emp.getUserName(), dataModel.desk.getStatus(), dataModel.desk.getDate(), dataModel.desk.getSeatNum())) {
@@ -82,8 +80,7 @@ public class ConfirmSeatController implements Initializable {
             }
         } else {
             if (dataModel.desk.getStatus().equals("available")) {
-                dataModel.desk.setStatus("lock");
-                if (bcm.lockSeat(dataModel.desk.getStatus(), dataModel.desk.getDate(), dataModel.desk.getSeatNum())) {
+                if (bcm.lockSeat(dataModel.desk.getDate(), dataModel.desk.getSeatNum())) {
                     dataModel.showDialogBox("Lock Completed!", "Seat has been locked!");
                     dataModel.closeScene(btnConfirm);
                     dataModel.showScene("../ui/AdminProfile.fxml", "Admin Profile");
@@ -98,6 +95,8 @@ public class ConfirmSeatController implements Initializable {
                 } else {
                     dataModel.showDialogBox("Unlock Failed!", "Please try again!");
                 }
+            } else {
+                System.out.println(dataModel.desk.getStatus());
             }
         }
 
