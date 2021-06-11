@@ -1,7 +1,7 @@
 package main.model.admin;
 
 import main.SQLConnection;
-import main.controller.DataModel;
+import main.model.DataModel;
 import main.object.Desk;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -37,7 +37,7 @@ public class ReleaseBookingModel {
                         resultSet.getString("current_date"));
                 if (desk.getStatus().equals("pending")) {
                     long timeDiff = dataModel.TimeValidation(desk.getDate(), "days");
-                    if(timeDiff == 0){
+                    if(timeDiff <= 0){
                         String queryCancel = "update desk SET status = 'cancel' WHERE seat_id = '" + desk.getDeskId() + "' and status = 'pending'";
                         statement.executeUpdate(queryCancel);
                         desk.setStatus("cancel");

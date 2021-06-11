@@ -1,7 +1,7 @@
 package main.model.user;
 
 import main.SQLConnection;
-import main.controller.DataModel;
+import main.model.DataModel;
 import main.object.Desk;
 
 import java.sql.*;
@@ -20,7 +20,7 @@ public class ViewBookingModel {
     public ArrayList<Desk> ViewBooking(String username) throws SQLException {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String query = "select * from desk where emp_username = ? ";
+        String query = "select * from desk where emp_username = ? ORDER BY date";
         Desk desk;
         ArrayList<Desk> desks = new ArrayList<>();
         try {
@@ -36,13 +36,21 @@ public class ViewBookingModel {
                         resultSet.getString("current_date"));
                 if (desk.getStatus().equals("pending")) {
                     long timeDiff = dataModel.TimeValidation(desk.getDate(), "days");
-                    if (timeDiff == 0) {
+                    if (timeDiff <= 0) {
                         Statement statement = connection.createStatement();
                         String queryCancel = "update desk SET status = 'cancel' WHERE seat_id = '" + desk.getDeskId() + "' and status = 'pending'";
                         statement.executeUpdate(queryCancel);
                         desk.setStatus("cancel");
                     }
-
+                }
+                if (desk.getStatus().equals("approve")) {
+                    long timeDiff = dataModel.TimeValidation(desk.getDate(), "hours");
+                    if (timeDiff <= 0) {
+                        Statement statement = connection.createStatement();
+                        String queryCancel = "update desk SET status = 'cancel' WHERE seat_id = '" + desk.getDeskId() + "' and status = 'approve'";
+                        statement.executeUpdate(queryCancel);
+                        desk.setStatus("cancel");
+                    }
                 }
                 desks.add(desk);
             }

@@ -2,7 +2,7 @@ package main.model.admin;
 
 
 import main.SQLConnection;
-import main.controller.DataModel;
+import main.model.DataModel;
 
 
 import java.io.BufferedWriter;

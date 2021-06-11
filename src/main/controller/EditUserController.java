@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import main.model.DataModel;
 import main.model.RegisterModel;
 import main.object.Employee;
 import main.model.EditUserModel;

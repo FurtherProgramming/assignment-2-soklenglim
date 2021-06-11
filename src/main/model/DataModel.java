@@ -1,4 +1,4 @@
-package main.controller;
+package main.model;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,11 +48,7 @@ public class DataModel {
         questionBox.getItems().add("Where are you from?");
     }
 
-    public void displayAlertDialogBox() {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "ERROR", ButtonType.OK);
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-        alert.show();
-    }
+
 
     public static void showDialogBox(String title, String content) {
         //Creating a dialog

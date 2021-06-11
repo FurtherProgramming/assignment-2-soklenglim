@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import main.controller.DataModel;
+import main.model.DataModel;
 import main.object.Desk;
 import main.model.user.SeatSelectionModel;
 

@@ -2,7 +2,6 @@ package main.model;
 
 import main.Main;
 import main.SQLConnection;
-import main.controller.DataModel;
 import main.object.Employee;
 
 import java.sql.Connection;

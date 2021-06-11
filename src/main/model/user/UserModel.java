@@ -12,6 +12,4 @@ public class UserModel {
         if (connection == null)
             System.exit(1);
     }
-
-
 }

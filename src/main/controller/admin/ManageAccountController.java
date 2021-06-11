@@ -12,7 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
-import main.controller.DataModel;
+import main.model.DataModel;
 import main.controller.EditUserController;
 import main.model.admin.ManageAccountModel;
 import main.object.Employee;

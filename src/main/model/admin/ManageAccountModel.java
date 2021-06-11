@@ -1,7 +1,7 @@
 package main.model.admin;
 
 import main.SQLConnection;
-import main.controller.DataModel;
+import main.model.DataModel;
 import main.object.Employee;
 import java.sql.Connection;
 import java.sql.ResultSet;

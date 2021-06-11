@@ -4,12 +4,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="327.0" prefWidth="383.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.LoginController">
+<AnchorPane prefHeight="327.0" prefWidth="383.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.LoginController">
     <children>
         <Label fx:id="isConnected" layoutX="14.0" layoutY="287.0" text="Status" />
         <TextField fx:id="txtUsername" layoutX="175.0" layoutY="100.0" prefHeight="30.0" prefWidth="150.0" />
         <PasswordField fx:id="txtPassword" layoutX="175.0" layoutY="150.0" prefHeight="30.0" prefWidth="150.0" />
-        <Label layoutX="155.0" layoutY="22.0" prefHeight="45.0" prefWidth="74.0" text="Login">
+        <Label layoutX="141.0" layoutY="22.0" prefHeight="45.0" prefWidth="124.0" text="HotDesk">
             <font>
                 <Font size="30.0" />
             </font>

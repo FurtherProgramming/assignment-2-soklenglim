@@ -1,7 +1,7 @@
 package main.model.user;
 
 import main.SQLConnection;
-import main.controller.DataModel;
+import main.model.DataModel;
 import main.object.Employee;
 
 import java.sql.*;
@@ -34,7 +34,6 @@ public class ViewAccountModel {
                         resultSet.getString("answerQuestion"),
                         resultSet.getString("password"),
                         resultSet.getBoolean("admin"));
-
                 return DataModel.emp;
             } else {
                 DataModel.emp = new Employee();

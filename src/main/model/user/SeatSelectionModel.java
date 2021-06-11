@@ -5,7 +5,7 @@ import javafx.scene.control.DatePicker;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import main.SQLConnection;
-import main.controller.DataModel;
+import main.model.DataModel;
 import main.object.Desk;
 
 import java.sql.*;
